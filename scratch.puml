@@ -2,6 +2,10 @@
 ' hide the spot
 hide circle
 
+' avoid problems with angled crows feet
+skinparam linetype polyline
+skinparam linetype ortho
+
 class pfmhst.event_log
 class pfmhst.payment_hub_service_type
 class pfmhst.payment_hub_service
