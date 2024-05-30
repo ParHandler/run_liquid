@@ -1,0 +1,620 @@
+[
+	{
+		"name": "BENEFICIARIES",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TAX_ID",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "FULL_NAME",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LOGO_NAME",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ENROLMENT",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MIN_SUM",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MAX_SUM",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CURRENCY",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CATEGORY_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "BENEFICIARY_PARAMETERS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BENEFICIARY_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "FIELD_KEY",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DISPLAY_NAME",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_REQUIRED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_HIDDEN",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_READ_ONLY",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "INPUT_METHOD",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TYPE",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SUBTYPE",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SORT_ORDER",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DEFAULT",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "INPUT_RULES",
+				"type": "CLOB",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "BENEFICIARY_REGIONS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "REGION_CODE",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BENEFICIARY_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "BENEFICIARY_TECH_DETAILS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BENEFICIARY_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RANK",
+				"type": "NUMBER(19,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "FEE_INFO",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "UPDATE_TIME",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DC_CARD",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RD_CARD",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RDTW_CARD",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "CATEGORIES",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PARENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "CLIENT_BLOCKS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCK_TILL",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PAYMENT_ID",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "GKH_PROVIDER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "INN",
+				"type": "NVARCHAR2(250)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "KPP",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TYPE",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ERROR",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ERROR_TEXT",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "UPDATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ORG_NAME",
+				"type": "NVARCHAR2(500)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ACC_NUM",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BANK_NAME",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CORR_ACC",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BIK",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BANK_INN",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BANK_KPP",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "IBS_STATUS_DICTIONARY",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(5,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "PAYMENTS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PAYMENT_ID",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IP",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OS",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "INSERT_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MODIFY_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ACCOUNT_NUMBER",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BENEFICIARY_CODE",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "AMOUNT",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "FEE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CURRENCY",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_OTP_REQUIRED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OTP",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_OTP_OK",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PASSCODER_ID",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IBS_ID",
+				"type": "NVARCHAR2(256)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IBS_STATUS",
+				"type": "NUMBER(5,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "PAYMENTS_STATISTICS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BENEFICIARY_CODE",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "AMOUNT",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PAYMENTS_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "APPROVED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "PAYMENT_FIELDS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "KEY",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "VALUE",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PAYMENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "SCHEDULED_TASKS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TYPE",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PROCESSING_STARTED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROCESSING_FINISHED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	}
+]

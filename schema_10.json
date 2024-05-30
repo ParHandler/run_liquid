@@ -1,0 +1,3902 @@
+[
+	{
+		"name": "BACKSYSTEMS_STATE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "SYSTEM_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_READONLY",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_ACLIP_REACTION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MODIFY_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "REACTION",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CURRENT_LIMIT",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_NAME",
+				"type": "NVARCHAR2(100)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CONTRACT_TYPE",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CONTRACT_NUMBER",
+				"type": "NVARCHAR2(20)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "NVARCHAR2(20)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_ACTION_CARD",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PAN",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CONTRACT_NUMBER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TOTAL_STATUS",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "DATE",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OS_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "VERSION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IP_CLIENT",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_ALL_CLIENTS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_API_COUNTER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "METHOD_NAME",
+				"type": "NVARCHAR2(450)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "METHOD_INVOKE_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SEARCH_CLIENT_LAST_INVOKE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_BANK",
+		"comment": null,
+		"columns": [
+			{
+				"name": "BANK_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BANK_SHORT_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BANK_NAME_RU",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BANK_NAME_EN",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MAIN_COLOR",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "COLOR_SCHEME",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BANK_LOGO_NAME",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BIC",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_BANK_INFORMATION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "BANK_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CORR_ACC",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BIC_BANK",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "INN_BANK",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BANK_PHONE_NUMBER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BANK_NAME_ENG",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BANK_SWIFT",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CORR_ACC_USD",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CORR_BANK_NAME_USD",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CORR_BANK_SWIFT_USD",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CORR_ACC_EUR",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CORR_BANK_NAME_EUR",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CORR_BANK_SWIFT_EUR",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "KPP_BANK",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_BENEFICIARY_RATING",
+		"comment": null,
+		"columns": [
+			{
+				"name": "BENEFICIARY_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BENEFICIARY_NAME",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "RATING",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_BIN",
+		"comment": null,
+		"columns": [
+			{
+				"name": "BANK_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BIN",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_BLACK_LIST",
+		"comment": null,
+		"columns": [
+			{
+				"name": "PHONE_NUMBER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DEL",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_BUSINESS_LOGS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ROW_UID",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CONTENT",
+				"type": "XMLTYPE",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RESULT_TEXT",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_EXECUTED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OPERATION_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OPERATION",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OS_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RESULT_STATUS",
+				"type": "NUMBER(5,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IP",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "VERSION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_BUSINESS_POINTS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ROW_UID",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "FILE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MESSAGE_UID",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BUSINESS_POINT_FILE_TYPE",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "UPLOAD_TYPE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "INNER_ID",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DIRECTORATE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "AGENCY",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "REGION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CITY",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OFFICE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OFFICE_TYPE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LATITUDE",
+				"type": "NUMBER(38,12)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LONGITUDE",
+				"type": "NUMBER(38,12)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ADDRESS",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "POST_INDEX",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PHONES",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MANAGER",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "FILIAL",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "WORK_TIME",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "HOW_TO_GET_TO",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROPERTY_INSURANCE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DEPOSITS",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DEPOSITS_IN_FOREIGN_CURRENCIES",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LOANS",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CREDIT_CARDS",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "REPAYMENT_LOAN_FOREIGN_CURR",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "REPAYMENT_LOAN_RUB",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "REPAYMENT_OTHER_BANKS_LOANS",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SAFE_BOXES",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "POLZA_CARD",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ATM",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PAYMENT_TERMINAL",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ZONE_24_HOUR",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TRADE_POINT_CODE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OPEN_DATE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PIPE_STATION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_INACTIVE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ALLOCATION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "RUB",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "US_DOLLAR",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "EURO",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "RECIEVE_CASH",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PAY_MOBILE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ACCOUNT_BALANCE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PAY_INTERNET",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "COMMUNAL_PAYMENTS",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CONDITION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_CHECK_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SOURCE_SENT_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "STREET",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BIOMETRICS",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CACHE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "KEY",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ADDED_AT",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DATA",
+				"type": "BLOB",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ABS_EXP_UTC",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CAPTCHA",
+		"comment": null,
+		"columns": [
+			{
+				"name": "VALUE_TO_CHECK",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "UNIQUE_UID",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_VALIDATED",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CARD_PRODUCT_TYPE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TARIFF_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CATEGORY_COLOR",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CATEGORY",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME_RU",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "HEX_COLOR",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CESSION_OWNERS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "LOGO_URL",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SHORT_NAME",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CODE",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CIF_NOTIFICATION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "NOTIFICATION_ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ACTION",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID2",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TIME_OF_CHANGE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CLIENT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "USER_PIN",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "UNREGISTERED_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "F",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "I",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "O",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BIRTH_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "GENDER",
+				"type": "NUMBER(2,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "EMAIL",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_BLOCKED_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SMS_SEND_COUNT",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SMS_VALIDATION_COUNT",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SREG_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "HAS_IBS",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHECK_USER_PIN_COUNT",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHECK_CLIENT_DATA_COUNT",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MAX_LEVEL",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CHECK_REF_CLIENT_DATA_COUNT",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_DISABLED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "AVATAR_HASH",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_CHANNEL",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_PIN_CHANGE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CLIENT_BLOCKS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCK_TYPE",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_FROM_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_TO_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CLIENT_STREET",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "USER_PIN",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "F",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "I",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "O",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "GENDER",
+				"type": "NUMBER(2,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BIRTH_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(38,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHECK_USER_PIN_COUNT",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MAX_LEVEL",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_CHANNEL",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CLOSE_CONTRACT_STATUS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CONTRACT_NO",
+				"type": "NVARCHAR2(20)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "APPLICATION_NO",
+				"type": "NVARCHAR2(20)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "STATUS",
+				"type": "NVARCHAR2(20)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_MODIFY_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CLOSE_REASON",
+		"comment": null,
+		"columns": [
+			{
+				"name": "REASON_ID",
+				"type": "NVARCHAR2(20)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "NVARCHAR2(200)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CLOSE_REASON2CONTRACT_TYPE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CONTRACT_TYPE",
+				"type": "NVARCHAR2(20)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "REASON_ID",
+				"type": "NVARCHAR2(20)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_COMPLAINT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "COMPLAINT_ID",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_READ",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CONTENT_PROPERTY",
+		"comment": null,
+		"columns": [
+			{
+				"name": "PROP",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CONTRACT_CLOSE_REASON",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CONTRACT_NUM",
+				"type": "NVARCHAR2(20)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "REASON_ID",
+				"type": "NVARCHAR2(20)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DATE_APPEAL_CLOSE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_CREDIT_CARD_NAME",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CREDIT_CARD_NAME",
+				"type": "NUMBER(2,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_DEPOSIT_OFFER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IMAGE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BACKGROUND_COLOR",
+				"type": "CHAR",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEXT_COLOR",
+				"type": "CHAR",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "HEADER",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DETAILS",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MIN_LEVEL",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ANDROID_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IOS_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_DEVICE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DEVICE_TOKEN",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OSTYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DEVICE_FAILED_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DEVICE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SMS_CODE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_SMS",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_USER_PIN",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SCREEN_SIZE_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PUSH_DEVICE_UID",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SMS_TRY_COUNT",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PRIVATE_KEY",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "APP_NAME",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "APP_REG_VER",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "APP_CUR_VER",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DEV_IDENT",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_AUTH_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SHOW_REG_LEVEL_UP",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "NEW_SMS_NEEDING",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_SMS_VALID",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "NEED_LEVEL_UP_SMS",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CURRENT_LEVEL",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_CHANNEL",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_OTP_ON",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHANGE_PIN_BLOCK_TO_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHANGE_USER_PIN_SMS_VALIDATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "NEW_USER_PIN_VALIDATE_LAST_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "VALIDATE_NEW_USER_PIN_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_DEVICE_IN_APP",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRIVATE_KEY",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SUCCESS_LOGIN_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "LAST_IN_APP_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_DEVICE_PUSH_REGISTRATION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRIVATE_KEY",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PUSH_UID",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_OTP_ON",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_DEVICE_STREET",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DEVICE_TOKEN",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OSTYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_STREET_ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DEVICE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_USER_PIN",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SCREEN_SIZE_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRIVATE_KEY",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DEV_IDENT",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "APP_REG_VER",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "APP_CUR_VER",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_AUTH_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CURRENT_LEVEL",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_SMS_VALID",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_CHANNEL",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_EVENT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "INSURANCE_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_EXCHANGE_RATE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CATEGORY_ID",
+				"type": "NVARCHAR2(1)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BASE_CURRENCY_CODE",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "COUNTER_CURRENCY_CODE",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BASE_CURRENCY_NAME",
+				"type": "NVARCHAR2(3)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "COUNTER_CURRENCY_NAME",
+				"type": "NVARCHAR2(3)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SALE_RATE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BUY_RATE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_EXPIRED_PASSPORTS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CUID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_FEATURE_TOGGLE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "FT_NAME",
+				"type": "NVARCHAR2(500)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_FT_FOR_ALL",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ACTIVATED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ENABLED_FOR_WEB",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ANDROID_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IOS_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_FEATURE_TOGGLE_TO_GROUP",
+		"comment": null,
+		"columns": [
+			{
+				"name": "FT_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEST_GROUP_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_GKH_PROVIDER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "INN",
+				"type": "NVARCHAR2(100)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "KPP",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ORG_NAME",
+				"type": "NVARCHAR2(500)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ACC_NUM",
+				"type": "NVARCHAR2(100)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CORR_ACC",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BIK",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_IMAGE_CLIENT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "AVATAR",
+				"type": "BLOB",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_INSURANCE_TYPE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(600)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TITLE",
+				"type": "NVARCHAR2(600)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SUBTITLE",
+				"type": "NVARCHAR2(600)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IMAGE",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_METRICS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DAU_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MAU_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_MOBILE_AUTOTEMPLATE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEMPLATE_NAME",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BENEFICIARY_ID",
+				"type": "NVARCHAR2(10)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_HIDDEN",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_MW_CHECK",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CONRACT_NUMBER",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SUCCESS",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_NEW_ACCOUNT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_OFFER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEMPLATE_ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEMPLATE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_TYPE",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "WIDGET_IMAGE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "WIDGET_BACKGROUND_COLOR",
+				"type": "CHAR",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "WIDGET_TEXT_COLOR",
+				"type": "CHAR",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "WIDGET_HEADER",
+				"type": "NVARCHAR2(600)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "WIDGET_SUBTITLE",
+				"type": "NVARCHAR2(600)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "WIDGET_DESCRIPTION",
+				"type": "NVARCHAR2(600)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OUTER_URL",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_NAME",
+				"type": "NVARCHAR2(200)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TAGLINE",
+				"type": "NVARCHAR2(400)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BACKGROUND_IMAGE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IMAGE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IMAGE_WEB",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MAIN_HEADER",
+				"type": "NVARCHAR2(1020)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MAIN_DESCRIPTION",
+				"type": "NVARCHAR2(1020)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "HEADER_1",
+				"type": "NVARCHAR2(1020)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION_1",
+				"type": "NVARCHAR2(1020)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "HEADER_2",
+				"type": "NVARCHAR2(1020)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION_2",
+				"type": "NVARCHAR2(1020)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "HEADER_3",
+				"type": "NVARCHAR2(1020)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION_3",
+				"type": "NVARCHAR2(1020)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DETAILS",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BUTTON_TEXT",
+				"type": "NVARCHAR2(300)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CONFIRMATION",
+				"type": "NVARCHAR2(600)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHANNEL",
+				"type": "CHAR",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ORDER_ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TW_CODE",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OVERRIDDEN_TEMPLATE_ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BACKGROUND_COLOR",
+				"type": "CHAR",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TEXT_COLOR",
+				"type": "CHAR",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_DESCRIPTION",
+				"type": "NVARCHAR2(600)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ANDROID_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IOS_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "WEB_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_OFFER_SERVICE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "TYPE",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IMAGE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TITLE",
+				"type": "NVARCHAR2(600)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SUBTITLE",
+				"type": "NVARCHAR2(600)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_OFFER_STREET",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEMPLATE_ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRIORITY",
+				"type": "NUMBER(4,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "LIMIT",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TERM",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_OPERATION_ENUM",
+		"comment": null,
+		"columns": [
+			{
+				"name": "OPERATION_ENUM",
+				"type": "NUMBER(2,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_OS_TYPE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(600)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_PARTNERS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_GROUP",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PARTNER_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "URL",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PARTNER_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IMAGE_URL",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PARTNER_CATEGORY",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PARTNER_ADVANTAGE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_FOR_OFFERS",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_FOR_CARDS",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_PAYMENT_CHANNELS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "NAME_CHANNEL",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SOCR_NAME",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "FILE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ENROLLMENT_TERM",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_PAYMENT_CHANNELS_LIST",
+		"comment": null,
+		"columns": [
+			{
+				"name": "NAME_CHANNEL",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SOCR_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "FILE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ENROLLMENT_TERM",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_CASHLESS",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_PAYMENT_MODES",
+		"comment": null,
+		"columns": [
+			{
+				"name": "PAYMENT_MODE_ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IOS_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ANDROID_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "WEB_VERSIONS",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRIORITY",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_ENABLED",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_PAYMENT_SESSION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "PAYMENT_ID",
+				"type": "NVARCHAR2(36)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_OTP_REQUIRED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PAYMENT_DATA",
+				"type": "NVARCHAR2(2000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IBS_TRANSACTION_ID",
+				"type": "NVARCHAR2(36)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BENEFICIARY_ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_PERMISSION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRIORITY",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PERM_TYPE",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "COLLECTION_FREQUENCE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TRANSMISSION_FREQUENCE",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OSTYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ENABLE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_REFERENCE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "REF_NUMBER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_READ",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_REGULAR_TEMPLATES_ADJUSTMENTS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "REGULAR_TEMPLATE_ID",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(29,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DISPLAY_ORDER",
+				"type": "NUMBER(4,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_REQUEST_CHANNEL",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OS_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_TYPE",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHANNEL",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MIN_CUID",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MAX_CUID",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OFFER_TYPE_ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHANNEL_TYPE",
+				"type": "CHAR",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEMPLATE_ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_RESULT_STATUS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "RESULT_STATUS",
+				"type": "NUMBER(5,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_SMSPACKAGE_CONTENT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_TYPE",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_AVAILABLE",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_ACTIVE",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MAIN_DESCRIPTION",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OPTIONAL_DESCRIPTION",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IMAGE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BACKGROUND_COLOR",
+				"type": "CHAR",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OFFER_URL",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_SMS_SESSION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEMPLATE",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SESSION_ID",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "VALID_TO",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "VERIFY_NUM",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "RESEND_NUM",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_SOLUTION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PLATFORM",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "HEADSOLUTION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DESCRIPTION",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SOLUTION",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "URL_WORD",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SOLUTION_URL",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_TARIFF",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "URL",
+				"type": "NVARCHAR2(500)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_GROUP",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DISPLAY_ORDER",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_TEMPLATE_ADJUSTMENTS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "TEMPLATE_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DISPLAY_ORDER",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DETAILS_JSON",
+				"type": "NVARCHAR2(2000)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_TESTER_CUID",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CUID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEST_GROUP_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_TESTER_GROUP",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "GROUP_NAME",
+				"type": "NVARCHAR2(500)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_THIRD_PARTY",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_CUID_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_FIRST_NAME_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_LAST_NAME_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_MIDDLE_NAME_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_BIRTH_DATE_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_PASSPORT_NUMBER_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_PASSPORT_ISSUE_DATE_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_PASSPORT_ISSUER_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_PASSPORT_ISSUERCODE_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_PHONE_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_EMAIL_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_ACTUAL_ADDRESS_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_REGISTRATIONADDRESS_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_GENDER_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_BIRTH_PLACE_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_CITIZENSHIP_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_INN_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_DEBIT_CARDS_ALLOWED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_THIRD_PARTY_ACCOUNT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MODIF_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "HAS_ACCOUNTS",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "THIRD_PARTY_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_THIRD_PARTY_ACCOUNT_BALANCE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ACCOUNT_INFO_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CURRENCY",
+				"type": "NVARCHAR2(30)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "AMOUNT",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "HOLD",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MISSING_AMOUNT",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_THIRD_PARTY_ACCOUNT_INFO",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ACCOUNT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ACCOUNT_NUMBER",
+				"type": "NVARCHAR2(200)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OPENING_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TYPE",
+				"type": "NVARCHAR2(200)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "REQUISITES_PAYMENT_PURPOSE_RUB",
+				"type": "NVARCHAR2(600)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_THIRD_PARTY_ACCOUNT_REQUISITES",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CURRENCY",
+				"type": "NVARCHAR2(30)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BENIFICIARY",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BENIFICIARY_TAX_NUMBER",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ACCOUNT",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BIC",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TAX_REGISTRATION_REASON_CODE",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_THIRD_PARTY_AGREEMENT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MODIF_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_AGREE",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "THIRD_PARTY_ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_TYPE_DOCUMENT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DOCUMENT_TYPE",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRODUCT_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(200)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SERVICE_NAME",
+				"type": "NVARCHAR2(200)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DISPLAY_ORDER",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "GROUP_TYPE",
+				"type": "NVARCHAR2(200)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "URL",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CARD_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_TYPE_REFERENCE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "REF_CODE",
+				"type": "NUMBER(9,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "REF_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_DEBIT",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_AUTOGENREF",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IS_SHOW",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "IMAGE_URL",
+				"type": "VARCHAR2",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_UNKNOWN_SBP_PARTNER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "SBP_ID",
+				"type": "NVARCHAR2(450)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BANK_NAME_RU",
+				"type": "NVARCHAR2(100)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_VERSION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "VER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "UPDATE_REQUIRED",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OS_TYPE",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_WIDGET_SETTINGS",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(38,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SETTINGS_JSON",
+				"type": "CLOB",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BALANCE_INFO_JSON",
+				"type": "CLOB",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_WRONG_AUTH",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_TO_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "AUTH_TYPE",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_FROM_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_WRONG_REF_CODE_WORD",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(,)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_FROM_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_TO_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "SCRIPTS_INFO",
+		"comment": null,
+		"columns": [
+			{
+				"name": "SCRIPT_FILE_NAME",
+				"type": "VARCHAR2",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE_DATE",
+				"type": "TIMESTAMP(9)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	}
+]

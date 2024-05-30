@@ -1,0 +1,280 @@
+[[pfmhst.__efmigrationshistory]]
+.Таблица pfmhst.__efmigrationshistory. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.__efmigrationshistory} |MigrationId |character varying|NO l|
+|{counter:pfmhst.__efmigrationshistory} |ProductVersion |character varying|NO l|
+|===
+
+[[pfmhst.client_product]]
+.Таблица pfmhst.client_product. Данная сущность хранит информацию о продуктах клиентов
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.client_product} |id |bigint|NO l|Идентификатор продукта
+|{counter:pfmhst.client_product} |cuid |bigint|NO l|Идентификатор клиента в системах банка
+|{counter:pfmhst.client_product} |product_type |text|NO l|Тип продукта.
+debitCard — ДК
+creditCard — РК
+merchantCard — ШК(РК) TW
+deposit — вклад
+account — счета
+|{counter:pfmhst.client_product} |status |text|YES l|Статус продукта
+|{counter:pfmhst.client_product} |account_number |text|NO l|Номер счета
+|{counter:pfmhst.client_product} |card_number |text|YES l|Номер карты (при наличии), в маскированном виде
+|{counter:pfmhst.client_product} |contract_number |text|YES l|Номер договора, при наличии
+|===
+
+[[pfmhst.event_log]]
+.Таблица pfmhst.event_log. Данная сущность хранит историю событий в БД
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.event_log} |id |integer|NO l|Идентификатор для первичного ключа (костыль для EF)
+|{counter:pfmhst.event_log} |processed_entity |text|YES l|Сущность с которой работали
+|{counter:pfmhst.event_log} |event_type |text|YES l|Тип события: Updated, Deleted, Created
+|{counter:pfmhst.event_log} |source |text|YES l|Источник события WebApi, RabbitMq, Kafka
+|{counter:pfmhst.event_log} |body |text|YES l|Тело события
+|{counter:pfmhst.event_log} |handler |text|YES l|Имя метода/класса, кто обрабатывал событие
+|{counter:pfmhst.event_log} |created |timestamp without time zone|NO l|Дата/время содания записи в БД
+|===
+
+[[pfmhst.mcc_category]]
+.Таблица pfmhst.mcc_category. Справочник MCC категорий
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.mcc_category} |category |text|NO l|Код категории
+|{counter:pfmhst.mcc_category} |name |text|YES l|Цвет категори
+|{counter:pfmhst.mcc_category} |main_color |text|YES l|Цвет категории
+|{counter:pfmhst.mcc_category} |logo_png |text|YES l|Лого в PNG
+|{counter:pfmhst.mcc_category} |logo_svg |text|YES l|Лого в SVG
+|{counter:pfmhst.mcc_category} |deleted |timestamp without time zone|YES l|Время логического удаления
+|===
+
+[[pfmhst.mcc_code]]
+.Таблица pfmhst.mcc_code. Справочник МСС
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.mcc_code} |code |integer|NO l|МСС-код категории
+|{counter:pfmhst.mcc_code} |category |text|NO l|MCC-категория
+|{counter:pfmhst.mcc_code} |deleted |timestamp without time zone|YES l|Дата логического удаления
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<pfmhst.mcc_category, pfmhst.mcc_category>>
+|===
+
+[[pfmhst.merchant]]
+.Таблица pfmhst.merchant. Справочник мерчантов
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.merchant} |key |text|NO l|Код мерчанта
+|{counter:pfmhst.merchant} |name |text|NO l|Название мерчанта
+|{counter:pfmhst.merchant} |logo_png |text|YES l|Картинка в Png
+|{counter:pfmhst.merchant} |logo_svg |text|YES l|Картинка в svg
+|{counter:pfmhst.merchant} |deleted |timestamp without time zone|YES l|Статус:
+   A-active
+   D-delete
+|===
+
+[[pfmhst.payment]]
+.Таблица pfmhst.payment. Данная сущность хранит в себе детали платежей
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.payment} |reference_id |text|NO l|Идентификатор транзакции
+|{counter:pfmhst.payment} |cuid |bigint|NO l|Идентификатор клиента в системах банка
+|{counter:pfmhst.payment} |account_number |text|NO l|Счет списания
+|{counter:pfmhst.payment} |date |timestamp without time zone|NO l|Дата создания платежа
+|{counter:pfmhst.payment} |status |text|NO l|Статус платежа
+|{counter:pfmhst.payment} |bot |text|NO l|Код типа операции, только для исходящих
+|{counter:pfmhst.payment} |amount |numeric|NO l|Сумма операции
+|{counter:pfmhst.payment} |currency |text|NO l|Валюта операции
+|{counter:pfmhst.payment} |fee |numeric|YES l|Комиссия за операцию
+|{counter:pfmhst.payment} |beneficary_code |integer|NO l|Код бенефициара
+|{counter:pfmhst.payment} |field_values |text|NO l|Набор параметров со значениями. Строка с ключ-значение
+|===
+
+[[pfmhst.payment_hub_service]]
+.Таблица pfmhst.payment_hub_service. Справочник бенефициаров
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.payment_hub_service} |id |integer|NO l|Идентификатор бенефициара
+|{counter:pfmhst.payment_hub_service} |name |text|YES l|Название бенефициара
+|{counter:pfmhst.payment_hub_service} |type_id |integer|NO l|Именование картинки в PH
+|{counter:pfmhst.payment_hub_service} |logo |text|YES l|Код категории
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<pfmhst.payment_hub_service_type, pfmhst.payment_hub_service_type>>
+|===
+
+[[pfmhst.payment_hub_service_param]]
+.Таблица pfmhst.payment_hub_service_param. Справочник параметров бенефициаров
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.payment_hub_service_param} |servise_id |integer|NO l|Идентификатор бенефициара
+|{counter:pfmhst.payment_hub_service_param} |field |text|YES l|Название параметра
+|{counter:pfmhst.payment_hub_service_param} |value |text|YES l|Имя для отображения
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<pfmhst.payment_hub_service, pfmhst.payment_hub_service>>
+|===
+
+[[pfmhst.payment_hub_service_type]]
+.Таблица pfmhst.payment_hub_service_type. Справочник категорий платежей
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.payment_hub_service_type} |id |integer|NO l|Идентификатор категории
+|{counter:pfmhst.payment_hub_service_type} |name |text|YES l|Название категории
+|{counter:pfmhst.payment_hub_service_type} |logo |text|YES l|Наименование картинки в PH
+|===
+
+[[pfmhst.regular_payment_detail]]
+.Таблица pfmhst.regular_payment_detail. Данная сущность хранит в себе детали регулярных переводов
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.regular_payment_detail} |un_id |bigint|NO l|Идентификатор ППП
+|{counter:pfmhst.regular_payment_detail} |cuid |bigint|NO l|Идентификатор клиента
+|{counter:pfmhst.regular_payment_detail} |card_number |text|YES l|Номер карты списания
+|{counter:pfmhst.regular_payment_detail} |account_number |text|NO l|Счет списания
+|{counter:pfmhst.regular_payment_detail} |name |text|NO l|Название ППП
+|{counter:pfmhst.regular_payment_detail} |amount |numeric|NO l|Сумма операции
+|{counter:pfmhst.regular_payment_detail} |currency |text|NO l|Валюта операции
+|{counter:pfmhst.regular_payment_detail} |account_to |text|NO l|Счет списания
+|{counter:pfmhst.regular_payment_detail} |payment_purpose |text|YES l|Назначение платежа
+|{counter:pfmhst.regular_payment_detail} |recipient |text|YES l|Назначение платежа
+|{counter:pfmhst.regular_payment_detail} |bic |text|YES l|БИК банка получателя
+|{counter:pfmhst.regular_payment_detail} |inn |text|YES l|ИНН получателя
+|{counter:pfmhst.regular_payment_detail} |kpp |text|YES l|КПП получателя
+|{counter:pfmhst.regular_payment_detail} |corr_account |text|YES l|Кор счет банка получателя
+|{counter:pfmhst.regular_payment_detail} |tax_amount |numeric|YES l|Сумма налогов
+|{counter:pfmhst.regular_payment_detail} |uip |text|YES l|УИН/УИП
+|===
+
+[[pfmhst.transaction]]
+.Таблица pfmhst.transaction. Данная сущность хранит в себе детали транзакций
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.transaction} |movement_number |text|NO l|Номер проводки
+|{counter:pfmhst.transaction} |reference_id |text|YES l|ReferenceId
+|{counter:pfmhst.transaction} |client_product_id |bigint|NO l|Идентификатор продукта
+|{counter:pfmhst.transaction} |posting_date |timestamp without time zone|YES l|Фактическая дата списания
+|{counter:pfmhst.transaction} |value_date |timestamp without time zone|NO l|Дата совершения сделки
+|{counter:pfmhst.transaction} |credit_debit_indicator |integer|NO l|Флаг списания/пополнения
+|{counter:pfmhst.transaction} |amount |numeric|NO l|Сумма операции
+|{counter:pfmhst.transaction} |cancel_indicator |integer|NO l|Флаг отмены
+|{counter:pfmhst.transaction} |partner_account_number |text|YES l|Счет списания (для входящего)
+|{counter:pfmhst.transaction} |partner_account_name |text|YES l|Имя клиента, который пополнил счет (для входящего)
+|{counter:pfmhst.transaction} |partner_account_bank |text|YES l|БИК банка, с которого произошло списание (для входящего)
+|{counter:pfmhst.transaction} |pay_currency |text|YES l|Фактическая валюта операции
+|{counter:pfmhst.transaction} |exchange_rate |numeric|YES l|Курс валюты
+|{counter:pfmhst.transaction} |change_amount |numeric|YES l|Сумма в валюте счета
+|{counter:pfmhst.transaction} |operation_name_tw |text|YES l|Описание операции из TW
+|{counter:pfmhst.transaction} |transaction_type_ibs |integer|NO l|Тип операции
+|{counter:pfmhst.transaction} |address |text|YES l|Адрес совершения операции
+|{counter:pfmhst.transaction} |country |text|YES l|Страна совершения операции
+|{counter:pfmhst.transaction} |city |text|YES l|Город совершения операции
+|{counter:pfmhst.transaction} |merchant_name_tw |text|YES l|Название мерчанта из TW
+|{counter:pfmhst.transaction} |to_acct |text|YES l|Код бенефициара из Рапида
+|{counter:pfmhst.transaction} |to_acct_2 |text|YES l|Код бенефициара из РН
+|{counter:pfmhst.transaction} |partner_card_number |text|YES l|Карта зачисления для исходящих р2р
+|{counter:pfmhst.transaction} |sender_name |text|YES l|Имя получателя
+|{counter:pfmhst.transaction} |sender_account |text|YES l|Номер счета получателя
+|{counter:pfmhst.transaction} |sender_bic |text|YES l|БИК банка получателя
+|{counter:pfmhst.transaction} |dt0 |text|YES l|Дополнительное описание транзакции
+|{counter:pfmhst.transaction} |pay_amount |numeric|YES l|Сумма платежа в валюте операции
+|{counter:pfmhst.transaction} |token_payment |integer|YES l|Признак списания с токеном
+|{counter:pfmhst.transaction} |purpose |text|YES l|Назначение перевода
+|{counter:pfmhst.transaction} |full_remark |text|YES l|Описание к комиссии
+|{counter:pfmhst.transaction} |operation_name |text|YES l|Описание операции
+|{counter:pfmhst.transaction} |short_description |text|YES l|Короткое описание операции
+|{counter:pfmhst.transaction} |picture_url |text|NO l|Ссылка на картинку
+|{counter:pfmhst.transaction} |merchant_name |text|YES l|Название мерчанта
+|{counter:pfmhst.transaction} |mcc_code |integer|YES l|МСС код из TW
+|{counter:pfmhst.transaction} |mcc |text|YES l|Название категории МСС
+|{counter:pfmhst.transaction} |hex_color |text|YES l|Цвет категории
+|{counter:pfmhst.transaction} |category |text|YES l|Категория группировки
+|{counter:pfmhst.transaction} |un_id |bigint|NO l|Идентификатор ППП
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<pfmhst.mcc_code, pfmhst.mcc_code>>
+* <<pfmhst.client_product, pfmhst.client_product>>
+* <<pfmhst.payment, pfmhst.payment>>
+* <<pfmhst.transfer, pfmhst.transfer>>
+* <<pfmhst.regular_payment_detail, pfmhst.regular_payment_detail>>
+|===
+
+[[pfmhst.transfer]]
+.Таблица pfmhst.transfer. Данная сущность хранит в себе детали переводов
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:pfmhst.transfer} |reference_id |text|NO l|Идентификатор перевода. Номер без префикса.
+|{counter:pfmhst.transfer} |cuid |bigint|NO l|Идентификатор клиента
+|{counter:pfmhst.transfer} |account_number |text|YES l|Номер счета клиента
+|{counter:pfmhst.transfer} |card_number |text|YES l|Номер карты клиента в маскированном виде
+|{counter:pfmhst.transfer} |date |timestamp without time zone|NO l|Дата совершения перевода
+|{counter:pfmhst.transfer} |status |text|YES l|Статус перевода
+|{counter:pfmhst.transfer} |account_to |text|YES l|Номер счета зачисления
+|{counter:pfmhst.transfer} |amount |numeric|NO l|Сумма операции
+|{counter:pfmhst.transfer} |currency |text|YES l|Валюта операции
+|{counter:pfmhst.transfer} |payment_purpose |text|YES l|Назначение платежа
+|{counter:pfmhst.transfer} |payment_type |text|YES l|Обязательный для переводов из МК
+|{counter:pfmhst.transfer} |additional_info |text|YES l|Обязательный для переводов из МК. Строка с ключ-значение
+|{counter:pfmhst.transfer} |fee |numeric|YES l|Комиссия
+|{counter:pfmhst.transfer} |recipient |text|YES l|Имя получателя
+|{counter:pfmhst.transfer} |inn |text|YES l|ИНН получателя
+|{counter:pfmhst.transfer} |kpp |text|YES l|КПП
+|{counter:pfmhst.transfer} |bic |text|YES l|БИК банка получателя при межбанковском переводе
+|{counter:pfmhst.transfer} |bank_name |text|YES l|Именование банка при межбанковском переводе
+|{counter:pfmhst.transfer} |bank_city |text|YES l|Город банка получателя при межбанковском переводе
+|{counter:pfmhst.transfer} |corr_account |text|YES l|Кор.счет банка получателя при межбанковском переводе
+|{counter:pfmhst.transfer} |sender_name |text|YES l|Имя отправителя
+|{counter:pfmhst.transfer} |kbk |text|YES l|КБК для бюджетных переводов
+|{counter:pfmhst.transfer} |tax_document_date |timestamp without time zone|YES l|Дата документа для бюджетных переводов
+|{counter:pfmhst.transfer} |tax_document_number |text|YES l|Номер документа для бюджетных переводов
+|{counter:pfmhst.transfer} |budget_tax_period |text|YES l|Налоговый период для бюджетных переводов
+|{counter:pfmhst.transfer} |tax_payment_type |text|YES l|Тип бюджетного платежа
+|{counter:pfmhst.transfer} |uip |text|YES l|УИН или УИП
+|{counter:pfmhst.transfer} |okato |text|YES l|ОКТМО/ОКАТО для бюджетных переводов
+|{counter:pfmhst.transfer} |payment_creator_status |integer|YES l|Статус плательщика для бюджетных переводов
+|{counter:pfmhst.transfer} |bot |text|YES l|Статус перевода
+|{counter:pfmhst.transfer} |target_card_number |text|YES l|Номер карты получателя в маскированном виде
+|{counter:pfmhst.transfer} |type |text|YES l|Тип операции:DEBIT- исходящаяCREDIT- входящаяДля СБЕРА и СБП
+|{counter:pfmhst.transfer} |sender_account |text|YES l|Номер телефона отправителя для входящих Сбера и СБП
+|{counter:pfmhst.transfer} |txn_id |text|YES l|Идентификатор перевода для входящих Сбера и СБП
+|{counter:pfmhst.transfer} |fio_sender |text|YES l|Имя отправителя для входящих Сбера и СБП
+|{counter:pfmhst.transfer} |comment |text|YES l|Комментарий к переводу для Сбера и СБП
+|{counter:pfmhst.transfer} |bank_id |text|YES l|Идентификатор банка для СБП
+|{counter:pfmhst.transfer} |sender_bic |text|YES l|БИК банка отправителя для Сбера и СБП
+|{counter:pfmhst.transfer} |mask_card_from |text|YES l|Маскированый PAN карты списания для пополнения с чужих карт
+|{counter:pfmhst.transfer} |card_name |text|YES l|Имя держателя карты списания для пополнения с чужих карт
+|{counter:pfmhst.transfer} |amount_to |numeric|YES l|Сумма зачисления для конвертации
+|{counter:pfmhst.transfer} |currency_to |text|YES l|Валюта зачисления для конвертации
+|{counter:pfmhst.transfer} |exchange_rate |numeric|YES l|Курс обмена для конвертации
+|{counter:pfmhst.transfer} |sender_inn |text|YES l|ИНН клиента
+|{counter:pfmhst.transfer} |tax_payment_base |text|YES l|Основание платежа
+|{counter:pfmhst.transfer} |anti_fraud_decline_reason |integer|YES l|Признак того, что перевод СБП был отклонён Антифродом
+|===
+

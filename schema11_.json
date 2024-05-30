@@ -1,0 +1,1208 @@
+[
+	{
+		"name": "BUSINESS_LOG",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "LATITUDE",
+				"type": "BINARY_DOUBLE",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "VERSION",
+				"type": "NVARCHAR2(10)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OPERATION",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OPERATION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "OS_TYPE",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "LONGITUDE",
+				"type": "BINARY_DOUBLE",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "NVARCHAR2(20)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_IP",
+				"type": "NVARCHAR2(16)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_EXECUTED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RESULT_TEXT",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RESULT_STATUS_CODE",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "CIF_NOTIFICATION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ACTION",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CUID_2",
+				"type": "NUMBER(19,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TIME_OF_CHANGE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "CLIENT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "SEAMLESS_REGISTRATION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "GENDER",
+				"type": "NUMBER(3,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PIN",
+				"type": "NVARCHAR2(6)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SMS_VALIDATIONS_COUNT",
+				"type": "NUMBER(5,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LEVEL_UP_CHECK_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_PIN_VALIDATION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CUID",
+				"type": "NUMBER(19,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "REF_CODEWORD_CHECK_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "HAS_IBS",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "EMAIL",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MODIFIED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DELETED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "AVATAR_HASH",
+				"type": "NVARCHAR2(128)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_DISABLED",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SMS_SENT_COUNT",
+				"type": "NUMBER(5,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SALT",
+				"type": "NVARCHAR2(64)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MIDDLE_NAME",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BIRTH_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "BAN_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_OWNER",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PASSWORD",
+				"type": "NVARCHAR2(64)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MAX_LEVEL",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_CHANNEL",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "NVARCHAR2(250)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_CHILD",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PIN_VALIDATION_COUNT",
+				"type": "NUMBER(5,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "USER_PIN_CHECK_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_UNTIL_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "NVARCHAR2(20)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "CLIENT_AVATAR",
+		"comment": null,
+		"columns": [
+			{
+				"name": "AVATAR",
+				"type": "BLOB",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MODIFIED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "CLIENT_BLOCK",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "AUTHOR_USERNAME",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "TYPE",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CAUSE",
+				"type": "NVARCHAR2(1000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SOURCE_STOP_LIST",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCK_EXPIRATION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "DEVICE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "LEVEL_UP_STATUS",
+				"type": "NUMBER(3,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "IS_SMS_VALID",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SCREEN_SIZE_TYPE",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CURRENT_LEVEL",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SMS_CODE",
+				"type": "NVARCHAR2(6)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_AUTH_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "MODIFIED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SMS_STATUS",
+				"type": "NUMBER(3,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SUCCESS_LOGIN_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PRIVATE_KEY",
+				"type": "NVARCHAR2(36)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SMS_TRY_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_SMS",
+				"type": "NVARCHAR2(6)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "OS_TYPE",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "APP_REG_VERSION",
+				"type": "NVARCHAR2(10)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DELETED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "APPLICATION_TYPE",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_CHANNEL",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "PROMOTION_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_USER_PIN",
+				"type": "NVARCHAR2(6)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DEVICE_FAILED_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DEVICE_IDENT",
+				"type": "NVARCHAR2(2000)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "APP_CURRENT_VERSION",
+				"type": "NVARCHAR2(10)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CAN_USE_PIN",
+				"type": "NUMBER(1,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NEED_LEVEL_UP_SMS",
+				"type": "NUMBER(1,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(300)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CHANGE_PIN_SMS_VALIDATE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_AGGREGATED_COUNTER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "KEY",
+				"type": "NVARCHAR2(255)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "VALUE",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "EXPIRE_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_COUNTER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "EXPIRE_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "KEY",
+				"type": "NVARCHAR2(255)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "VALUE",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_DISTRIBUTED_LOCK",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CREATED_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "RESOURCE",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_HASH",
+		"comment": null,
+		"columns": [
+			{
+				"name": "EXPIRE_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "KEY",
+				"type": "NVARCHAR2(255)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "VALUE",
+				"type": "NCLOB",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "FIELD",
+				"type": "NVARCHAR2(40)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_JOB",
+		"comment": null,
+		"columns": [
+			{
+				"name": "EXPIRE_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "STATE_ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CREATED_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ARGUMENTS",
+				"type": "NCLOB",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "STATE_NAME",
+				"type": "NVARCHAR2(20)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "INVOCATION_DATA",
+				"type": "NCLOB",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_JOB_PARAMETER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(40)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "JOB_ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "VALUE",
+				"type": "NCLOB",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_JOB_QUEUE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "FETCHED_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "QUEUE",
+				"type": "NVARCHAR2(50)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "JOB_ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "FETCH_TOKEN",
+				"type": "NVARCHAR2(36)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_JOB_STATE",
+		"comment": null,
+		"columns": [
+			{
+				"name": "JOB_ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "CREATED_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "REASON",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "DATA",
+				"type": "NCLOB",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "NAME",
+				"type": "NVARCHAR2(20)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_LIST",
+		"comment": null,
+		"columns": [
+			{
+				"name": "EXPIRE_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "VALUE",
+				"type": "NCLOB",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "KEY",
+				"type": "NVARCHAR2(255)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_SERVER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "NVARCHAR2(100)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DATA",
+				"type": "NCLOB",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "LAST_HEART_BEAT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "HF_SET",
+		"comment": null,
+		"columns": [
+			{
+				"name": "VALUE",
+				"type": "NVARCHAR2(255)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "EXPIRE_AT",
+				"type": "TIMESTAMP(4)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "SCORE",
+				"type": "FLOAT",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "KEY",
+				"type": "NVARCHAR2(255)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MC_API_COUNTER",
+		"comment": null,
+		"columns": [
+			{
+				"name": "METHOD_INVOKE_COUNT",
+				"type": "NUMBER(10,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "METHOD",
+				"type": "NVARCHAR2(450)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "METHOD_LAST_INVOKE_DATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "MESSAGE_BROKER_ERROR",
+		"comment": null,
+		"columns": [
+			{
+				"name": "MESSAGE",
+				"type": "NVARCHAR2(2000)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ERROR",
+				"type": "NVARCHAR2(2000)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "REFRESH_TOKEN",
+		"comment": null,
+		"columns": [
+			{
+				"name": "ID",
+				"type": "RAW",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "DEVICE_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATE",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "EXPIRED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "SMS_SESSION",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CLIENT_ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "RESEND_NUMBER",
+				"type": "NUMBER(5,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "VERIFY_NUMBER",
+				"type": "NUMBER(5,0)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "VALID_TO",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MODIFIED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TEMPLATE",
+				"type": "NVARCHAR2(30)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "SESSION_ID",
+				"type": "NVARCHAR2(100)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "WRONG_AUTH",
+		"comment": null,
+		"columns": [
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "PHONE_NUMBER",
+				"type": "NVARCHAR2(20)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TYPE",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_TO",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "BLOCKED_FROM",
+				"type": "TIMESTAMP(7)",
+				"nullable": "YES",
+				"comment": null
+			}
+		]
+	},
+	{
+		"name": "WRONG_AUTH_ATTEMPT",
+		"comment": null,
+		"columns": [
+			{
+				"name": "PHONE_NUMBER",
+				"type": "NVARCHAR2(450)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ID",
+				"type": "NUMBER(19,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "TYPE",
+				"type": "NUMBER(3,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "COUNT",
+				"type": "NUMBER(5,0)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "CREATED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "MODIFIED",
+				"type": "TIMESTAMP(7)",
+				"nullable": "NO",
+				"comment": null
+			}
+		]
+	}
+]

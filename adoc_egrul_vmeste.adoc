@@ -1,0 +1,7 @@
+= Выписка из ЕГРЮЛ
+:sectnums:
+
+include::adoc_egrul_xsd.adoc[]
+include::adoc_egrul_xsd2.adoc[]
+
+include::adoc_egrul.adoc[]

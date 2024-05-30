@@ -1,0 +1,1032 @@
+[
+	{
+		"name": "pfmhst.__efmigrationshistory",
+		"columns": [
+			{
+				"name": "MigrationId",
+				"type": "character varying",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "ProductVersion",
+				"type": "character varying",
+				"nullable": "NO",
+				"comment": null
+			}
+		],
+		"fk": null
+	},
+	{
+		"name": "pfmhst.event_log",
+		"columns": [
+			{
+				"name": "id",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "processed_entity",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "event_type",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "source",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "body",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "Handler",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "created",
+				"type": "timestamp without time zone",
+				"nullable": "NO",
+				"comment": null
+			}
+		],
+		"fk": null
+	},
+	{
+		"name": "pfmhst.merchant",
+		"columns": [
+			{
+				"name": "key",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "name",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "logo_png",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "logo_svg",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "deleted",
+				"type": "timestamp without time zone",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": null
+	},
+	{
+		"name": "pfmhst.mcc_category",
+		"columns": [
+			{
+				"name": "category",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "main_color",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "logo_png",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "logo_svg",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "deleted",
+				"type": "timestamp without time zone",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": null
+	},
+	{
+		"name": "pfmhst.mcc_code",
+		"columns": [
+			{
+				"name": "code",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "category",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "deleted",
+				"type": "timestamp without time zone",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": [
+			{
+				"fk_table": "pfmhst.mcc_category"
+			}
+		]
+	},
+	{
+		"name": "pfmhst.payment_hub_service_type",
+		"columns": [
+			{
+				"name": "id",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "logo",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": null
+	},
+	{
+		"name": "pfmhst.payment_hub_service",
+		"columns": [
+			{
+				"name": "id",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "type_id",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "logo",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": [
+			{
+				"fk_table": "pfmhst.payment_hub_service_type"
+			}
+		]
+	},
+	{
+		"name": "pfmhst.client_product",
+		"columns": [
+			{
+				"name": "id",
+				"type": "bigint",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "cuid",
+				"type": "bigint",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "product_type",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "status",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "account_number",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "card_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "contract_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": null
+	},
+	{
+		"name": "pfmhst.transaction",
+		"columns": [
+			{
+				"name": "movement_number",
+				"type": "text",
+				"nullable": "NO",
+				"comment": "Номер проводки"
+			},
+			{
+				"name": "reference_id",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "ReferenceId"
+			},
+			{
+				"name": "client_product_id",
+				"type": "bigint",
+				"nullable": "NO",
+				"comment": "Идентификатор продукта"
+			},
+			{
+				"name": "posting_date",
+				"type": "timestamp without time zone",
+				"nullable": "YES",
+				"comment": "Фактическая дата списания"
+			},
+			{
+				"name": "value_date",
+				"type": "timestamp without time zone",
+				"nullable": "NO",
+				"comment": "Дата совершения сделки"
+			},
+			{
+				"name": "credit_debit_indicator",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": "Флаг списания/пополнения"
+			},
+			{
+				"name": "amount",
+				"type": "numeric",
+				"nullable": "NO",
+				"comment": "Сумма операции"
+			},
+			{
+				"name": "cancel_indicator",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": "Флаг отмены"
+			},
+			{
+				"name": "partner_account_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Счет списания (для входящего)"
+			},
+			{
+				"name": "partner_account_name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Имя клиента, который пополнил счет (для входящего)"
+			},
+			{
+				"name": "partner_account_bank",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "БИК банка, с которого произошло списание (для входящего)"
+			},
+			{
+				"name": "pay_currency",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Фактическая валюта операции"
+			},
+			{
+				"name": "exchange_rate",
+				"type": "numeric",
+				"nullable": "YES",
+				"comment": "Курс валюты"
+			},
+			{
+				"name": "change_amount",
+				"type": "numeric",
+				"nullable": "YES",
+				"comment": "Сумма в валюте счета"
+			},
+			{
+				"name": "operation_name_tw",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Описание операции из TW"
+			},
+			{
+				"name": "transaction_type_ibs",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": "Тип операции"
+			},
+			{
+				"name": "address",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Адрес совершения операции"
+			},
+			{
+				"name": "country",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Страна совершения операции"
+			},
+			{
+				"name": "city",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Город совершения операции"
+			},
+			{
+				"name": "merchant_name_tw",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Название мерчанта из TW"
+			},
+			{
+				"name": "to_acct",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Код бенефициара из Рапида"
+			},
+			{
+				"name": "to_acct_2",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Код бенефициара из РН"
+			},
+			{
+				"name": "partner_card_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Карта зачисления для исходящих р2р"
+			},
+			{
+				"name": "sender_name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Имя получателя"
+			},
+			{
+				"name": "sender_account",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Номер счета получателя"
+			},
+			{
+				"name": "sender_bic",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "БИК банка получателя"
+			},
+			{
+				"name": "dt0",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Дополнительное описание транзакции"
+			},
+			{
+				"name": "pay_amount",
+				"type": "numeric",
+				"nullable": "YES",
+				"comment": "Сумма платежа в валюте операции"
+			},
+			{
+				"name": "token_payment",
+				"type": "integer",
+				"nullable": "YES",
+				"comment": "Признак списания с токеном"
+			},
+			{
+				"name": "purpose",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Назначение перевода"
+			},
+			{
+				"name": "full_remark",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Описание к комиссии"
+			},
+			{
+				"name": "operation_name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Описание операции"
+			},
+			{
+				"name": "short_description",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Короткое описание операции"
+			},
+			{
+				"name": "picture_url",
+				"type": "text",
+				"nullable": "NO",
+				"comment": "Ссылка на картинку"
+			},
+			{
+				"name": "merchant_name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Название мерчанта"
+			},
+			{
+				"name": "mcc_code",
+				"type": "integer",
+				"nullable": "YES",
+				"comment": "МСС код из TW"
+			},
+			{
+				"name": "mcc",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Название категории МСС"
+			},
+			{
+				"name": "hex_color",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Цвет категории"
+			},
+			{
+				"name": "category",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Категория группировки"
+			},
+			{
+				"name": "un_id",
+				"type": "text",
+				"nullable": "YES",
+				"comment": "Идентификатор ППП"
+			},
+			{
+				"name": "RegularPaymentDetailUnId",
+				"type": "bigint",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": [
+			{
+				"fk_table": "pfmhst.client_product"
+			},
+			{
+				"fk_table": "pfmhst.payment"
+			},
+			{
+				"fk_table": "pfmhst.regular_payment_detail"
+			},
+			{
+				"fk_table": "pfmhst.transfer"
+			},
+			{
+				"fk_table": "pfmhst.mcc_code"
+			}
+		]
+	},
+	{
+		"name": "pfmhst.payment_hub_service_param",
+		"columns": [
+			{
+				"name": "servise_id",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "field",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "value",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": [
+			{
+				"fk_table": "pfmhst.payment_hub_service"
+			}
+		]
+	},
+	{
+		"name": "pfmhst.payment",
+		"columns": [
+			{
+				"name": "reference_id",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "cuid",
+				"type": "bigint",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "account_number",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "date",
+				"type": "timestamp without time zone",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "status",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "bot",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "amount",
+				"type": "numeric",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "currency",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "fee",
+				"type": "numeric",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "beneficary_code",
+				"type": "integer",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "field_values",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			}
+		],
+		"fk": null
+	},
+	{
+		"name": "pfmhst.transfer",
+		"columns": [
+			{
+				"name": "reference_id",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "cuid",
+				"type": "bigint",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "account_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "card_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "date",
+				"type": "timestamp without time zone",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "status",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "account_to",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "amount",
+				"type": "numeric",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "currency",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "payment_purpose",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "payment_type",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "additional_info",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "fee",
+				"type": "numeric",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "recipient",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "inn",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "kpp",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "bic",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "bank_name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "bank_city",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "corr_account",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "sender_name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "kbk",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "tax_document_date",
+				"type": "timestamp without time zone",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "tax_document_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "budget_tax_period",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "tax_payment_type",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "uip",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "okato",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "payment_creator_status",
+				"type": "integer",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "bot",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "target_card_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "type",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "sender_account",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "txn_id",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "fio_sender",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "comment",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "bank_id",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "sender_bic",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "mask_card_from",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "card_name",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "amount_to",
+				"type": "numeric",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "currency_to",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "exchange_rate",
+				"type": "numeric",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "sender_inn",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "tax_payment_base",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "anti_fraud_decline_reason",
+				"type": "integer",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": null
+	},
+	{
+		"name": "pfmhst.regular_payment_detail",
+		"columns": [
+			{
+				"name": "un_id",
+				"type": "bigint",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "cuid",
+				"type": "bigint",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "card_number",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "account_number",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "name",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "amount",
+				"type": "numeric",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "currency",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "account_to",
+				"type": "text",
+				"nullable": "NO",
+				"comment": null
+			},
+			{
+				"name": "payment_purpose",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "recipient",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "bic",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "inn",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "kpp",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "corr_account",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "tax_amount",
+				"type": "numeric",
+				"nullable": "YES",
+				"comment": null
+			},
+			{
+				"name": "uip",
+				"type": "text",
+				"nullable": "YES",
+				"comment": null
+			}
+		],
+		"fk": null
+	}
+]

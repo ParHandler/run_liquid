@@ -1,0 +1,12 @@
+{% assign bl = "\n" %}
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho{{ bl }}
+{%- for table in data -%}
+    class {{ table.name }}{{ bl }}
+    {%- for fk in table.fk -%}
+        {{ table.name }} "*" -- "1" {{ fk.fk_table }}{{ bl }}
+    {%- endfor -%}
+{%- endfor -%}

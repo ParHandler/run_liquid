@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="ru">
+<info>
+<title>Автоматическая генерация технической документации</title>
+<date>2021-06-10</date>
+</info>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="https://habrastorage.org/webt/dm/gt/lq/dmgtlqavf9vvl30g8hbtnyirxjo.png"/>
+</imageobject>
+<textobject><phrase>dmgtlqavf9vvl30g8hbtnyirxjo</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>Продолжая тему использования Asciidoc (и других аналогичных форматов) для организации процессов непрерывного документирования, хочу рассмотреть тему автоматический генерации технической документации.</simpara>
+<simpara>Автоматическая генерация документации&#8201;&#8212;&#8201;распространенный, но очень расплывчатый термин. Я понимаю под этим термином извлечение для представления в удобном виде информации, содержащейся в исходном коде и настройках документируемой программы (информационной системы).</simpara>
+<section xml:id="_общая_схема_автоматической_генерации_документации">
+<title>Общая схема автоматической генерации документации</title>
+<simpara>Если рассматривать процесс автоматической генерации как чёрный ящик, то на входе имеем исходный код, а на выходе&#8201;&#8212;&#8201;документацию или её фрагмент. Однако в реальности при автоматической генерации документации целесообразны еще два промежуточных звена.</simpara>
+<itemizedlist>
+<listitem>
+<simpara>преобразование исходного кода в структурированный формат. Шаг обусловлен тем, что для получения документов используются шаблонизаторы. Все современные технологии, связанные с генерацией человеко-читаемых документов, пользовательских интерфейсов, программного кода, активно используют шаблонизаторы, подключаемые в виде библиотек или реализованные внутри программного кода. Вход для шаблонизатора&#8201;&#8212;&#8201;структура данных, которую легко получить из файлов в форматах JSON/YAML или XML;</simpara>
+</listitem>
+<listitem>
+<simpara>преобразование структурированного формата в один из форматов документации (обычно Asciidoc, DITA, Docbook, Markdown, reStructuredText).</simpara>
+</listitem>
+</itemizedlist>
+<simpara>За исключением самых простых случаев документация готовится в различных выходных форматах (html, docx, odt, pdf и т.п.) и собирается из разных источников (в том числе не автоматически генерируемых) поэтому целесообразно использовать специальные форматы, для подготовки документации. Предположим, необходимо подготовить документацию по стандартам ЕСКД? Эта проблема, описана в <link xl:href="https://habr.com/ru/post/558940/">предыдущей статье</link>. При решении проблем автоматической генерации хватает проблем и без требований ГОСТ.</simpara>
+<simpara>Общая схема генерации документации выглядит следующим образом:</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="https://habrastorage.org/webt/g-/mx/jd/g-mxjdbl4ya0quccx1iizd2ecai.png" contentwidth="50%"/>
+</imageobject>
+<textobject><phrase>g mxjdbl4ya0quccx1iizd2ecai</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>Рассмотрим практические приёмы, которые можно использовать при реализации ИТ-проектов. Для примеров будем использовать Asciidoc, однако приёмы применимы к любым языкам разметки текста(reStructuredText, Markdown), и текстовым маркапам для построения диаграмм (рекомендую проект <link xl:href="https://kroki.io/">kroki</link>, который позволяет быстро ознакомиться и внедрить наиболее популярные средства построения диаграмм).</simpara>
+</section>
+<section xml:id="_преобразование_исходного_кода_в_структурированный_формат">
+<title>Преобразование исходного кода в структурированный формат</title>
+<simpara>Единых подходов к превращению исходного кода в структурированный формат не существует. Рассмотрим наиболее частые варианты.</simpara>
+<section xml:id="_информация_для_документации_извлекается_из_структуры_исходного_кода">
+<title>Информация для документации извлекается из структуры исходного кода</title>
+<simpara>Как правило, используются дополнительные средства языка, обычно комментарии в специальном формате (комментарии Javadoc, ReST и т.п.) и аннотации.</simpara>
+<simpara>Средств, обеспечивающих преобразование исходного кода в документацию, причём очень зрелых, много. Можно смело брать и использовать подходящие для конкретного проекта. Разработка собственных средств затратна. Мы пошли указанным путём только раз, разрабатывая <link xl:href="https://github.com/CourseOrchestra/2bass">проект для миграции структуры базы данных</link>. Целесообразность определялась использованием средства во всех наших проектах и желанием попробовать свои силы.</simpara>
+<simpara>Следующие подходы более гибки с точки зрения настройки автоматической генерации документации в реализуемых проектах.</simpara>
+</section>
+<section xml:id="_структурированный_формат_получается_как_один_из_результатов_исполнения_исходного_кода">
+<title>Структурированный формат получается как один из результатов исполнения исходного кода</title>
+<simpara>При данном подходе считывается и сохраняется в структурированный формат состояния объектов (например, структуры базы данных, конфигурации развернутой среды информационной системы и т.п.), создаваемых в результате работы приложения.</simpara>
+<simpara>Отдельно отметим использование для документирвоания логов. Типовой пример&#8201;&#8212;&#8201;тесты. Например, большинство инструментов для тестирования выдают результаты в формате Junit xml report. Это, позволяет сделать универсальные инструменты генерации отчётности по тестам, самый известный, наверное&#8201;&#8212;&#8201;<link xl:href="https://docs.qameta.io/allure">Allure Framework</link>.</simpara>
+<simpara>В <link xl:href="https://habr.com/ru/company/alfa/blog/454720/">этой статье</link> показано, как используют JSON-файлы, которые генерирует при работе <link xl:href="https://cucumber.io/">Cucumber</link>, как документация строится на основе логов, создаваемых в результате работы тестов.</simpara>
+<simpara>Типовой пример создания документации на основе считывания состояния объектов, создаваемых в результате работы приложения,&#8201;&#8212;&#8201;документирование структуры БД. В конце раздела приведен пример, иллюстрирующий данный подход.</simpara>
+</section>
+<section xml:id="_исходный_код_сразу_представляет_собой_структурированный_формат">
+<title>Исходный код сразу представляет собой структурированный формат</title>
+<simpara>Многие языки уже реализованы в структурированном формате (например, xsd-схемы, OpenAPI, различные <link xl:href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B5%D0%B4%D0%BC%D0%B5%D1%82%D0%BD%D0%BE-%D0%BE%D1%80%D0%B8%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9_%D1%8F%D0%B7%D1%8B%D0%BA">DSL</link> для описания предметной области, файлы настроек).</simpara>
+<simpara>Иногда проводят предварительную обработку этих форматов, например, объединение спецификации в единую иерархическую структуру (так называемая операция «flatten»).</simpara>
+<simpara>Частным (и частым) случаем является ситуация, когда настройки содержатся в базе данных.</simpara>
+</section>
+<section xml:id="_примергенерация_документации_по_структуре_базы_данных">
+<title>Пример&#8201;&#8212;&#8201;генерация документации по структуре базы данных</title>
+<simpara>Пример иллюстрирует достаточно частую ситуацию, когда информация для документации хранится в таблицах СУБД.</simpara>
+<simpara>Создаём скрипт, описывающий структуру БД. Этот скрипт не выглядит как исходник для поддержания структуры БД, однако, как это не парадоксально, таковым является, <link xl:href="https://github.com/CourseOrchestra/2bass">подробности в документации к уже упомянутому проекту</link>. Это также может быть миграционный скрипт в любой системе контроля версии базы данных.</simpara>
+<screen>create table geo.Strana (
+	id int
+	, naimenovaniye varchar(255)
+	, primary key (id)
+);
+create table geo.Gorod (
+	id int
+	, naimenovaniye varchar(255)
+	, strana_id int
+	, constraint strana_gorod foreign key (strana_id)
+		references geo.Strana(id)
+);</screen>
+<simpara>Применим скрипт к базе данных и воспользуемся двумя инструментами СУБД (пример приведён для <link xl:href="https://www.postgresql.org/">PostgreSQL</link>): динамическими представлениями для извлечения сведений о структуре и возможностью создавать JSON-файлы на основе результатов сохранения запросов.</simpara>
+<screen>drop table if exists fk;
+select x.table_schema as table_schema
+    , x.table_name
+    , y.table_schema as foreign_table_schema
+    , y.table_name as foreign_table_name
+into temp fk
+from information_schema.referential_constraints rc
+join information_schema.key_column_usage x
+    on x.constraint_name = rc.constraint_name
+join information_schema.key_column_usage y
+    on y.ordinal_position = x.position_in_unique_constraint
+    and y.constraint_name = rc.unique_constraint_name;
+
+select
+	json_agg(json_build_object(
+		'name', t.table_schema || '.' || t.table_name
+		, 'columns'
+		, (select
+			json_agg(json_build_object (
+				'name', column_name
+				,'type', data_type
+			))
+			from information_schema.columns as c
+			where c.table_name = t.table_name and c.table_schema = t.table_schema
+		  )
+		, 'fk'
+		, (select
+		  	json_agg(json_build_object (
+				'fk_table'
+				, fk.foreign_table_schema || '.' || fk.foreign_table_name
+		  	))
+		   from fk
+		   where fk.table_name = t.table_name and fk.table_schema = t.table_schema
+		  )
+	))
+from information_schema.tables as t
+where table_schema = 'geo';</screen>
+<simpara>В результате получим JSON-файл:</simpara>
+<screen>[{
+        "name": "geo.Strana",
+        "columns": [{
+                "name": "id",
+                "type": "integer"
+            }, {
+                "name": "naimenovaniye",
+                "type": "character varying"
+            }
+        ],
+        "fk": null
+    }, {
+        "name": "geo.Gorod",
+        "columns": [{
+                "name": "id",
+                "type": "integer"
+            }, {
+                "name": "naimenovaniye",
+                "type": "character varying"
+            }, {
+                "name": "strana_id",
+                "type": "integer"
+            }
+        ],
+        "fk": [{
+                "fk_table": "geo.Strana"
+            }
+        ]
+    }
+]</screen>
+<simpara>В следующем разделе будет показано, как этот файл превратить в документ.</simpara>
+</section>
+</section>
+<section xml:id="_использование_шаблонизаторов">
+<title>Использование шаблонизаторов</title>
+<simpara>Для превращения структурированного файла в документ используют специальный тип языков, «https://en.wikipedia.org/wiki/Template_processor[шаблонизаторы]». Шаблонизатор позволяет задать правила обхода иерархической структуры данных и правила, по которым элементы иерархии исходного документа преобразуют в выходной документ.</simpara>
+<simpara>Формат этих правил достаточно простой, они безопасны с точки зрения исполнения, поэтому часто шаблонизаторы используются для настройки различных аспектов работы приложений непосредственно пользователями.</simpara>
+<simpara>Самым известным языком обработки шаблонов (но далеко не самым простым) является <link xl:href="https://ru.wikipedia.org/wiki/XSLT">XSLT</link>. Самым минималистичным&#8201;&#8212;&#8201;<link xl:href="https://mustache.github.io/">Mustache</link>.</simpara>
+<simpara>Свой язык написания шаблонов и шаблонизатор также создать довольно просто. Например, для создания системы генерации отчётов в форматах Excel и ods мы пошли <link xl:href="https://github.com/CourseOrchestra/xylophone">этим путём</link>.</simpara>
+<simpara>Можно вообще обойтись без шаблонизатора, просто структурировать код определенным образом, <link xl:href="https://martinfowler.com/bliki/MovingAwayFromXslt.html">в этой старой статье 2003 года</link> Мартин Фаулер признается в нелюбви к XSLT и заодно объясняет, как его заменить кодом, написанным на языке Ruby. За 18 лет оказалось, что и статические языки также можно прекрасно использовать для этих целей, и XSLT прекрасно себя чувствует, и предложенный в статье подход оказался очень хорош.</simpara>
+<simpara>В примерах будет использоваться <link xl:href="https://github.com/Shopify/liquid">Liquid</link> для работы с JSON и XSLT для работы с XML. В обоих случаях будет использоваться реализация в Ruby, потому что (1) Наиболее распространенный в настоящий момент процессор Asciidoc&#8201;&#8212;&#8201;<link xl:href="https://github.com/asciidoctor">Asciidoctor</link>&#8201;&#8212;&#8201;написан на Ruby (2) Ruby-скрипты отлично работают в java и javascript, что часто позволяет не плодить цирк технологий.</simpara>
+<section xml:id="_пример_генерации_документа_из_json_файла">
+<title>Пример генерации документа из JSON-файла</title>
+<simpara>Рассмотрим простой пример по генерации документа на основе полученного выше JSON-файла.</simpara>
+<simpara>Генерация диаграммы в формате PlantUML:</simpara>
+<screen>{% assign bl = "\n" %}
+{%- for table in data -%}
+    class {{ table.name }}{{ bl }}
+    {%- for fk in table.fk -%}
+        {{ table.name }} "*" -- "1" {{ fk.fk_table }}{{ bl }}
+    {%- endfor -%}
+{%- endfor -%}</screen>
+<simpara>В примере шаблонизатор обходит все узлы, определяющие таблицы. Для каждой таблицы создается строка PlantUML для отрисовки классов <literal>class [Наименование класса]</literal>. Далее внутри каждой таблицы проверяется наличие внешних ключей и создается соединительная линия с соответствующими классами.</simpara>
+<simpara>На выходе получаем следующий текст диаграммы:</simpara>
+<screen>class geo.Strana
+class geo.Gorod
+geo.Gorod "*" -- "1" geo.Strana</screen>
+<simpara>Аналогично сгенерируем документ в формате Asciidoc:</simpara>
+<screen>{% assign bl = "\n" %}{% assign bbl = "\n\n" %}
+{%- for table in data -%}
+    [[{{ table.name }}]]{{- bl -}}
+    .Таблица {{ table.name }}{{- bl -}}
+    [cols="1,3,3", options="header"]{{- bl -}}
+    |==={{- bl -}}
+    |№ |Наименование поля |Тип поля{{ bl }}
+    {%- for column in table.columns -%}
+        |{counter:{{ table.name }}} |{{ column.name }} |{{ column.type }}{{- bl -}}
+    {%- endfor -%}
+    {%- if table.fk -%}
+        3+a|Определены внешние ключи на следующие таблицы:{{- bbl -}}
+        {%- for fk in table.fk -%}
+            * &lt;&lt;{{fk.fk_table}}, {{fk.fk_table}}&gt;&gt;{{- bl -}}
+        {%- endfor -%}
+    {%- endif -%}
+    |==={{- bbl -}}
+{%- endfor -%}</screen>
+<simpara>Для объединения обоих кусков в один документ воспользуемся директивой include:</simpara>
+<screen linenumbering="unnumbered">= Структура БД
+:lang: ru
+:figure-caption: Рисунок
+:xrefstyle: short
+:sectnums:
+
+== Общая структура
+
+Структура базы данных изображена на рисунке (&lt;&lt;struktura&gt;&gt;).
+
+[[struktura]]
+.Структура БД
+[plantuml, struktura, png, fitrect="170x240mm", srcdpi=300, width="50%"]
+....
+skinparam dpi 300
+left to right direction
+include::pu_sql.pu[]
+....
+
+== Описание таблиц
+
+include::adoc_sql.adoc[]</screen>
+<simpara>Синтаксис Asciidoc рассмотрен в статье <link xl:href="https://habr.com/ru/post/558940/">Asciidoc для ЕСКД</link>. Подробнее структурирование документации в Asciidoc планирую описать в отдельной статье. Здесь лишь хотелось бы отметить, что при вставке диаграммы мы указываем параметры её отображения. В разных документах одну и ту же диаграмму мы можем отобразить по-разному (в разных цветах, с разным разрешением, в разной ориентации и т.п.).</simpara>
+<simpara>Результаты превращаем в файл в формате Microsoft Word с помощью проекта, о котором рассказано в <link xl:href="https://habr.com/ru/post/556624/">предыдущей</link> статье.</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="https://habrastorage.org/webt/eh/ij/qk/ehijqkjfk8e64ogx3zo5aomx63u.png" contentwidth="100%"/>
+</imageobject>
+<textobject><phrase>ehijqkjfk8e64ogx3zo5aomx63u</phrase></textobject>
+</mediaobject>
+</informalfigure>
+</section>
+<section xml:id="_ключевые_техники_используемые_при_генерации_документации">
+<title>Ключевые техники, используемые при генерации документации</title>
+<simpara>Для рассмотрения ключевых техник приведём пример с преобразованием XML-файла.</simpara>
+<simpara>Для примера возьмем выписку из ЕГРЮЛ от <link xl:href="https://www.nalog.gov.ru/rn77/">Федеральной налоговой службы</link>. Не совсем документация, но удобно для демонстрации основных приёмов преобразования структурированных данных в документацию.</simpara>
+<simpara>Исходные данные (схема xsd и пример сообщения) взяты на сайте СМЭВ 3&#8201;&#8212;&#8201;<link xl:href="https://smev3.gosuslugi.ru/portal/inquirytype_one.jsp?id=41108&amp;zone=fed">https://smev3.gosuslugi.ru/portal/inquirytype_one.jsp?id=41108&amp;zone=fed</link>. Для примера приведём небольшую часть выписки из ЕГРЮЛ:</simpara>
+<programlisting language="xml" linenumbering="unnumbered">&lt;ns1:СвНаимЮЛ НаимЮЛПолн="НАИМЕНОВАНИЕ 5087746429843"
+    НаимЮЛСокр="СОКРАЩЕННОЕ НАИМЕНОВАНИЕ 5087746429843"&gt;
+  &lt;ns1:ГРНДата ГРН="5087746429843" ДатаЗаписи="2008-11-18"/&gt;
+&lt;/ns1:СвНаимЮЛ&gt;
+&lt;ns1:СвАдресЮЛ&gt;
+  &lt;ns1:АдресРФ КодРегион="77" КодАдрКладр="770000000002990" Дом="7"
+      Корпус="6"&gt;
+    &lt;fnst:Регион ТипРегион="ГОРОД" НаимРегион="МОСКВА"/&gt;
+    &lt;fnst:Улица ТипУлица="УЛИЦА" НаимУлица="ФИЛЕВСКАЯ 2-Я"/&gt;
+    &lt;fnst:ГРНДата ГРН="5087746429843" ДатаЗаписи="2008-11-18"/&gt;
+  &lt;/ns1:АдресРФ&gt;
+&lt;/ns1:СвАдресЮЛ&gt;</programlisting>
+<simpara>Как видно, названия тэгов и атрибутов вполне говорящие, но мы возьмем полные названия параметров из схемы xsd.</simpara>
+<simpara>Преобразование выписки из ЕГРЮЛ в формат Asciidoc выглядит следующим образом:</simpara>
+<programlisting language="xml" linenumbering="unnumbered">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform"
+            xmlns:ep="uri:asciidoc:doc:automation"
+            extension-element-prefixes="ep"&gt;
+    &lt;output method="text" /&gt;
+    &lt;strip-space elements="*"/&gt;
+    &lt;template match="/"&gt;
+        &lt;apply-templates/&gt;
+    &lt;/template&gt;
+    &lt;template match="*[count(@*|*) &gt; 0 and count(ancestor::*) &gt; 0]"&gt;
+        &lt;value-of select="'\n='"/&gt;
+        &lt;for-each select="ancestor::*"&gt;&lt;value-of select="'='"/&gt;&lt;/for-each&gt;
+        &lt;value-of select="' '"/&gt;
+        &lt;value-of select="concat('{',local-name(),'}')"/&gt;&lt;text&gt;\n\n&lt;/text&gt;
+        &lt;text&gt;|===\n&lt;/text&gt;
+        &lt;for-each select="(@*)|(*[./text()])"&gt;
+            &lt;text&gt;|&lt;/text&gt;&lt;value-of select="concat('{',local-name(),'}')"/&gt;
+            &lt;text&gt;|&lt;/text&gt;&lt;value-of select="ep:iformat(current())"/&gt;
+            &lt;text&gt;\n&lt;/text&gt;
+        &lt;/for-each&gt;
+        &lt;text&gt;|===\n&lt;/text&gt;
+        &lt;apply-templates/&gt;
+    &lt;/template&gt;
+    &lt;template match="text()"/&gt;
+&lt;/stylesheet&gt;</programlisting>
+<simpara>В примере шаблонизатор обходит все узлы файла с данными ЕГРЮЛ. Тэги, в которых есть атрибуты или дополнительные тэги трансформируются в заголовок с нужным уровнем иерархии. Атрибуты и текстовые тэги&#8201;&#8212;&#8201;в строки таблицы. Обратите внимание, что в Asciidoc реализован очень компактный способ задания ячейки таблицы через символ <literal>|</literal>.</simpara>
+<simpara>Наименования тэгов и атрибутов XML-документа обёрнуты в фигурные скобки&#8201;&#8212;&#8201;специальный синтаксис для отображения значений атрибутов Asciidoc. Значения атрибутов легко извлекаем из xsd-схемы с помощью следующего преобразования:</simpara>
+<programlisting language="xml" linenumbering="unnumbered">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;output method="text" /&gt;
+    &lt;strip-space elements="*"/&gt;
+    &lt;template match="*[@name]"&gt;
+        &lt;value-of select="concat(':', @name, ': ')"/&gt;
+        &lt;value-of select="normalize-space(xs:annotation/xs:documentation)"/&gt;
+        &lt;text&gt;\n&lt;/text&gt;
+        &lt;apply-templates/&gt;
+    &lt;/template&gt;
+    &lt;template match="*[not(@name)]"&gt;
+        &lt;apply-templates/&gt;
+    &lt;/template&gt;
+    &lt;template match="text()"&gt;&lt;/template&gt;
+&lt;/stylesheet&gt;</programlisting>
+<simpara>Объеденим полученные значения атрибутов Asciidoc (два файла, т.к. описание сервиса по выдаче ЕГРЮЛ состоит из двух схем xsd) и файл с содержанием выписки:</simpara>
+<screen>:sectnums:
+
+include::adoc_egrul_xsd.adoc[]
+include::adoc_egrul_xsd2.adoc[]
+
+include::adoc_egrul.adoc[]</screen>
+<simpara>На выходе Microsoft Word даёт следующую картинку:</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="https://habrastorage.org/webt/mj/h-/6_/mjh-6_n36odw71vbmj-itjbnis0.png"/>
+</imageobject>
+<textobject><phrase>mjh 6 n36odw71vbmj itjbnis0</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<section xml:id="_борьба_с_пробельными_символами">
+<title>Борьба с пробельными символами</title>
+<simpara>Поскольку конечным форматом преобразования является текстовая разметка, вопрос пробелов крайне важен: текст, смещенный на несколько пробелов, может быть воспринят как блок с моноширинным текстом.</simpara>
+<simpara>Пробелы могут влиять на эстетику, читаемость и обрабатываемость выходного документа. Например, после каждого абзаца в Asciidoc должно быть два переноса строки. Их может быть и три, но читается файл хуже. Во многих автоматически сгенерированных документах количество переносов строк абсолютно не предсказуемо. Особенно это неудобно при сравнении версий файла. При наличии на выходе файла в формате XML или JSON можно было бы применить утилиты, создающие красивый выходной файл. Для текстовых маркапов, насколько я знаю, таких утилит не существует.</simpara>
+<simpara>С другой стороны, крайне важно, чтобы сам шаблон был красивым и удобным для чтения и редактирования, чтобы, как минимум, были отступы в циклах и условных операторах.</simpara>
+<simpara>Поработав со многими шаблонизаторами, пришёл к выводу, что единственный практически универсальный вариант&#8201;&#8212;&#8201;указать шаблонизатору, чтобы он вырезал все пробелы и переносы, а переносы указывать вручную в шаблоне. В приведенном примере есть опция <literal>&lt;strip-space elements="*"/&gt;</literal> и после каждой выводимой строчки помещена команда <literal>&lt;text&gt;\n&lt;/text&gt;</literal>. Некоторые шаблонизаторы воспринимают <literal>\n</literal> как символ переноса. Если нет, необходимо провести пост-обработку выходного файла и самостоятельно заменять данную комбинацию на перенос строки.</simpara>
+<simpara>В примере для Liquid применен аналогичный подход, только для наглядности символ переноса присвоен переменной <literal>bl</literal>.</simpara>
+</section>
+<section xml:id="_рекурсия">
+<title>Рекурсия</title>
+<simpara>Рекурсия обеспечивает наглядный способ обхода узлов структурированного документа с большим количеством единообразных уровней иерархии, как в приведённой выписке из ЕГРЮЛ.</simpara>
+<simpara>Рекурсию поддерживает большинство шаблонизаторов. Например, XSLT поддерживает рекурсию директивой <literal>apply-templates</literal>. В примере основной шаблон (<literal>template</literal>) обеспечивает обработку иерархического узла выписки из ЕГРЮЛ и далее вызывает себя для каждого узла ниже по иерархии.</simpara>
+</section>
+<section xml:id="_экранирование_и_другие_операции_со_вставляемыми_данными">
+<title>Экранирование и другие операции со вставляемыми данными</title>
+<simpara>Данные для вставки в Asciidoc файл могут вступить в конфликт с разметкой Asciidoc. Например, вы хотите взять текст из Open API спецификации и добавить символ «<literal>;</literal>». Однако разработчик мог при описании сам поставить тот же символ. В результате в выходной файл попадёт два символа «<literal>;;</literal>» и Asciidoc будет воспринимать текст как терминологический список, и хорошо ещё, если мы быстро поймём, почему на выходе текст отформатирован странно.</simpara>
+<simpara>Чтобы этого избежать, можно оборачивать вставляемый текст собственными функциями, которые экранируют и производят требуемые преобразования значений. В примере&#8201;&#8212;&#8201;это функция <literal>iformat</literal>. Она добавляет в начале и в конце значения символ нулевого пробела (zero space) и переводит значения типа даты в формат DD.MM.YYYY.</simpara>
+<programlisting language="ruby" linenumbering="unnumbered">AsciidocDocAutomation = Class.new do
+  def iformat(node)
+    value = node.to_s
+    re = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/
+    vm = value.match(re)
+    value = "#{vm[3]}.#{vm[2]}.#{vm[1]}" if !!(value =~ re)
+    "&amp;#8203;#{value}&amp;#8203;"
+  end
+end</programlisting>
+<simpara>Для полного отключения синтаксиса Asciidoc во вставляемых значениях, достаточно их просто экранировать.</simpara>
+</section>
+</section>
+</section>
+<section xml:id="_выводы">
+<title>Выводы</title>
+<itemizedlist>
+<listitem>
+<simpara>Технологии автоматической генерации документации отработаны и их могут быть эффективно использованы в ИТ-проектах любого уровня сложности.</simpara>
+</listitem>
+<listitem>
+<simpara>Язык разметки Asciidoc технологичен для применения в задачах автоматической генерации документации.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>И анонс: следующая статья будет посвящена вопросам обеспечения качества документации в формате Asciidoc.</simpara>
+</section>
+</article>

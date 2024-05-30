@@ -1,0 +1,18 @@
+{% assign bl = "\n" %}{% assign bbl = "\n\n" %}
+{%- for table in data -%}
+    [[{{ table.name }}]]{{- bl -}}
+    .Таблица {{ table.name }}. {{ table.comment }}{{- bbl -}}
+    [cols="1,3,3,3,3", options="header"]{{- bl -}}
+    |==={{- bl -}}
+    |№ |Наименование поля |Тип поля |Nullable | Описание{{ bl }}
+    {%- for column in table.columns -%}
+        |{counter:{{ table.name }}} |{{ column.name }} |{{ column.type }}|{{ column.nullable }} l|{{ column.comment }} {{- bl -}}
+    {%- endfor -%}
+    {%- if table.fk -%}
+        5+a|Определены внешние ключи на следующие таблицы:{{- bbl -}}
+        {%- for fk in table.fk -%}
+            * <<{{fk.fk_table}}, {{fk.fk_table}}>>{{- bl -}}
+        {%- endfor -%}
+    {%- endif -%}
+    |==={{- bbl -}}
+{%- endfor -%}

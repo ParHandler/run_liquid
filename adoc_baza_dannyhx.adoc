@@ -1,0 +1,22 @@
+= Структура БД
+:lang: ru
+:figure-caption: Рисунок
+:xrefstyle: short
+:sectnums:
+
+== Общая структура
+
+Структура базы данных изображена на рисунке (<<struktura>>).
+
+[[struktura]]
+.Структура БД
+[plantuml, struktura, png, fitrect="170x240mm", srcdpi=300, width="50%"]
+....
+skinparam dpi 300
+left to right direction
+include::pu_sql.pu[]
+....
+
+== Описание таблиц
+
+include::adoc_sql.adoc[]

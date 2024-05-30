@@ -1,0 +1,30 @@
+[{
+        "name": "geo.Strana",
+        "columns": [{
+                "name": "id",
+                "type": "integer"
+            }, {
+                "name": "naimenovaniye",
+                "type": "character varying"
+            }
+        ],
+        "fk": null
+    }, {
+        "name": "geo.Gorod",
+        "columns": [{
+                "name": "id",
+                "type": "integer"
+            }, {
+                "name": "naimenovaniye",
+                "type": "character varying"
+            }, {
+                "name": "strana_id",
+                "type": "integer"
+            }
+        ],
+        "fk": [{
+                "fk_table": "geo.Strana"
+            }
+        ]
+    }
+]

@@ -1,0 +1,28 @@
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+skinparam linetype polyline
+class pfmhst.__efmigrationshistory
+class pfmhst.client_product
+class pfmhst.event_log
+class pfmhst.mcc_category
+class pfmhst.mcc_code
+pfmhst.mcc_code "*" -- "1" pfmhst.mcc_category
+class pfmhst.merchant
+class pfmhst.payment
+class pfmhst.payment_hub_service
+pfmhst.payment_hub_service "*" -- "1" pfmhst.payment_hub_service_type
+class pfmhst.payment_hub_service_param
+pfmhst.payment_hub_service_param "*" -- "1" pfmhst.payment_hub_service
+class pfmhst.payment_hub_service_type
+class pfmhst.regular_payment_detail
+class pfmhst.transaction
+pfmhst.transaction "*" -- "1" pfmhst.mcc_code
+pfmhst.transaction "*" -- "1" pfmhst.client_product
+pfmhst.transaction "*" -- "1" pfmhst.payment
+pfmhst.transaction "*" -- "1" pfmhst.transfer
+pfmhst.transaction "*" -- "1" pfmhst.regular_payment_detail
+class pfmhst.transfer
