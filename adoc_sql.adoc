@@ -1,280 +1,1140 @@
-[[pfmhst.__efmigrationshistory]]
-.Таблица pfmhst.__efmigrationshistory. 
+[[public.active_locks]]
+.Таблица public.active_locks. 
 
 [cols="1,3,3,3,3", options="header"]
 |===
 |№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.__efmigrationshistory} |MigrationId |character varying|NO l|
-|{counter:pfmhst.__efmigrationshistory} |ProductVersion |character varying|NO l|
+|{counter:public.active_locks} |schemaname |name|YES l|
+|{counter:public.active_locks} |relname |name|YES l|
+|{counter:public.active_locks} |locktype |text|YES l|
+|{counter:public.active_locks} |page |integer|YES l|
+|{counter:public.active_locks} |virtualtransaction |text|YES l|
+|{counter:public.active_locks} |pid |integer|YES l|
+|{counter:public.active_locks} |mode |text|YES l|
+|{counter:public.active_locks} |granted |boolean|YES l|
 |===
 
-[[pfmhst.client_product]]
-.Таблица pfmhst.client_product. Данная сущность хранит информацию о продуктах клиентов
-
-[cols="1,3,3,3,3", options="header"]
-|===
-|№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.client_product} |id |bigint|NO l|Идентификатор продукта
-|{counter:pfmhst.client_product} |cuid |bigint|NO l|Идентификатор клиента в системах банка
-|{counter:pfmhst.client_product} |product_type |text|NO l|Тип продукта.
-debitCard — ДК
-creditCard — РК
-merchantCard — ШК(РК) TW
-deposit — вклад
-account — счета
-|{counter:pfmhst.client_product} |status |text|YES l|Статус продукта
-|{counter:pfmhst.client_product} |account_number |text|NO l|Номер счета
-|{counter:pfmhst.client_product} |card_number |text|YES l|Номер карты (при наличии), в маскированном виде
-|{counter:pfmhst.client_product} |contract_number |text|YES l|Номер договора, при наличии
-|===
-
-[[pfmhst.event_log]]
-.Таблица pfmhst.event_log. Данная сущность хранит историю событий в БД
+[[public.client_account_balance]]
+.Таблица public.client_account_balance. Балансы кошельков клиентов
 
 [cols="1,3,3,3,3", options="header"]
 |===
 |№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.event_log} |id |integer|NO l|Идентификатор для первичного ключа (костыль для EF)
-|{counter:pfmhst.event_log} |processed_entity |text|YES l|Сущность с которой работали
-|{counter:pfmhst.event_log} |event_type |text|YES l|Тип события: Updated, Deleted, Created
-|{counter:pfmhst.event_log} |source |text|YES l|Источник события WebApi, RabbitMq, Kafka
-|{counter:pfmhst.event_log} |body |text|YES l|Тело события
-|{counter:pfmhst.event_log} |handler |text|YES l|Имя метода/класса, кто обрабатывал событие
-|{counter:pfmhst.event_log} |created |timestamp without time zone|NO l|Дата/время содания записи в БД
-|===
-
-[[pfmhst.mcc_category]]
-.Таблица pfmhst.mcc_category. Справочник MCC категорий
-
-[cols="1,3,3,3,3", options="header"]
-|===
-|№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.mcc_category} |category |text|NO l|Код категории
-|{counter:pfmhst.mcc_category} |name |text|YES l|Цвет категори
-|{counter:pfmhst.mcc_category} |main_color |text|YES l|Цвет категории
-|{counter:pfmhst.mcc_category} |logo_png |text|YES l|Лого в PNG
-|{counter:pfmhst.mcc_category} |logo_svg |text|YES l|Лого в SVG
-|{counter:pfmhst.mcc_category} |deleted |timestamp without time zone|YES l|Время логического удаления
-|===
-
-[[pfmhst.mcc_code]]
-.Таблица pfmhst.mcc_code. Справочник МСС
-
-[cols="1,3,3,3,3", options="header"]
-|===
-|№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.mcc_code} |code |integer|NO l|МСС-код категории
-|{counter:pfmhst.mcc_code} |category |text|NO l|MCC-категория
-|{counter:pfmhst.mcc_code} |deleted |timestamp without time zone|YES l|Дата логического удаления
+|{counter:public.client_account_balance} |id |uuid|NO l|
+|{counter:public.client_account_balance} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.client_account_balance} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.client_account_balance} |update_timestamp |timestamp with time zone|NO l|Дата и время обновления записи
+|{counter:public.client_account_balance} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.client_account_balance} |amount |numeric|NO l|Сумма
+|{counter:public.client_account_balance} |oper_day |date|NO l|Дата операционного дня
+|{counter:public.client_account_balance} |core_account_id |uuid|NO l|Идентификатор корневого счета, в рамках которого рассчитан баланс
+|{counter:public.client_account_balance} |wallet_id |uuid|YES l|
 5+a|Определены внешние ключи на следующие таблицы:
 
-* <<pfmhst.mcc_category, pfmhst.mcc_category>>
+* <<public.core_account, public.core_account>>
 |===
 
-[[pfmhst.merchant]]
-.Таблица pfmhst.merchant. Справочник мерчантов
-
-[cols="1,3,3,3,3", options="header"]
-|===
-|№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.merchant} |key |text|NO l|Код мерчанта
-|{counter:pfmhst.merchant} |name |text|NO l|Название мерчанта
-|{counter:pfmhst.merchant} |logo_png |text|YES l|Картинка в Png
-|{counter:pfmhst.merchant} |logo_svg |text|YES l|Картинка в svg
-|{counter:pfmhst.merchant} |deleted |timestamp without time zone|YES l|Статус:
-   A-active
-   D-delete
-|===
-
-[[pfmhst.payment]]
-.Таблица pfmhst.payment. Данная сущность хранит в себе детали платежей
+[[public.client_account_transaction]]
+.Таблица public.client_account_transaction. Обороты по кошелькам клиентов
 
 [cols="1,3,3,3,3", options="header"]
 |===
 |№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.payment} |reference_id |text|NO l|Идентификатор транзакции
-|{counter:pfmhst.payment} |cuid |bigint|NO l|Идентификатор клиента в системах банка
-|{counter:pfmhst.payment} |account_number |text|NO l|Счет списания
-|{counter:pfmhst.payment} |date |timestamp without time zone|NO l|Дата создания платежа
-|{counter:pfmhst.payment} |status |text|NO l|Статус платежа
-|{counter:pfmhst.payment} |bot |text|NO l|Код типа операции, только для исходящих
-|{counter:pfmhst.payment} |amount |numeric|NO l|Сумма операции
-|{counter:pfmhst.payment} |currency |text|NO l|Валюта операции
-|{counter:pfmhst.payment} |fee |numeric|YES l|Комиссия за операцию
-|{counter:pfmhst.payment} |beneficary_code |integer|NO l|Код бенефициара
-|{counter:pfmhst.payment} |field_values |text|NO l|Набор параметров со значениями. Строка с ключ-значение
-|===
-
-[[pfmhst.payment_hub_service]]
-.Таблица pfmhst.payment_hub_service. Справочник бенефициаров
-
-[cols="1,3,3,3,3", options="header"]
-|===
-|№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.payment_hub_service} |id |integer|NO l|Идентификатор бенефициара
-|{counter:pfmhst.payment_hub_service} |name |text|YES l|Название бенефициара
-|{counter:pfmhst.payment_hub_service} |type_id |integer|NO l|Именование картинки в PH
-|{counter:pfmhst.payment_hub_service} |logo |text|YES l|Код категории
+|{counter:public.client_account_transaction} |id |uuid|NO l|
+|{counter:public.client_account_transaction} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.client_account_transaction} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.client_account_transaction} |income_amount |numeric|YES l|Сумма поступления
+|{counter:public.client_account_transaction} |expense_amount |numeric|YES l|Сумма списания
+|{counter:public.client_account_transaction} |value_date_time |timestamp with time zone|NO l|Дата и время валютирования, т.е. фактического учета средств
+|{counter:public.client_account_transaction} |core_account_id |uuid|NO l|Идентификатор корневого счета, в рамках которого выполнена операция
+|{counter:public.client_account_transaction} |document_id |uuid|NO l|Идентификатор документа основания
+|{counter:public.client_account_transaction} |document_type |character varying|NO l|Тип документа основания
 5+a|Определены внешние ключи на следующие таблицы:
 
-* <<pfmhst.payment_hub_service_type, pfmhst.payment_hub_service_type>>
+* <<public.core_account, public.core_account>>
 |===
 
-[[pfmhst.payment_hub_service_param]]
-.Таблица pfmhst.payment_hub_service_param. Справочник параметров бенефициаров
+[[public.client_account_transaction_analytic]]
+.Таблица public.client_account_transaction_analytic. Дополнительная аналитическая информация по транзакции кошелька клиента
 
 [cols="1,3,3,3,3", options="header"]
 |===
 |№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.payment_hub_service_param} |servise_id |integer|NO l|Идентификатор бенефициара
-|{counter:pfmhst.payment_hub_service_param} |field |text|YES l|Название параметра
-|{counter:pfmhst.payment_hub_service_param} |value |text|YES l|Имя для отображения
+|{counter:public.client_account_transaction_analytic} |id |uuid|NO l|Идентификатор транзакции
+|{counter:public.client_account_transaction_analytic} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.client_account_transaction_analytic} |update_timestamp |timestamp with time zone|NO l|Дата и время обновления записи
+|{counter:public.client_account_transaction_analytic} |operation_type_id |uuid|NO l|Идентификатор типа операции
+|{counter:public.client_account_transaction_analytic} |details |text|YES l|Дополнительный комментарий к операции
 5+a|Определены внешние ключи на следующие таблицы:
 
-* <<pfmhst.payment_hub_service, pfmhst.payment_hub_service>>
+* <<public.client_account_transaction, public.client_account_transaction>>
+* <<public.operation_type, public.operation_type>>
 |===
 
-[[pfmhst.payment_hub_service_type]]
-.Таблица pfmhst.payment_hub_service_type. Справочник категорий платежей
-
-[cols="1,3,3,3,3", options="header"]
-|===
-|№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.payment_hub_service_type} |id |integer|NO l|Идентификатор категории
-|{counter:pfmhst.payment_hub_service_type} |name |text|YES l|Название категории
-|{counter:pfmhst.payment_hub_service_type} |logo |text|YES l|Наименование картинки в PH
-|===
-
-[[pfmhst.regular_payment_detail]]
-.Таблица pfmhst.regular_payment_detail. Данная сущность хранит в себе детали регулярных переводов
+[[public.core_account]]
+.Таблица public.core_account. Корневые счета. Справочник. Изменения в запись можно вносить только путем добавления новой записи с измененными атрибутами. Старую запись необходимо деактивировать is_actual = false, update_timestamp = now()
 
 [cols="1,3,3,3,3", options="header"]
 |===
 |№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.regular_payment_detail} |un_id |bigint|NO l|Идентификатор ППП
-|{counter:pfmhst.regular_payment_detail} |cuid |bigint|NO l|Идентификатор клиента
-|{counter:pfmhst.regular_payment_detail} |card_number |text|YES l|Номер карты списания
-|{counter:pfmhst.regular_payment_detail} |account_number |text|NO l|Счет списания
-|{counter:pfmhst.regular_payment_detail} |name |text|NO l|Название ППП
-|{counter:pfmhst.regular_payment_detail} |amount |numeric|NO l|Сумма операции
-|{counter:pfmhst.regular_payment_detail} |currency |text|NO l|Валюта операции
-|{counter:pfmhst.regular_payment_detail} |account_to |text|NO l|Счет списания
-|{counter:pfmhst.regular_payment_detail} |payment_purpose |text|YES l|Назначение платежа
-|{counter:pfmhst.regular_payment_detail} |recipient |text|YES l|Назначение платежа
-|{counter:pfmhst.regular_payment_detail} |bic |text|YES l|БИК банка получателя
-|{counter:pfmhst.regular_payment_detail} |inn |text|YES l|ИНН получателя
-|{counter:pfmhst.regular_payment_detail} |kpp |text|YES l|КПП получателя
-|{counter:pfmhst.regular_payment_detail} |corr_account |text|YES l|Кор счет банка получателя
-|{counter:pfmhst.regular_payment_detail} |tax_amount |numeric|YES l|Сумма налогов
-|{counter:pfmhst.regular_payment_detail} |uip |text|YES l|УИН/УИП
+|{counter:public.core_account} |id |uuid|NO l|ИД записи
+|{counter:public.core_account} |account_number |character varying|NO l|Счет получателя
+|{counter:public.core_account} |bic |character varying|NO l|БИК банка получателя
+|{counter:public.core_account} |inn |character varying|NO l|ИНН биржи
+|{counter:public.core_account} |is_actual |boolean|NO l|Флаг показывающий устарело значение или нет. По умолчанию всегда false
+|{counter:public.core_account} |receiver |character varying|NO l|Наименование получателя
+|{counter:public.core_account} |swift |character varying|NO l|SWIFT код биржи
+|{counter:public.core_account} |bank_swift |character varying|NO l|SWIFT банка
+|{counter:public.core_account} |kpp |character varying|NO l|КПП
+|{counter:public.core_account} |create_timestamp |timestamp with time zone|NO l|Дата-время создания записи
+|{counter:public.core_account} |update_timestamp |timestamp with time zone|NO l|Дата-время обновления записи
+|{counter:public.core_account} |currency |character varying|NO l|Валюта корневого счёта
+|{counter:public.core_account} |account_type |character varying|NO l|Тип счета
 |===
 
-[[pfmhst.transaction]]
-.Таблица pfmhst.transaction. Данная сущность хранит в себе детали транзакций
+[[public.core_account_balance]]
+.Таблица public.core_account_balance. Баланс корневого счета
 
 [cols="1,3,3,3,3", options="header"]
 |===
 |№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.transaction} |movement_number |text|NO l|Номер проводки
-|{counter:pfmhst.transaction} |reference_id |text|YES l|ReferenceId
-|{counter:pfmhst.transaction} |client_product_id |bigint|NO l|Идентификатор продукта
-|{counter:pfmhst.transaction} |posting_date |timestamp without time zone|YES l|Фактическая дата списания
-|{counter:pfmhst.transaction} |value_date |timestamp without time zone|NO l|Дата совершения сделки
-|{counter:pfmhst.transaction} |credit_debit_indicator |integer|NO l|Флаг списания/пополнения
-|{counter:pfmhst.transaction} |amount |numeric|NO l|Сумма операции
-|{counter:pfmhst.transaction} |cancel_indicator |integer|NO l|Флаг отмены
-|{counter:pfmhst.transaction} |partner_account_number |text|YES l|Счет списания (для входящего)
-|{counter:pfmhst.transaction} |partner_account_name |text|YES l|Имя клиента, который пополнил счет (для входящего)
-|{counter:pfmhst.transaction} |partner_account_bank |text|YES l|БИК банка, с которого произошло списание (для входящего)
-|{counter:pfmhst.transaction} |pay_currency |text|YES l|Фактическая валюта операции
-|{counter:pfmhst.transaction} |exchange_rate |numeric|YES l|Курс валюты
-|{counter:pfmhst.transaction} |change_amount |numeric|YES l|Сумма в валюте счета
-|{counter:pfmhst.transaction} |operation_name_tw |text|YES l|Описание операции из TW
-|{counter:pfmhst.transaction} |transaction_type_ibs |integer|NO l|Тип операции
-|{counter:pfmhst.transaction} |address |text|YES l|Адрес совершения операции
-|{counter:pfmhst.transaction} |country |text|YES l|Страна совершения операции
-|{counter:pfmhst.transaction} |city |text|YES l|Город совершения операции
-|{counter:pfmhst.transaction} |merchant_name_tw |text|YES l|Название мерчанта из TW
-|{counter:pfmhst.transaction} |to_acct |text|YES l|Код бенефициара из Рапида
-|{counter:pfmhst.transaction} |to_acct_2 |text|YES l|Код бенефициара из РН
-|{counter:pfmhst.transaction} |partner_card_number |text|YES l|Карта зачисления для исходящих р2р
-|{counter:pfmhst.transaction} |sender_name |text|YES l|Имя получателя
-|{counter:pfmhst.transaction} |sender_account |text|YES l|Номер счета получателя
-|{counter:pfmhst.transaction} |sender_bic |text|YES l|БИК банка получателя
-|{counter:pfmhst.transaction} |dt0 |text|YES l|Дополнительное описание транзакции
-|{counter:pfmhst.transaction} |pay_amount |numeric|YES l|Сумма платежа в валюте операции
-|{counter:pfmhst.transaction} |token_payment |integer|YES l|Признак списания с токеном
-|{counter:pfmhst.transaction} |purpose |text|YES l|Назначение перевода
-|{counter:pfmhst.transaction} |full_remark |text|YES l|Описание к комиссии
-|{counter:pfmhst.transaction} |operation_name |text|YES l|Описание операции
-|{counter:pfmhst.transaction} |short_description |text|YES l|Короткое описание операции
-|{counter:pfmhst.transaction} |picture_url |text|NO l|Ссылка на картинку
-|{counter:pfmhst.transaction} |merchant_name |text|YES l|Название мерчанта
-|{counter:pfmhst.transaction} |mcc_code |integer|YES l|МСС код из TW
-|{counter:pfmhst.transaction} |mcc |text|YES l|Название категории МСС
-|{counter:pfmhst.transaction} |hex_color |text|YES l|Цвет категории
-|{counter:pfmhst.transaction} |category |text|YES l|Категория группировки
-|{counter:pfmhst.transaction} |un_id |bigint|NO l|Идентификатор ППП
+|{counter:public.core_account_balance} |id |uuid|NO l|
+|{counter:public.core_account_balance} |version |integer|NO l|Поле версии для оптимистической блокировки
+|{counter:public.core_account_balance} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.core_account_balance} |update_timestamp |timestamp with time zone|NO l|Дата и время последнего изменения записи
+|{counter:public.core_account_balance} |core_account_id |uuid|NO l|Ссылка на корневой счет
+|{counter:public.core_account_balance} |oper_day |date|NO l|Дата операционного дня
+|{counter:public.core_account_balance} |amount |numeric|NO l|Сумма баланса
 5+a|Определены внешние ключи на следующие таблицы:
 
-* <<pfmhst.mcc_code, pfmhst.mcc_code>>
-* <<pfmhst.client_product, pfmhst.client_product>>
-* <<pfmhst.payment, pfmhst.payment>>
-* <<pfmhst.transfer, pfmhst.transfer>>
-* <<pfmhst.regular_payment_detail, pfmhst.regular_payment_detail>>
+* <<public.core_account, public.core_account>>
 |===
 
-[[pfmhst.transfer]]
-.Таблица pfmhst.transfer. Данная сущность хранит в себе детали переводов
+[[public.core_account_transaction]]
+.Таблица public.core_account_transaction. Обороты по корневым счетам
 
 [cols="1,3,3,3,3", options="header"]
 |===
 |№ |Наименование поля |Тип поля |Nullable | Описание
-|{counter:pfmhst.transfer} |reference_id |text|NO l|Идентификатор перевода. Номер без префикса.
-|{counter:pfmhst.transfer} |cuid |bigint|NO l|Идентификатор клиента
-|{counter:pfmhst.transfer} |account_number |text|YES l|Номер счета клиента
-|{counter:pfmhst.transfer} |card_number |text|YES l|Номер карты клиента в маскированном виде
-|{counter:pfmhst.transfer} |date |timestamp without time zone|NO l|Дата совершения перевода
-|{counter:pfmhst.transfer} |status |text|YES l|Статус перевода
-|{counter:pfmhst.transfer} |account_to |text|YES l|Номер счета зачисления
-|{counter:pfmhst.transfer} |amount |numeric|NO l|Сумма операции
-|{counter:pfmhst.transfer} |currency |text|YES l|Валюта операции
-|{counter:pfmhst.transfer} |payment_purpose |text|YES l|Назначение платежа
-|{counter:pfmhst.transfer} |payment_type |text|YES l|Обязательный для переводов из МК
-|{counter:pfmhst.transfer} |additional_info |text|YES l|Обязательный для переводов из МК. Строка с ключ-значение
-|{counter:pfmhst.transfer} |fee |numeric|YES l|Комиссия
-|{counter:pfmhst.transfer} |recipient |text|YES l|Имя получателя
-|{counter:pfmhst.transfer} |inn |text|YES l|ИНН получателя
-|{counter:pfmhst.transfer} |kpp |text|YES l|КПП
-|{counter:pfmhst.transfer} |bic |text|YES l|БИК банка получателя при межбанковском переводе
-|{counter:pfmhst.transfer} |bank_name |text|YES l|Именование банка при межбанковском переводе
-|{counter:pfmhst.transfer} |bank_city |text|YES l|Город банка получателя при межбанковском переводе
-|{counter:pfmhst.transfer} |corr_account |text|YES l|Кор.счет банка получателя при межбанковском переводе
-|{counter:pfmhst.transfer} |sender_name |text|YES l|Имя отправителя
-|{counter:pfmhst.transfer} |kbk |text|YES l|КБК для бюджетных переводов
-|{counter:pfmhst.transfer} |tax_document_date |timestamp without time zone|YES l|Дата документа для бюджетных переводов
-|{counter:pfmhst.transfer} |tax_document_number |text|YES l|Номер документа для бюджетных переводов
-|{counter:pfmhst.transfer} |budget_tax_period |text|YES l|Налоговый период для бюджетных переводов
-|{counter:pfmhst.transfer} |tax_payment_type |text|YES l|Тип бюджетного платежа
-|{counter:pfmhst.transfer} |uip |text|YES l|УИН или УИП
-|{counter:pfmhst.transfer} |okato |text|YES l|ОКТМО/ОКАТО для бюджетных переводов
-|{counter:pfmhst.transfer} |payment_creator_status |integer|YES l|Статус плательщика для бюджетных переводов
-|{counter:pfmhst.transfer} |bot |text|YES l|Статус перевода
-|{counter:pfmhst.transfer} |target_card_number |text|YES l|Номер карты получателя в маскированном виде
-|{counter:pfmhst.transfer} |type |text|YES l|Тип операции:DEBIT- исходящаяCREDIT- входящаяДля СБЕРА и СБП
-|{counter:pfmhst.transfer} |sender_account |text|YES l|Номер телефона отправителя для входящих Сбера и СБП
-|{counter:pfmhst.transfer} |txn_id |text|YES l|Идентификатор перевода для входящих Сбера и СБП
-|{counter:pfmhst.transfer} |fio_sender |text|YES l|Имя отправителя для входящих Сбера и СБП
-|{counter:pfmhst.transfer} |comment |text|YES l|Комментарий к переводу для Сбера и СБП
-|{counter:pfmhst.transfer} |bank_id |text|YES l|Идентификатор банка для СБП
-|{counter:pfmhst.transfer} |sender_bic |text|YES l|БИК банка отправителя для Сбера и СБП
-|{counter:pfmhst.transfer} |mask_card_from |text|YES l|Маскированый PAN карты списания для пополнения с чужих карт
-|{counter:pfmhst.transfer} |card_name |text|YES l|Имя держателя карты списания для пополнения с чужих карт
-|{counter:pfmhst.transfer} |amount_to |numeric|YES l|Сумма зачисления для конвертации
-|{counter:pfmhst.transfer} |currency_to |text|YES l|Валюта зачисления для конвертации
-|{counter:pfmhst.transfer} |exchange_rate |numeric|YES l|Курс обмена для конвертации
-|{counter:pfmhst.transfer} |sender_inn |text|YES l|ИНН клиента
-|{counter:pfmhst.transfer} |tax_payment_base |text|YES l|Основание платежа
-|{counter:pfmhst.transfer} |anti_fraud_decline_reason |integer|YES l|Признак того, что перевод СБП был отклонён Антифродом
+|{counter:public.core_account_transaction} |id |uuid|NO l|
+|{counter:public.core_account_transaction} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.core_account_transaction} |core_account_id |uuid|NO l|Идентификатор корневого счета
+|{counter:public.core_account_transaction} |incoming_payment_document_psbr_id |uuid|YES l|Идентификатор входящего платёжного документа ПС БР
+|{counter:public.core_account_transaction} |outgoing_payment_document_psbr_id |uuid|YES l|Идентификатор исходящего платёжного документа ПС БР
+|{counter:public.core_account_transaction} |income_amount |numeric|YES l|Сумма поступления
+|{counter:public.core_account_transaction} |expense_amount |numeric|YES l|Сумма списания
+|{counter:public.core_account_transaction} |value_date_time |timestamp with time zone|NO l|Дата и время валютирования, т.е. фактического учета средств
+|{counter:public.core_account_transaction} |document_type |character varying|NO l|Тип документа
+|{counter:public.core_account_transaction} |document_id |uuid|NO l|ИД документа
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.incoming_payment_document_psbr, public.incoming_payment_document_psbr>>
+* <<public.outgoing_payment_document_psbr, public.outgoing_payment_document_psbr>>
+* <<public.core_account, public.core_account>>
+|===
+
+[[public.core_account_transaction_analytic]]
+.Таблица public.core_account_transaction_analytic. Дополнительная аналитическая информация по транзакции номинального счёта
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.core_account_transaction_analytic} |id |uuid|NO l|Идентификатор транзакции
+|{counter:public.core_account_transaction_analytic} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.core_account_transaction_analytic} |update_timestamp |timestamp with time zone|NO l|Дата и время обновления записи
+|{counter:public.core_account_transaction_analytic} |operation_type_id |uuid|NO l|Идентификатор типа операции
+|{counter:public.core_account_transaction_analytic} |details |text|YES l|Дополнительный комментарий к операции
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.operation_type, public.operation_type>>
+* <<public.core_account_transaction, public.core_account_transaction>>
+|===
+
+[[public.databasechangelog]]
+.Таблица public.databasechangelog. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.databasechangelog} |id |character varying|NO l|
+|{counter:public.databasechangelog} |author |character varying|NO l|
+|{counter:public.databasechangelog} |filename |character varying|NO l|
+|{counter:public.databasechangelog} |dateexecuted |timestamp without time zone|NO l|
+|{counter:public.databasechangelog} |orderexecuted |integer|NO l|
+|{counter:public.databasechangelog} |exectype |character varying|NO l|
+|{counter:public.databasechangelog} |md5sum |character varying|YES l|
+|{counter:public.databasechangelog} |description |character varying|YES l|
+|{counter:public.databasechangelog} |comments |character varying|YES l|
+|{counter:public.databasechangelog} |tag |character varying|YES l|
+|{counter:public.databasechangelog} |liquibase |character varying|YES l|
+|{counter:public.databasechangelog} |contexts |character varying|YES l|
+|{counter:public.databasechangelog} |labels |character varying|YES l|
+|{counter:public.databasechangelog} |deployment_id |character varying|YES l|
+|===
+
+[[public.databasechangeloglock]]
+.Таблица public.databasechangeloglock. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.databasechangeloglock} |id |integer|NO l|
+|{counter:public.databasechangeloglock} |locked |boolean|NO l|
+|{counter:public.databasechangeloglock} |lockgranted |timestamp without time zone|YES l|
+|{counter:public.databasechangeloglock} |lockedby |character varying|YES l|
+|===
+
+[[public.deduplication_messages]]
+.Таблица public.deduplication_messages. Таблица для библиотеки mp-pl-services-kafka-deduplication
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.deduplication_messages} |id |uuid|NO l|ИД сообщения
+|{counter:public.deduplication_messages} |idempotence_key |character varying|NO l|Ключ идемпотентности
+|{counter:public.deduplication_messages} |create_timestamp |timestamp with time zone|NO l|Дата-время создания записи
+|===
+
+[[public.expected_wallet_incoming]]
+.Таблица public.expected_wallet_incoming. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.expected_wallet_incoming} |id |uuid|NO l|Идентификатор записи
+|{counter:public.expected_wallet_incoming} |system_code |character varying|NO l|Код системы источника реестра
+|{counter:public.expected_wallet_incoming} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.expected_wallet_incoming} |details |character varying|YES l|Дополнительная информация
+|{counter:public.expected_wallet_incoming} |currency |character varying|NO l|Тип валюты
+|{counter:public.expected_wallet_incoming} |amount |numeric|NO l|Количество валюты
+|{counter:public.expected_wallet_incoming} |search_criteria |character varying|NO l|Критерий поиска
+|{counter:public.expected_wallet_incoming} |custom_key |character varying|YES l|Ключ для поиска
+|{counter:public.expected_wallet_incoming} |doc_date |date|YES l|Дата создания платежного документа (на стороне отправителя)
+|{counter:public.expected_wallet_incoming} |doc_number |character varying|YES l|Номер платежного документа
+|{counter:public.expected_wallet_incoming} |sender_bic |character varying|YES l|БИК банка отправителя
+|{counter:public.expected_wallet_incoming} |sender_account |character varying|YES l|Счет отправителя
+|{counter:public.expected_wallet_incoming} |payment_document_id |uuid|YES l|Идентификатор платежного документа по реестру
+|{counter:public.expected_wallet_incoming} |payment_document_type |character varying|YES l|Тип платежного документа
+|{counter:public.expected_wallet_incoming} |wallet_income_id |uuid|YES l|Идентификатор счета
+|{counter:public.expected_wallet_incoming} |create_timestamp |timestamp with time zone|NO l|Дата-время создания записи
+|{counter:public.expected_wallet_incoming} |update_timestamp |timestamp with time zone|YES l|Дата-время обновления записи
+|{counter:public.expected_wallet_incoming} |operation_type_id |uuid|YES l|Идентификатор типа операции
+|{counter:public.expected_wallet_incoming} |context |jsonb|YES l|Контекст записи
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.operation_type, public.operation_type>>
+* <<public.wallet_incoming, public.wallet_incoming>>
+|===
+
+[[public.frozen_wallet_withdrawal_orders]]
+.Таблица public.frozen_wallet_withdrawal_orders. Заявка на вывод средств без проверки
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.frozen_wallet_withdrawal_orders} |id |uuid|NO l|
+|{counter:public.frozen_wallet_withdrawal_orders} |external_request_id |uuid|NO l|Идентификатор заявки внешней системы
+|{counter:public.frozen_wallet_withdrawal_orders} |system_code |character varying|NO l|Код системы
+|{counter:public.frozen_wallet_withdrawal_orders} |status |USER-DEFINED|NO l|Статус заказа
+|{counter:public.frozen_wallet_withdrawal_orders} |outgoing_payment_document_psbr_id |uuid|NO l|Идентификатор исходящего платежного поручения
+|{counter:public.frozen_wallet_withdrawal_orders} |create_timestamp |timestamp with time zone|NO l|Дата и время создания заказа
+|{counter:public.frozen_wallet_withdrawal_orders} |update_timestamp |timestamp with time zone|YES l|Дата и время обновления заказа
+|{counter:public.frozen_wallet_withdrawal_orders} |bank_bic |character varying|NO l|БИК банка получателя
+|{counter:public.frozen_wallet_withdrawal_orders} |recipient_account |character varying|NO l|Счёт получателя
+|{counter:public.frozen_wallet_withdrawal_orders} |recipient_name |character varying|NO l|ФИО получателя
+|{counter:public.frozen_wallet_withdrawal_orders} |purpose |character varying|NO l|Назначение платежа
+|{counter:public.frozen_wallet_withdrawal_orders} |amount |numeric|NO l|Сумма вывода
+|{counter:public.frozen_wallet_withdrawal_orders} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.frozen_wallet_withdrawal_orders} |currency |USER-DEFINED|NO l|Валюта платежа
+|===
+
+[[public.full_refund_order]]
+.Таблица public.full_refund_order. Заявки на полный возврат средств
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.full_refund_order} |id |uuid|NO l|
+|{counter:public.full_refund_order} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.full_refund_order} |update_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.full_refund_order} |incoming_document_id |uuid|NO l|Идентификатор входящего платёжного документа ПС БР
+|{counter:public.full_refund_order} |outgoing_document_id |uuid|NO l|Идентификатор исходящего платёжного документа ПС БР
+|{counter:public.full_refund_order} |status |character varying|NO l|Статус
+|{counter:public.full_refund_order} |creator |character varying|YES l|Создатель
+|{counter:public.full_refund_order} |comment |text|YES l|Комментарий от создателя
+|{counter:public.full_refund_order} |incoming_document_type |character varying|NO l|Тип входящего документа (PSBR, SBP)
+|{counter:public.full_refund_order} |outgoing_document_type |character varying|NO l|Тип исходящего документа (PSBR, SBP)
+|===
+
+[[public.incoming_payment_document_psbr]]
+.Таблица public.incoming_payment_document_psbr. Входящий платежный документ ПС БР
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.incoming_payment_document_psbr} |id |uuid|NO l|
+|{counter:public.incoming_payment_document_psbr} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.incoming_payment_document_psbr} |update_timestamp |timestamp with time zone|NO l|
+|{counter:public.incoming_payment_document_psbr} |status |character varying|NO l|Статус платежного документа
+|{counter:public.incoming_payment_document_psbr} |doc_date |date|NO l|Дата создания платежного документа (на стороне отправителя)
+|{counter:public.incoming_payment_document_psbr} |doc_number |character varying|NO l|Номер платежного документа
+|{counter:public.incoming_payment_document_psbr} |value_date |date|NO l|Дата валютирования (дата операции на стороне НРД)
+|{counter:public.incoming_payment_document_psbr} |external_id |character varying|NO l|Внешний идентификатор, проставляемый НРД; нужен для сверки
+|{counter:public.incoming_payment_document_psbr} |purpose |text|NO l|Назначение платежа
+|{counter:public.incoming_payment_document_psbr} |amount |numeric|NO l|Сумма платежа
+|{counter:public.incoming_payment_document_psbr} |currency |character varying|NO l|Валюта
+|{counter:public.incoming_payment_document_psbr} |sender_inn |character varying|YES l|ИНН отправителя
+|{counter:public.incoming_payment_document_psbr} |sender_info |text|NO l|Наименование отправителя (ФИО, наименование ЮЛ, доп.информация)
+|{counter:public.incoming_payment_document_psbr} |sender_account |character varying|NO l|Счет отправителя
+|{counter:public.incoming_payment_document_psbr} |sender_bic |character varying|NO l|БИК банка отправителя
+|{counter:public.incoming_payment_document_psbr} |receiver_inn |character varying|YES l|ИНН получателя
+|{counter:public.incoming_payment_document_psbr} |receiver_info |text|NO l|Наименование получателя
+|{counter:public.incoming_payment_document_psbr} |receiver_account |character varying|NO l|Счет получателя
+|{counter:public.incoming_payment_document_psbr} |receiver_bic |character varying|NO l|БИК банка получателя
+|{counter:public.incoming_payment_document_psbr} |version |integer|YES l|Версия для оптимистической блокировки
+|{counter:public.incoming_payment_document_psbr} |reject_reason_code |character varying|YES l|Код причины отказа обработки платежного документа
+|{counter:public.incoming_payment_document_psbr} |reject_reason_message |text|YES l|Причина отказа обработки платежного документа
+|===
+
+[[public.incoming_payment_document_psbr_history]]
+.Таблица public.incoming_payment_document_psbr_history. История статусов входящего платежного документа ПС БР
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.incoming_payment_document_psbr_history} |id |uuid|NO l|
+|{counter:public.incoming_payment_document_psbr_history} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.incoming_payment_document_psbr_history} |payment_document_id |uuid|NO l|Ссылка на входящий платёжный документ ПС БР
+|{counter:public.incoming_payment_document_psbr_history} |status |character varying|NO l|Статус платежного документа
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.incoming_payment_document_psbr, public.incoming_payment_document_psbr>>
+|===
+
+[[public.incoming_payment_document_sbp]]
+.Таблица public.incoming_payment_document_sbp. Входящий платежный документ СБП
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.incoming_payment_document_sbp} |id |uuid|NO l|
+|{counter:public.incoming_payment_document_sbp} |qrc_document_id |uuid|NO l|ИД инвойса
+|{counter:public.incoming_payment_document_sbp} |trx_id |character varying|YES l|Идентификатор операции, инициированной Dynamic QR кодом
+|{counter:public.incoming_payment_document_sbp} |operation_id |character varying|YES l|Номер операции в платежной системе банка, возвращается для успешной операции
+|{counter:public.incoming_payment_document_sbp} |operation_date_time |timestamp with time zone|YES l|Дата и время операции в UTC, возвращается для успешной операции
+|{counter:public.incoming_payment_document_sbp} |doc_number |character varying|YES l|Номер платежного документа
+|{counter:public.incoming_payment_document_sbp} |doc_date |date|YES l|Дата создания платежного документа (на стороне отправителя)
+|{counter:public.incoming_payment_document_sbp} |value_date |date|YES l|Дата валютирования (дата операции на стороне НРД)
+|{counter:public.incoming_payment_document_sbp} |external_id |character varying|YES l|Внешний идентификатор, проставляемый НРД; нужен для сверки
+|{counter:public.incoming_payment_document_sbp} |purpose |text|YES l|Назначение платежа
+|{counter:public.incoming_payment_document_sbp} |amount |numeric|YES l|Сумма платежа
+|{counter:public.incoming_payment_document_sbp} |currency |character varying|YES l|Валюта
+|{counter:public.incoming_payment_document_sbp} |status |character varying|NO l|Статус
+|{counter:public.incoming_payment_document_sbp} |sender_inn |character varying|YES l|ИНН отправителя
+|{counter:public.incoming_payment_document_sbp} |sender_info |text|YES l|Наименование отправителя (ФИО, наименование ЮЛ, доп.информация)
+|{counter:public.incoming_payment_document_sbp} |sender_account |character varying|YES l|Счет отправителя
+|{counter:public.incoming_payment_document_sbp} |sender_bic |character varying|YES l|БИК банка отправителя
+|{counter:public.incoming_payment_document_sbp} |receiver_inn |character varying|YES l|ИНН получателя
+|{counter:public.incoming_payment_document_sbp} |receiver_info |text|YES l|Наименование получателя
+|{counter:public.incoming_payment_document_sbp} |receiver_account |character varying|YES l|Счет получателя
+|{counter:public.incoming_payment_document_sbp} |receiver_bic |character varying|YES l|БИК банка получателя
+|{counter:public.incoming_payment_document_sbp} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.incoming_payment_document_sbp} |update_timestamp |timestamp with time zone|NO l|Дата-время обновления записи
+|{counter:public.incoming_payment_document_sbp} |version |integer|YES l|Версия для оптимистической блокировки
+|{counter:public.incoming_payment_document_sbp} |reject_reason_code |character varying|YES l|Код причины отказа обработки платежного документа
+|{counter:public.incoming_payment_document_sbp} |reject_reason_message |text|YES l|Причина отказа обработки платежного документа
+|{counter:public.incoming_payment_document_sbp} |registry_id |character varying|YES l|
+|{counter:public.incoming_payment_document_sbp} |page_number |integer|YES l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.qrc_document, public.qrc_document>>
+|===
+
+[[public.incoming_payment_document_sbp_history]]
+.Таблица public.incoming_payment_document_sbp_history. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.incoming_payment_document_sbp_history} |id |uuid|NO l|
+|{counter:public.incoming_payment_document_sbp_history} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.incoming_payment_document_sbp_history} |payment_document_id |uuid|NO l|Идентификатор документа
+|{counter:public.incoming_payment_document_sbp_history} |status |character varying|YES l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.incoming_payment_document_sbp, public.incoming_payment_document_sbp>>
+|===
+
+[[public.incoming_sbp_registry_payment_document_psbr]]
+.Таблица public.incoming_sbp_registry_payment_document_psbr. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.incoming_sbp_registry_payment_document_psbr} |id |uuid|NO l|
+|{counter:public.incoming_sbp_registry_payment_document_psbr} |incoming_payment_document_psbr_id |uuid|NO l|
+|{counter:public.incoming_sbp_registry_payment_document_psbr} |spb_registry_number |character varying|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.incoming_payment_document_psbr, public.incoming_payment_document_psbr>>
+|===
+
+[[public.invoice]]
+.Таблица public.invoice. Инвойс\счет на оплату
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.invoice} |id |uuid|NO l|
+|{counter:public.invoice} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.invoice} |external_id |character varying|YES l|Внешний ИД (номер контракта, процесса, клиента, чего-либо)
+|{counter:public.invoice} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.invoice} |core_account_id |uuid|NO l|Ссылка на корневой счет
+|{counter:public.invoice} |expiration_date_time |timestamp with time zone|NO l|Дата и время создания записиДата\время окончания действия счета
+|{counter:public.invoice} |amount |numeric|NO l|Сумма платежа
+|{counter:public.invoice} |status |character varying|NO l|Статус счета (WAIT_FOR_MONEY, WAIT_FOR_PAID, PROCESSING, WAIT_FOR_RETRY, REFUNDING, COMPLETED, CANCELED)
+|{counter:public.invoice} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.invoice} |update_timestamp |timestamp with time zone|NO l|Дата и время последнего обновления записи
+|{counter:public.invoice} |system_code |character varying|YES l|Код системы, которая создала инвойс
+|{counter:public.invoice} |details |text|YES l|Дополнительная информация по инвойсу
+|{counter:public.invoice} |optional_keys |jsonb|YES l|Дополнительные данные по записи
+|{counter:public.invoice} |payment_number |character varying|NO l|Номер инвойса для оплаты
+|{counter:public.invoice} |operation_type_id |uuid|YES l|Идентификатор типа операции
+|{counter:public.invoice} |disable_auto_cancellation |boolean|NO l|Отключение автоотмены в случае ошибок при выполнении инвойса
+|{counter:public.invoice} |cancellation_type |USER-DEFINED|YES l|Причина отмены инвойса
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.core_account, public.core_account>>
+* <<public.operation_type, public.operation_type>>
+|===
+
+[[public.invoice_expense]]
+.Таблица public.invoice_expense. Списание с счета на оплату
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.invoice_expense} |id |uuid|NO l|
+|{counter:public.invoice_expense} |document_id |uuid|NO l|ИД документа основания
+|{counter:public.invoice_expense} |document_type |character varying|NO l|Тип документа основания(PSBR, WALLET_INCOMING)
+|{counter:public.invoice_expense} |invoice_id |uuid|NO l|ИД инвойса
+|{counter:public.invoice_expense} |amount |numeric|NO l|Сумма платежа
+|{counter:public.invoice_expense} |status |character varying|NO l|Статус (NEW, PROCESSED, REJECTED)
+|{counter:public.invoice_expense} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.invoice_expense} |update_timestamp |timestamp with time zone|NO l|Дата и время обновления записи
+|{counter:public.invoice_expense} |value_date |date|YES l|Дата перевода статуса New в Processed
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.invoice, public.invoice>>
+|===
+
+[[public.invoice_history]]
+.Таблица public.invoice_history. История статусов счета на оплату
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.invoice_history} |id |uuid|NO l|
+|{counter:public.invoice_history} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.invoice_history} |invoice_id |uuid|NO l|Ссылка на счет
+|{counter:public.invoice_history} |status |character varying|NO l|Статус счета
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.invoice, public.invoice>>
+|===
+
+[[public.invoice_income]]
+.Таблица public.invoice_income. Поступления на счет на оплату
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.invoice_income} |id |uuid|NO l|
+|{counter:public.invoice_income} |document_id |uuid|NO l|ИД документа основания
+|{counter:public.invoice_income} |document_type |character varying|NO l|Тип документа основания(PSBR, WALLET_OUTGOING, SBP)
+|{counter:public.invoice_income} |invoice_id |uuid|NO l|ИД инвойса
+|{counter:public.invoice_income} |amount |numeric|NO l|Сумма платежа
+|{counter:public.invoice_income} |creator |character varying|YES l|Сервис-инициатор-создатель
+|{counter:public.invoice_income} |comment |character varying|YES l|Комментарий
+|{counter:public.invoice_income} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.invoice, public.invoice>>
+|===
+
+[[public.invoice_receiver]]
+.Таблица public.invoice_receiver. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.invoice_receiver} |id |uuid|NO l|Идентификатор получателя, первичный ключ
+|{counter:public.invoice_receiver} |invoice_id |uuid|NO l|Идентификатор инвойса в таблице invoice, внешний ключ на invoice
+|{counter:public.invoice_receiver} |info |text|NO l|Наименование получателя
+|{counter:public.invoice_receiver} |inn |character varying|YES l|ИНН получателя
+|{counter:public.invoice_receiver} |account |character varying|NO l|Счет получателя
+|{counter:public.invoice_receiver} |bic |character varying|NO l|БИК банка получателя
+|{counter:public.invoice_receiver} |purpose |text|NO l|Назначение платежа
+|{counter:public.invoice_receiver} |create_timestamp |timestamp with time zone|YES l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.invoice, public.invoice>>
+|===
+
+[[public.managed_fund]]
+.Таблица public.managed_fund. Фонды управляемые продуктами
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.managed_fund} |id |uuid|NO l|
+|{counter:public.managed_fund} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.managed_fund} |system_code |character varying|NO l|Код системы создавшей фонд
+|{counter:public.managed_fund} |external_id |character varying|NO l|Внешний идентификатор
+|{counter:public.managed_fund} |core_account_id |uuid|NO l|Ссылка на номинальный счет
+|{counter:public.managed_fund} |status |USER-DEFINED|NO l|Статус фонда (ACTIVE, CLOSED)
+|{counter:public.managed_fund} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.managed_fund} |update_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.core_account, public.core_account>>
+|===
+
+[[public.managed_fund_balance]]
+.Таблица public.managed_fund_balance. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.managed_fund_balance} |id |uuid|NO l|
+|{counter:public.managed_fund_balance} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.managed_fund_balance} |oper_day |date|NO l|Дата операционного дня
+|{counter:public.managed_fund_balance} |managed_fund_id |uuid|NO l|Идентификатор управляемого фонда
+|{counter:public.managed_fund_balance} |amount |numeric|NO l|Сумма баланса
+|{counter:public.managed_fund_balance} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.managed_fund_balance} |update_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.managed_fund, public.managed_fund>>
+|===
+
+[[public.managed_fund_incoming]]
+.Таблица public.managed_fund_incoming. Поступление в управляемый фонд
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.managed_fund_incoming} |id |uuid|NO l|
+|{counter:public.managed_fund_incoming} |managed_fund_id |uuid|NO l|Идентификатор управляемого фонда
+|{counter:public.managed_fund_incoming} |system_code |character varying|NO l|Код системы инициатора пополнения
+|{counter:public.managed_fund_incoming} |document_type |USER-DEFINED|NO l|Тип связанного документа
+|{counter:public.managed_fund_incoming} |document_id |uuid|NO l|Идентификатор связанного документа
+|{counter:public.managed_fund_incoming} |amount |numeric|NO l|Сумма пополнения
+|{counter:public.managed_fund_incoming} |value_date_time |timestamp with time zone|YES l|Дата и время валютирования, т.е. фактического учета средств
+|{counter:public.managed_fund_incoming} |create_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.managed_fund, public.managed_fund>>
+* <<public.managed_fund, public.managed_fund>>
+|===
+
+[[public.managed_fund_transaction]]
+.Таблица public.managed_fund_transaction. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.managed_fund_transaction} |id |uuid|NO l|
+|{counter:public.managed_fund_transaction} |document_type |USER-DEFINED|NO l|Тип связанного документа
+|{counter:public.managed_fund_transaction} |document_id |uuid|NO l|Идентификатор связанного документа
+|{counter:public.managed_fund_transaction} |managed_fund_id |uuid|NO l|Идентификатор управляемого фонда
+|{counter:public.managed_fund_transaction} |income_amount |numeric|YES l|Сумма поступления
+|{counter:public.managed_fund_transaction} |expense_amount |numeric|YES l|Сумма списания
+|{counter:public.managed_fund_transaction} |value_date_time |timestamp with time zone|NO l|Дата и время валютирования, т.е. фактического учета средств
+|{counter:public.managed_fund_transaction} |create_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.managed_fund, public.managed_fund>>
+* <<public.managed_fund, public.managed_fund>>
+|===
+
+[[public.operation_type]]
+.Таблица public.operation_type. Справочник типов платежных операций
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.operation_type} |id |uuid|NO l|Идентификатор элемента
+|{counter:public.operation_type} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.operation_type} |update_timestamp |timestamp with time zone|NO l|Дата и время обновления записи
+|{counter:public.operation_type} |code |text|NO l|Код элемента
+|{counter:public.operation_type} |description |text|NO l|Описание элемента
+|{counter:public.operation_type} |is_deleted |boolean|NO l|Признак удаления элемента
+|{counter:public.operation_type} |is_group |boolean|NO l|Признак, что элемент является группой
+|{counter:public.operation_type} |skip_fin_cert_verification |boolean|NO l|Признак пропуска проверок ФинЦерт
+|{counter:public.operation_type} |parent_id |uuid|YES l|Ссылка на родительский элемент
+|{counter:public.operation_type} |is_protected |boolean|NO l|Признак запрещающий удаление элемента
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.operation_type, public.operation_type>>
+|===
+
+[[public.outbox_message]]
+.Таблица public.outbox_message. Таблица для библиотеки mp-pl-services-kafka-outbox
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.outbox_message} |id |uuid|NO l|ИД сообщения
+|{counter:public.outbox_message} |topic_name |character varying|NO l|Наименование кафка-топика
+|{counter:public.outbox_message} |message_body |bytea|NO l|Тело сообщения
+|{counter:public.outbox_message} |content_type |USER-DEFINED|NO l|Формат сообщения
+|{counter:public.outbox_message} |idempotence_key |character varying|YES l|Ключ идемпотентности
+|{counter:public.outbox_message} |partition_key |character varying|YES l|Ключ партиционирования
+|{counter:public.outbox_message} |create_timestamp |timestamp with time zone|NO l|Дата-время создания записи
+|{counter:public.outbox_message} |trace_context |jsonb|YES l|
+|===
+
+[[public.outgoing_payment_document_psbr]]
+.Таблица public.outgoing_payment_document_psbr. Исходящий платежный документ ПС БР
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.outgoing_payment_document_psbr} |id |uuid|NO l|
+|{counter:public.outgoing_payment_document_psbr} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.outgoing_payment_document_psbr} |update_timestamp |timestamp with time zone|NO l|
+|{counter:public.outgoing_payment_document_psbr} |status |character varying|NO l|Статус платежного документа
+|{counter:public.outgoing_payment_document_psbr} |doc_date |date|YES l|Дата создания платежного документа (на стороне отправителя)
+|{counter:public.outgoing_payment_document_psbr} |doc_number |character varying|YES l|Номер платежного документа
+|{counter:public.outgoing_payment_document_psbr} |value_date |date|YES l|Дата валютирования (дата операции на стороне НРД)
+|{counter:public.outgoing_payment_document_psbr} |external_id |character varying|YES l|Внешний идентификатор, проставляемый НРД; нужен для сверки
+|{counter:public.outgoing_payment_document_psbr} |purpose |text|NO l|Назначение платежа
+|{counter:public.outgoing_payment_document_psbr} |amount |numeric|NO l|Сумма платежа
+|{counter:public.outgoing_payment_document_psbr} |currency |character varying|NO l|Валюта
+|{counter:public.outgoing_payment_document_psbr} |sender_inn |character varying|NO l|ИНН отправителя
+|{counter:public.outgoing_payment_document_psbr} |sender_info |text|NO l|Наименование отправителя (ФИО, наименование ЮЛ, доп.информация)
+|{counter:public.outgoing_payment_document_psbr} |sender_account |character varying|NO l|Счет отправителя
+|{counter:public.outgoing_payment_document_psbr} |sender_bic |character varying|NO l|БИК банка отправителя
+|{counter:public.outgoing_payment_document_psbr} |receiver_inn |character varying|YES l|ИНН получателя
+|{counter:public.outgoing_payment_document_psbr} |receiver_info |text|NO l|Наименование получателя
+|{counter:public.outgoing_payment_document_psbr} |receiver_account |character varying|NO l|Счет получателя
+|{counter:public.outgoing_payment_document_psbr} |receiver_bic |character varying|NO l|БИК банка получателя
+|{counter:public.outgoing_payment_document_psbr} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.outgoing_payment_document_psbr} |next_send_timestamp |timestamp with time zone|NO l|Время следующей попытки отправки документа
+|{counter:public.outgoing_payment_document_psbr} |last_send_timestamp |timestamp with time zone|YES l|Время последней попытки отправки документа
+|{counter:public.outgoing_payment_document_psbr} |send_attempts_count |integer|NO l|Количество попыток отправки документа
+|{counter:public.outgoing_payment_document_psbr} |reject_reason |character varying|YES l|Причина отказа отправки документа в НРД
+|{counter:public.outgoing_payment_document_psbr} |operation_type_id |uuid|YES l|Идентификатор типа операции
+|{counter:public.outgoing_payment_document_psbr} |operation_details |text|YES l|Описание операции
+|{counter:public.outgoing_payment_document_psbr} |next_verification_timestamp |timestamp with time zone|NO l|Дата и время следующей попытки проверки документа
+|{counter:public.outgoing_payment_document_psbr} |reject_type |USER-DEFINED|YES l|Причина отклонения исходящего платежного поручения ПСБР
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.operation_type, public.operation_type>>
+|===
+
+[[public.outgoing_payment_document_psbr_history]]
+.Таблица public.outgoing_payment_document_psbr_history. История статусов исходящего платежного документа ПС БР
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.outgoing_payment_document_psbr_history} |id |uuid|NO l|
+|{counter:public.outgoing_payment_document_psbr_history} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.outgoing_payment_document_psbr_history} |payment_document_id |uuid|NO l|Ссылка на исходящий платёжный документ ПС БР
+|{counter:public.outgoing_payment_document_psbr_history} |status |character varying|NO l|Статус платежного документа
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.outgoing_payment_document_psbr, public.outgoing_payment_document_psbr>>
+|===
+
+[[public.outgoing_payment_document_psbr_verification]]
+.Таблица public.outgoing_payment_document_psbr_verification. Проверка исходящего платежного документа ПС БР
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.outgoing_payment_document_psbr_verification} |id |uuid|NO l|Идентификатор проверки
+|{counter:public.outgoing_payment_document_psbr_verification} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.outgoing_payment_document_psbr_verification} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.outgoing_payment_document_psbr_verification} |update_timestamp |timestamp with time zone|NO l|Дата и время обновления записи
+|{counter:public.outgoing_payment_document_psbr_verification} |payment_document_id |uuid|NO l|Ссылка на исходящий платёжный документ ПС БР
+|{counter:public.outgoing_payment_document_psbr_verification} |idempotence_key |uuid|YES l|Ключ идемпотентности проверки
+|{counter:public.outgoing_payment_document_psbr_verification} |status |character varying|NO l|Статус проверки
+|{counter:public.outgoing_payment_document_psbr_verification} |decision |character varying|YES l|Принятое решение
+|{counter:public.outgoing_payment_document_psbr_verification} |next_timeout_check_timestamp |timestamp with time zone|NO l|Дата и время следующей проверки истечения срока ожидания результатов
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.outgoing_payment_document_psbr, public.outgoing_payment_document_psbr>>
+|===
+
+[[public.payment_account_order]]
+.Таблица public.payment_account_order. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.payment_account_order} |id |uuid|NO l|
+|{counter:public.payment_account_order} |core_account_id |uuid|NO l|
+|{counter:public.payment_account_order} |external_id |uuid|NO l|
+|{counter:public.payment_account_order} |amount |numeric|NO l|
+|{counter:public.payment_account_order} |currency |character varying|NO l|
+|{counter:public.payment_account_order} |status |character varying|NO l|
+|{counter:public.payment_account_order} |receiver_account |character varying|NO l|
+|{counter:public.payment_account_order} |receiver_bic |character varying|NO l|
+|{counter:public.payment_account_order} |receiver_inn |character varying|NO l|
+|{counter:public.payment_account_order} |receiver_info |character varying|NO l|
+|{counter:public.payment_account_order} |purpose |character varying|NO l|
+|{counter:public.payment_account_order} |system_code |character varying|NO l|
+|{counter:public.payment_account_order} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.payment_account_order} |update_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.core_account, public.core_account>>
+|===
+
+[[public.payment_account_order_history]]
+.Таблица public.payment_account_order_history. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.payment_account_order_history} |id |uuid|NO l|
+|{counter:public.payment_account_order_history} |payment_account_order_id |uuid|NO l|
+|{counter:public.payment_account_order_history} |status |character varying|NO l|
+|{counter:public.payment_account_order_history} |create_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.payment_account_order, public.payment_account_order>>
+|===
+
+[[public.payment_account_order_outgoing]]
+.Таблица public.payment_account_order_outgoing. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.payment_account_order_outgoing} |id |uuid|NO l|
+|{counter:public.payment_account_order_outgoing} |payment_account_order_id |uuid|NO l|
+|{counter:public.payment_account_order_outgoing} |outgoing_payment_document_id |uuid|NO l|
+|{counter:public.payment_account_order_outgoing} |status |character varying|NO l|
+|{counter:public.payment_account_order_outgoing} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.payment_account_order_outgoing} |update_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.outgoing_payment_document_psbr, public.outgoing_payment_document_psbr>>
+* <<public.payment_account_order, public.payment_account_order>>
+|===
+
+[[public.qrc_document]]
+.Таблица public.qrc_document. QRC документ
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.qrc_document} |id |uuid|NO l|
+|{counter:public.qrc_document} |qrc_number |character varying|NO l|Внутренний номер QRC
+|{counter:public.qrc_document} |qrc_id |character varying|YES l|ИД QR кода в СБП
+|{counter:public.qrc_document} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.qrc_document} |invoice_id |uuid|YES l|ИД инвойса
+|{counter:public.qrc_document} |purpose |text|NO l|Назначение платежа
+|{counter:public.qrc_document} |qrc_type |character varying|NO l|Тип QR кода
+|{counter:public.qrc_document} |amount |numeric|YES l|Сумма платежа
+|{counter:public.qrc_document} |currency |character varying|NO l|Валюта
+|{counter:public.qrc_document} |core_account_id |uuid|NO l|Идентификатор корневого счета
+|{counter:public.qrc_document} |status |character varying|NO l|Статус
+|{counter:public.qrc_document} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.qrc_document} |update_timestamp |timestamp with time zone|NO l|Дата-время обновления записи
+|{counter:public.qrc_document} |version |integer|YES l|Версия для оптимистической блокировки
+|{counter:public.qrc_document} |system_code |character varying|NO l|Код системы, которая запросила код
+|{counter:public.qrc_document} |correlation_id |uuid|NO l|Идентификатор запроса
+|{counter:public.qrc_document} |qrc_payload |character varying|YES l|Payload зарегистрированного QR кода в СБП
+|{counter:public.qrc_document} |media_type |character varying|YES l|Формат файла с изображением QR кода
+|{counter:public.qrc_document} |media_width |integer|YES l|Ширина изображения QR кода
+|{counter:public.qrc_document} |media_height |integer|YES l|Высота изображения QR кода
+|{counter:public.qrc_document} |media_content |text|YES l|base64encoded содержимое файла с изображением QR кода
+|{counter:public.qrc_document} |last_check_timestamp |timestamp with time zone|NO l|Дата и время последней проверки истечения кода
+|{counter:public.qrc_document} |destination_id |uuid|YES l|
+|{counter:public.qrc_document} |destination_type |character varying|YES l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.invoice, public.invoice>>
+* <<public.core_account, public.core_account>>
+|===
+
+[[public.qrc_document_history]]
+.Таблица public.qrc_document_history. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.qrc_document_history} |id |uuid|NO l|
+|{counter:public.qrc_document_history} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.qrc_document_history} |qrc_document_id |uuid|NO l|Идентификатор документа
+|{counter:public.qrc_document_history} |status |character varying|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.qrc_document, public.qrc_document>>
+|===
+
+[[public.registry_counterparty]]
+.Таблица public.registry_counterparty. Контрагенты по платежным реестрам
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.registry_counterparty} |id |uuid|NO l|
+|{counter:public.registry_counterparty} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.registry_counterparty} |name |character varying|NO l|Наименование
+|{counter:public.registry_counterparty} |inn |character varying|NO l|ИНН
+|{counter:public.registry_counterparty} |bank_bic |character varying|NO l|БИК банка
+|{counter:public.registry_counterparty} |bank_account_number |character varying|NO l|Номер счета
+|{counter:public.registry_counterparty} |payment_document_purpose_template |character varying|NO l|Шаблон назначений платежа
+|{counter:public.registry_counterparty} |system_code |character varying|YES l|Код системы источника реестра
+|===
+
+[[public.registry_document]]
+.Таблица public.registry_document. Платежные реестры
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.registry_document} |id |uuid|NO l|
+|{counter:public.registry_document} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.registry_document} |update_timestamp |timestamp with time zone|NO l|Дата и время последнего обновления записи
+|{counter:public.registry_document} |payment_document_id |uuid|YES l|Идентификатор платежного документа по реестру
+|{counter:public.registry_document} |registry_number |character varying|NO l|Номер реестра
+|{counter:public.registry_document} |registry_date |date|NO l|Дата реестра
+|{counter:public.registry_document} |currency |character varying|NO l|Валюта платежа по реестру
+|{counter:public.registry_document} |status |character varying|NO l|Статус реестра
+|{counter:public.registry_document} |registry_key |uuid|NO l|Код записи о реестре в БД сервиса источника
+|{counter:public.registry_document} |registry_amount |numeric|NO l|Сумма реестра
+|{counter:public.registry_document} |registry_file_name |character varying|YES l|Имя файла реестра
+|{counter:public.registry_document} |payment_doc_number |character varying|NO l|Номер платежного документа по нумерации отправителя
+|{counter:public.registry_document} |payment_doc_date |date|NO l|Дата платежного документа
+|{counter:public.registry_document} |payment_sender_inn |character varying|YES l|ИНН плательщика
+|{counter:public.registry_document} |payment_sender_account |character varying|YES l|Счет плательщика
+|{counter:public.registry_document} |payment_sender_bic |character varying|YES l|Бик банка отправителя
+|{counter:public.registry_document} |payment_sender_info |character varying|YES l|Наименование отправителя
+|{counter:public.registry_document} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.registry_document} |system_code |character varying|NO l|Код системы источника реестра
+|{counter:public.registry_document} |operation_type_id |uuid|YES l|Идентификатор типа операции
+|{counter:public.registry_document} |details |text|YES l|Описание реестра
+|{counter:public.registry_document} |context |jsonb|YES l|Контекст записи
+|{counter:public.registry_document} |is_completed |boolean|YES l|Признак получения всех страниц реестра
+|{counter:public.registry_document} |total_pages |integer|YES l|Количество страниц в реестре
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.incoming_payment_document_psbr, public.incoming_payment_document_psbr>>
+* <<public.operation_type, public.operation_type>>
+|===
+
+[[public.registry_document_history]]
+.Таблица public.registry_document_history. История изменений платежных реестров
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.registry_document_history} |id |uuid|NO l|
+|{counter:public.registry_document_history} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.registry_document_history} |registry_document_id |uuid|NO l|Идентификатор платежного реестра
+|{counter:public.registry_document_history} |registry_document_status |character varying|NO l|Статус реестра
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.registry_document, public.registry_document>>
+|===
+
+[[public.registry_document_mirror_request]]
+.Таблица public.registry_document_mirror_request. Запрос на зеркалирование реестра
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.registry_document_mirror_request} |id |uuid|NO l|
+|{counter:public.registry_document_mirror_request} |registry_document_id |uuid|NO l|Внешний ключ на registry_document
+|{counter:public.registry_document_mirror_request} |page_id |uuid|YES l|Внешний ключ на registry_document_page
+|{counter:public.registry_document_mirror_request} |request_timestamp |timestamp with time zone|NO l|Дата и время выполнения запроса
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.registry_document_page, public.registry_document_page>>
+* <<public.registry_document, public.registry_document>>
+|===
+
+[[public.registry_document_page]]
+.Таблица public.registry_document_page. Страницы с записями реестра
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.registry_document_page} |id |uuid|NO l|
+|{counter:public.registry_document_page} |registry_document_id |uuid|NO l|Внешний ключ на registry_document
+|{counter:public.registry_document_page} |page_number |integer|NO l|Номер страницы
+|{counter:public.registry_document_page} |is_last_page |boolean|NO l|Признак последней страницы
+|{counter:public.registry_document_page} |create_timestamp |timestamp with time zone|NO l|Время создания записи
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.registry_document, public.registry_document>>
+|===
+
+[[public.registry_document_record]]
+.Таблица public.registry_document_record. Записи платежных реестров
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.registry_document_record} |id |uuid|NO l|
+|{counter:public.registry_document_record} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи в таблице
+|{counter:public.registry_document_record} |update_timestamp |timestamp with time zone|NO l|Дата и время последнего обновления записи в таблице
+|{counter:public.registry_document_record} |registry_document_id |uuid|NO l|Идентификатор платежного реестра
+|{counter:public.registry_document_record} |customer_id |uuid|NO l|Идентификатор пользователя платформы, к которому относится запись
+|{counter:public.registry_document_record} |amount |numeric|NO l|Сумма платежа
+|{counter:public.registry_document_record} |status |character varying|NO l|Статус записи
+|{counter:public.registry_document_record} |optional_keys |jsonb|YES l|Дополнительные данные по записи
+|{counter:public.registry_document_record} |record_key |uuid|NO l|ИД записи реестра по нумерации источника
+|{counter:public.registry_document_record} |purpose |character varying|YES l|Назначение платежа
+|{counter:public.registry_document_record} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.registry_document_record} |row_number |integer|YES l|Номер записи в реестровом документе
+|{counter:public.registry_document_record} |registry_document_page_id |uuid|YES l|Id страницы, в которой хранятся записи реестра (внешний ключ на таблицу registry_document_page)
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.registry_document, public.registry_document>>
+* <<public.registry_document_page, public.registry_document_page>>
+|===
+
+[[public.registry_document_record_history]]
+.Таблица public.registry_document_record_history. История изменений записей платежных реестров
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.registry_document_record_history} |id |uuid|NO l|
+|{counter:public.registry_document_record_history} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.registry_document_record_history} |registry_document_record_id |uuid|NO l|Идентификатор платежного реестра
+|{counter:public.registry_document_record_history} |registry_document_record_status |character varying|NO l|Статус записи
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.registry_document_record, public.registry_document_record>>
+|===
+
+[[public.registry_refund]]
+.Таблица public.registry_refund. Возвраты излишков по платежным реестрам
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.registry_refund} |id |uuid|NO l|
+|{counter:public.registry_refund} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.registry_refund} |update_timestamp |timestamp with time zone|NO l|Дата и время последнего обновления записи
+|{counter:public.registry_refund} |registry_document_id |uuid|NO l|Идентификатор платежного реестра
+|{counter:public.registry_refund} |payment_document_id |uuid|NO l|Идентификатор платежного документа на возврат излишков
+|{counter:public.registry_refund} |amount |numeric|NO l|Сумма платежа
+|{counter:public.registry_refund} |currency |character varying|NO l|Валюта
+|{counter:public.registry_refund} |status |character varying|NO l|Статус
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.registry_document, public.registry_document>>
+* <<public.outgoing_payment_document_psbr, public.outgoing_payment_document_psbr>>
+|===
+
+[[public.sbp_registry]]
+.Таблица public.sbp_registry. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.sbp_registry} |number |character varying|NO l|
+|{counter:public.sbp_registry} |registry_date |timestamp with time zone|YES l|
+|{counter:public.sbp_registry} |registry_amount |numeric|YES l|
+|{counter:public.sbp_registry} |status |character varying|YES l|
+|{counter:public.sbp_registry} |total_pages |integer|YES l|
+|{counter:public.sbp_registry} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.sbp_registry} |update_timestamp |timestamp with time zone|YES l|
+|===
+
+[[public.sbp_registry_page]]
+.Таблица public.sbp_registry_page. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.sbp_registry_page} |sbp_registry_id |character varying|NO l|
+|{counter:public.sbp_registry_page} |page_number |integer|NO l|
+|{counter:public.sbp_registry_page} |create_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.sbp_registry, public.sbp_registry>>
+|===
+
+[[public.sbp_registry_record]]
+.Таблица public.sbp_registry_record. 
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.sbp_registry_record} |id |uuid|NO l|
+|{counter:public.sbp_registry_record} |sbp_registry_id |character varying|NO l|
+|{counter:public.sbp_registry_record} |page_number |integer|NO l|
+|{counter:public.sbp_registry_record} |qrc_id |character varying|YES l|
+|{counter:public.sbp_registry_record} |trx_id |character varying|YES l|
+|{counter:public.sbp_registry_record} |operation_date |timestamp with time zone|YES l|
+|{counter:public.sbp_registry_record} |operation_timestamp |timestamp with time zone|NO l|
+|{counter:public.sbp_registry_record} |sender_bank_bic |character varying|NO l|
+|{counter:public.sbp_registry_record} |sender_inn |character varying|YES l|
+|{counter:public.sbp_registry_record} |sender_account_number |character varying|NO l|
+|{counter:public.sbp_registry_record} |sender_info |character varying|YES l|
+|{counter:public.sbp_registry_record} |amount |numeric|NO l|
+|{counter:public.sbp_registry_record} |currency |character varying|YES l|
+|{counter:public.sbp_registry_record} |create_timestamp |timestamp with time zone|NO l|
+|{counter:public.sbp_registry_record} |update_timestamp |timestamp with time zone|YES l|
+|{counter:public.sbp_registry_record} |has_error |boolean|NO l|флаг наличия ошибки, по умолчанию false
+|{counter:public.sbp_registry_record} |error_reason |character varying|YES l|причина ошибки
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.sbp_registry_page, public.sbp_registry_page>>
+* <<public.sbp_registry_page, public.sbp_registry_page>>
+|===
+
+[[public.statement]]
+.Таблица public.statement. Выписка
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.statement} |id |uuid|NO l|
+|{counter:public.statement} |number |bigint|NO l|Номер выписки
+|{counter:public.statement} |date_time |timestamp with time zone|NO l|Дата формирования выписки
+|{counter:public.statement} |account |character varying|NO l|Счет
+|{counter:public.statement} |incoming_balance |numeric|YES l|Баланс на открытие дня
+|{counter:public.statement} |outgoing_balance |numeric|YES l|Баланс на закрытие дня
+|{counter:public.statement} |incoming_balance_date |date|YES l|Дата входящего баланса
+|{counter:public.statement} |outgoing_balance_date |date|YES l|Дата исходящего баланса
+|{counter:public.statement} |completed |boolean|YES l|Признак целостности выписки
+|{counter:public.statement} |total_pages |bigint|YES l|Количество страниц
+|{counter:public.statement} |match |boolean|YES l|Признак совпадения выписки
+|{counter:public.statement} |incoming_balance_match |boolean|YES l|Признак совпадения входящего баланса
+|{counter:public.statement} |outgoing_balance_match |boolean|YES l|Признак совпадения исходящего баланса
+|{counter:public.statement} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.statement} |update_timestamp |timestamp with time zone|NO l|Дата и время обновления записи
+|{counter:public.statement} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.statement} |last_revision_timestamp |timestamp with time zone|YES l|Дата последней сверки выписки
+|===
+
+[[public.statement_page]]
+.Таблица public.statement_page. Страница выписки
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.statement_page} |id |uuid|NO l|
+|{counter:public.statement_page} |statement_id |uuid|NO l|Идентификатор выписки
+|{counter:public.statement_page} |page_number |bigint|NO l|Номер страницы
+|{counter:public.statement_page} |last |boolean|NO l|Признак того, является ли страница последней
+|{counter:public.statement_page} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.statement_page} |version |integer|NO l|Версия для оптимистической блокировки
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.statement, public.statement>>
+|===
+
+[[public.statement_payment_document]]
+.Таблица public.statement_payment_document. Платежный документ
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.statement_payment_document} |id |uuid|NO l|
+|{counter:public.statement_payment_document} |statement_page_id |uuid|NO l|Идентификатор страницы выписки
+|{counter:public.statement_payment_document} |direction |character varying|NO l|Признак Дебита/Кредита
+|{counter:public.statement_payment_document} |value_date |date|NO l|Дата списания суммы исходного платежного поручения со счета
+|{counter:public.statement_payment_document} |external_id |character varying|NO l|Референс обслуживающей счет организации. Проставляется системный номер операции, присваиваемый НРД.
+|{counter:public.statement_payment_document} |transaction_type |character varying|NO l|Код банковской транзакции
+|{counter:public.statement_payment_document} |pd_number |character varying|NO l|Номер платежного документа на основании, которого осуществлялась операция по счету
+|{counter:public.statement_payment_document} |amount |numeric|NO l|Сумма
+|{counter:public.statement_payment_document} |sender_bic |character varying|YES l|Российский БИК банка, на балансе которого открыт лицевой счет, заполняется в случае дебетовой проводки
+|{counter:public.statement_payment_document} |sender_account |character varying|YES l|Лицевой счет, с которого средства списываются, заполняется в случае дебетовой проводки
+|{counter:public.statement_payment_document} |receiver_bic |character varying|YES l|Российский БИК банка, на балансе которого открыт лицевой счет, заполняется в случае кредитовой проводки
+|{counter:public.statement_payment_document} |receiver_account |character varying|YES l|Лицевой счет, на который средства зачисляются, заполняется в случае кредитовой проводки
+|{counter:public.statement_payment_document} |description |character varying|YES l|Назначение платежа
+|{counter:public.statement_payment_document} |currency |character varying|YES l|Валюта
+|{counter:public.statement_payment_document} |payment_document_id |uuid|YES l|ИД платежного документа
+|{counter:public.statement_payment_document} |payment_document_type |character varying|YES l|Тип платежного документа
+|{counter:public.statement_payment_document} |amount_match |boolean|YES l|Результат сравнения суммы платежных документов
+|{counter:public.statement_payment_document} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.statement_payment_document} |version |integer|NO l|Версия для оптимистической блокировки
+|{counter:public.statement_payment_document} |payment_document_amount |numeric|YES l|Сумма платежного документа
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.statement_page, public.statement_page>>
+|===
+
+[[public.wallet_incoming]]
+.Таблица public.wallet_incoming. Отнесение входящих средств на клиента, документ
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.wallet_incoming} |id |uuid|NO l|
+|{counter:public.wallet_incoming} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.wallet_incoming} |document_id |uuid|NO l|ИД документа основания (платежный документ ПСБР, ссылка на счет при возврате)
+|{counter:public.wallet_incoming} |document_type |character varying|NO l|Тип документа основания (PSBR, INVOICE_REFUND, SBP)
+|{counter:public.wallet_incoming} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.wallet_incoming} |creator |character varying|YES l|Создатель\пользователь. Указывается при ручных разнесениях
+|{counter:public.wallet_incoming} |comment |character varying|YES l|Комментарий к платежу
+|{counter:public.wallet_incoming} |amount |numeric|NO l|Сумма поступления
+|{counter:public.wallet_incoming} |number |integer|YES l|номер пополнения кошелька
+|===
+
+[[public.wallet_outgoing]]
+.Таблица public.wallet_outgoing. Списание средств с клиента, документ
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.wallet_outgoing} |id |uuid|NO l|
+|{counter:public.wallet_outgoing} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.wallet_outgoing} |status |character varying|NO l|Статус (NEW, PROCESSED, REJECTED)
+|{counter:public.wallet_outgoing} |create_timestamp |timestamp with time zone|NO l|Дата и время создания записи
+|{counter:public.wallet_outgoing} |update_timestamp |timestamp with time zone|NO l|Дата и время обновления записи
+|{counter:public.wallet_outgoing} |creator |character varying|YES l|Создатель\пользователь. Указывается при ручных разнесениях
+|{counter:public.wallet_outgoing} |comment |character varying|YES l|Комментарий к платежу
+|{counter:public.wallet_outgoing} |amount |numeric|NO l|Сумма поступления
+|{counter:public.wallet_outgoing} |idempotency_key |uuid|YES l|Ключ идемпотентности
+|{counter:public.wallet_outgoing} |document_id |uuid|NO l|ИД документа основания (ссылка на счет)
+|{counter:public.wallet_outgoing} |document_type |character varying|NO l|Тип документа основания (INVOICE)
+|{counter:public.wallet_outgoing} |number |integer|YES l|номер списания кошелька
+|===
+
+[[public.wallets]]
+.Таблица public.wallets. Кошелек клиента
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.wallets} |id |uuid|NO l|
+|{counter:public.wallets} |customer_id |uuid|NO l|Идентификатор клиента
+|{counter:public.wallets} |core_account_id |uuid|NO l|Идентификатор корневого счета
+|{counter:public.wallets} |create_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.core_account, public.core_account>>
+|===
+
+[[public.wallet_to_managed_fund_transfers]]
+.Таблица public.wallet_to_managed_fund_transfers. Поступление в управляемый фонд
+
+[cols="1,3,3,3,3", options="header"]
+|===
+|№ |Наименование поля |Тип поля |Nullable | Описание
+|{counter:public.wallet_to_managed_fund_transfers} |id |uuid|NO l|
+|{counter:public.wallet_to_managed_fund_transfers} |managed_fund_id |uuid|NO l|Идентификатор управляемого фонда
+|{counter:public.wallet_to_managed_fund_transfers} |idempotency_key |character varying|NO l|Ключ идемпотентности команды
+|{counter:public.wallet_to_managed_fund_transfers} |currency |character varying|NO l|Валюта
+|{counter:public.wallet_to_managed_fund_transfers} |amount |numeric|NO l|Сумма пополнения
+|{counter:public.wallet_to_managed_fund_transfers} |value_date_time |timestamp with time zone|YES l|Дата и время валютирования, т.е. фактического учета средств
+|{counter:public.wallet_to_managed_fund_transfers} |create_timestamp |timestamp with time zone|NO l|
+5+a|Определены внешние ключи на следующие таблицы:
+
+* <<public.managed_fund, public.managed_fund>>
 |===
 

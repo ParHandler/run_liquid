@@ -1,1039 +1,3913 @@
 [
-	{
-		"name": "pfmhst.__efmigrationshistory",
-		"comment": null,
-		"columns": [
-			{
-				"name": "MigrationId",
-				"type": "character varying",
-				"nullable": "NO",
-				"comment": null
-			},
-			{
-				"name": "ProductVersion",
-				"type": "character varying",
-				"nullable": "NO",
-				"comment": null
-			}
-		],
-		"fk": null
-	},
-	{
-		"name": "pfmhst.client_product",
-		"comment": "Данная сущность хранит информацию о продуктах клиентов",
-		"columns": [
-			{
-				"name": "id",
-				"type": "bigint",
-				"nullable": "NO",
-				"comment": "Идентификатор продукта"
-			},
-			{
-				"name": "cuid",
-				"type": "bigint",
-				"nullable": "NO",
-				"comment": "Идентификатор клиента в системах банка"
-			},
-			{
-				"name": "product_type",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Тип продукта.\r\ndebitCard — ДК\r\ncreditCard — РК\r\nmerchantCard — ШК(РК) TW\r\ndeposit — вклад\r\naccount — счета"
-			},
-			{
-				"name": "status",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Статус продукта"
-			},
-			{
-				"name": "account_number",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Номер счета"
-			},
-			{
-				"name": "card_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер карты (при наличии), в маскированном виде"
-			},
-			{
-				"name": "contract_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер договора, при наличии"
-			}
-		],
-		"fk": null
-	},
-	{
-		"name": "pfmhst.event_log",
-		"comment": "Данная сущность хранит историю событий в БД",
-		"columns": [
-			{
-				"name": "id",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Идентификатор для первичного ключа (костыль для EF)"
-			},
-			{
-				"name": "processed_entity",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Сущность с которой работали"
-			},
-			{
-				"name": "event_type",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Тип события: Updated, Deleted, Created"
-			},
-			{
-				"name": "source",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Источник события WebApi, RabbitMq, Kafka"
-			},
-			{
-				"name": "body",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Тело события"
-			},
-			{
-				"name": "handler",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Имя метода/класса, кто обрабатывал событие"
-			},
-			{
-				"name": "created",
-				"type": "timestamp without time zone",
-				"nullable": "NO",
-				"comment": "Дата/время содания записи в БД"
-			}
-		],
-		"fk": null
-	},
-	{
-		"name": "pfmhst.mcc_category",
-		"comment": "Справочник MCC категорий",
-		"columns": [
-			{
-				"name": "category",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Код категории"
-			},
-			{
-				"name": "name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Цвет категори"
-			},
-			{
-				"name": "main_color",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Цвет категории"
-			},
-			{
-				"name": "logo_png",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Лого в PNG"
-			},
-			{
-				"name": "logo_svg",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Лого в SVG"
-			},
-			{
-				"name": "deleted",
-				"type": "timestamp without time zone",
-				"nullable": "YES",
-				"comment": "Время логического удаления"
-			}
-		],
-		"fk": null
-	},
-	{
-		"name": "pfmhst.mcc_code",
-		"comment": "Справочник МСС",
-		"columns": [
-			{
-				"name": "code",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "МСС-код категории"
-			},
-			{
-				"name": "category",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "MCC-категория"
-			},
-			{
-				"name": "deleted",
-				"type": "timestamp without time zone",
-				"nullable": "YES",
-				"comment": "Дата логического удаления"
-			}
-		],
-		"fk": [
-			{
-				"fk_table": "pfmhst.mcc_category"
-			}
-		]
-	},
-	{
-		"name": "pfmhst.merchant",
-		"comment": "Справочник мерчантов",
-		"columns": [
-			{
-				"name": "key",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Код мерчанта"
-			},
-			{
-				"name": "name",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Название мерчанта"
-			},
-			{
-				"name": "logo_png",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Картинка в Png"
-			},
-			{
-				"name": "logo_svg",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Картинка в svg"
-			},
-			{
-				"name": "deleted",
-				"type": "timestamp without time zone",
-				"nullable": "YES",
-				"comment": "Статус:\r\n   A-active\r\n   D-delete"
-			}
-		],
-		"fk": null
-	},
-	{
-		"name": "pfmhst.payment",
-		"comment": "Данная сущность хранит в себе детали платежей",
-		"columns": [
-			{
-				"name": "reference_id",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Идентификатор транзакции"
-			},
-			{
-				"name": "cuid",
-				"type": "bigint",
-				"nullable": "NO",
-				"comment": "Идентификатор клиента в системах банка"
-			},
-			{
-				"name": "account_number",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Счет списания"
-			},
-			{
-				"name": "date",
-				"type": "timestamp without time zone",
-				"nullable": "NO",
-				"comment": "Дата создания платежа"
-			},
-			{
-				"name": "status",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Статус платежа"
-			},
-			{
-				"name": "bot",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Код типа операции, только для исходящих"
-			},
-			{
-				"name": "amount",
-				"type": "numeric",
-				"nullable": "NO",
-				"comment": "Сумма операции"
-			},
-			{
-				"name": "currency",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Валюта операции"
-			},
-			{
-				"name": "fee",
-				"type": "numeric",
-				"nullable": "YES",
-				"comment": "Комиссия за операцию"
-			},
-			{
-				"name": "beneficary_code",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Код бенефициара"
-			},
-			{
-				"name": "field_values",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Набор параметров со значениями. Строка с ключ-значение"
-			}
-		],
-		"fk": null
-	},
-	{
-		"name": "pfmhst.payment_hub_service",
-		"comment": "Справочник бенефициаров",
-		"columns": [
-			{
-				"name": "id",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Идентификатор бенефициара"
-			},
-			{
-				"name": "name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Название бенефициара"
-			},
-			{
-				"name": "type_id",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Именование картинки в PH"
-			},
-			{
-				"name": "logo",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Код категории"
-			}
-		],
-		"fk": [
-			{
-				"fk_table": "pfmhst.payment_hub_service_type"
-			}
-		]
-	},
-	{
-		"name": "pfmhst.payment_hub_service_param",
-		"comment": "Справочник параметров бенефициаров",
-		"columns": [
-			{
-				"name": "servise_id",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Идентификатор бенефициара"
-			},
-			{
-				"name": "field",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Название параметра"
-			},
-			{
-				"name": "value",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Имя для отображения"
-			}
-		],
-		"fk": [
-			{
-				"fk_table": "pfmhst.payment_hub_service"
-			}
-		]
-	},
-	{
-		"name": "pfmhst.payment_hub_service_type",
-		"comment": "Справочник категорий платежей",
-		"columns": [
-			{
-				"name": "id",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Идентификатор категории"
-			},
-			{
-				"name": "name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Название категории"
-			},
-			{
-				"name": "logo",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Наименование картинки в PH"
-			}
-		],
-		"fk": null
-	},
-	{
-		"name": "pfmhst.regular_payment_detail",
-		"comment": "Данная сущность хранит в себе детали регулярных переводов",
-		"columns": [
-			{
-				"name": "un_id",
-				"type": "bigint",
-				"nullable": "NO",
-				"comment": "Идентификатор ППП"
-			},
-			{
-				"name": "cuid",
-				"type": "bigint",
-				"nullable": "NO",
-				"comment": "Идентификатор клиента"
-			},
-			{
-				"name": "card_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер карты списания"
-			},
-			{
-				"name": "account_number",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Счет списания"
-			},
-			{
-				"name": "name",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Название ППП"
-			},
-			{
-				"name": "amount",
-				"type": "numeric",
-				"nullable": "NO",
-				"comment": "Сумма операции"
-			},
-			{
-				"name": "currency",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Валюта операции"
-			},
-			{
-				"name": "account_to",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Счет списания"
-			},
-			{
-				"name": "payment_purpose",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Назначение платежа"
-			},
-			{
-				"name": "recipient",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Назначение платежа"
-			},
-			{
-				"name": "bic",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "БИК банка получателя"
-			},
-			{
-				"name": "inn",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "ИНН получателя"
-			},
-			{
-				"name": "kpp",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "КПП получателя"
-			},
-			{
-				"name": "corr_account",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Кор счет банка получателя"
-			},
-			{
-				"name": "tax_amount",
-				"type": "numeric",
-				"nullable": "YES",
-				"comment": "Сумма налогов"
-			},
-			{
-				"name": "uip",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "УИН/УИП"
-			}
-		],
-		"fk": null
-	},
-	{
-		"name": "pfmhst.transaction",
-		"comment": "Данная сущность хранит в себе детали транзакций",
-		"columns": [
-			{
-				"name": "movement_number",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Номер проводки"
-			},
-			{
-				"name": "reference_id",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "ReferenceId"
-			},
-			{
-				"name": "client_product_id",
-				"type": "bigint",
-				"nullable": "NO",
-				"comment": "Идентификатор продукта"
-			},
-			{
-				"name": "posting_date",
-				"type": "timestamp without time zone",
-				"nullable": "YES",
-				"comment": "Фактическая дата списания"
-			},
-			{
-				"name": "value_date",
-				"type": "timestamp without time zone",
-				"nullable": "NO",
-				"comment": "Дата совершения сделки"
-			},
-			{
-				"name": "credit_debit_indicator",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Флаг списания/пополнения"
-			},
-			{
-				"name": "amount",
-				"type": "numeric",
-				"nullable": "NO",
-				"comment": "Сумма операции"
-			},
-			{
-				"name": "cancel_indicator",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Флаг отмены"
-			},
-			{
-				"name": "partner_account_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Счет списания (для входящего)"
-			},
-			{
-				"name": "partner_account_name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Имя клиента, который пополнил счет (для входящего)"
-			},
-			{
-				"name": "partner_account_bank",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "БИК банка, с которого произошло списание (для входящего)"
-			},
-			{
-				"name": "pay_currency",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Фактическая валюта операции"
-			},
-			{
-				"name": "exchange_rate",
-				"type": "numeric",
-				"nullable": "YES",
-				"comment": "Курс валюты"
-			},
-			{
-				"name": "change_amount",
-				"type": "numeric",
-				"nullable": "YES",
-				"comment": "Сумма в валюте счета"
-			},
-			{
-				"name": "operation_name_tw",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Описание операции из TW"
-			},
-			{
-				"name": "transaction_type_ibs",
-				"type": "integer",
-				"nullable": "NO",
-				"comment": "Тип операции"
-			},
-			{
-				"name": "address",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Адрес совершения операции"
-			},
-			{
-				"name": "country",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Страна совершения операции"
-			},
-			{
-				"name": "city",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Город совершения операции"
-			},
-			{
-				"name": "merchant_name_tw",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Название мерчанта из TW"
-			},
-			{
-				"name": "to_acct",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Код бенефициара из Рапида"
-			},
-			{
-				"name": "to_acct_2",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Код бенефициара из РН"
-			},
-			{
-				"name": "partner_card_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Карта зачисления для исходящих р2р"
-			},
-			{
-				"name": "sender_name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Имя получателя"
-			},
-			{
-				"name": "sender_account",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер счета получателя"
-			},
-			{
-				"name": "sender_bic",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "БИК банка получателя"
-			},
-			{
-				"name": "dt0",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Дополнительное описание транзакции"
-			},
-			{
-				"name": "pay_amount",
-				"type": "numeric",
-				"nullable": "YES",
-				"comment": "Сумма платежа в валюте операции"
-			},
-			{
-				"name": "token_payment",
-				"type": "integer",
-				"nullable": "YES",
-				"comment": "Признак списания с токеном"
-			},
-			{
-				"name": "purpose",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Назначение перевода"
-			},
-			{
-				"name": "full_remark",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Описание к комиссии"
-			},
-			{
-				"name": "operation_name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Описание операции"
-			},
-			{
-				"name": "short_description",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Короткое описание операции"
-			},
-			{
-				"name": "picture_url",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Ссылка на картинку"
-			},
-			{
-				"name": "merchant_name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Название мерчанта"
-			},
-			{
-				"name": "mcc_code",
-				"type": "integer",
-				"nullable": "YES",
-				"comment": "МСС код из TW"
-			},
-			{
-				"name": "mcc",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Название категории МСС"
-			},
-			{
-				"name": "hex_color",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Цвет категории"
-			},
-			{
-				"name": "category",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Категория группировки"
-			},
-			{
-				"name": "un_id",
-				"type": "bigint",
-				"nullable": "NO",
-				"comment": "Идентификатор ППП"
-			}
-		],
-		"fk": [
-			{
-				"fk_table": "pfmhst.mcc_code"
-			},
-			{
-				"fk_table": "pfmhst.client_product"
-			},
-			{
-				"fk_table": "pfmhst.payment"
-			},
-			{
-				"fk_table": "pfmhst.transfer"
-			},
-			{
-				"fk_table": "pfmhst.regular_payment_detail"
-			}
-		]
-	},
-	{
-		"name": "pfmhst.transfer",
-		"comment": "Данная сущность хранит в себе детали переводов",
-		"columns": [
-			{
-				"name": "reference_id",
-				"type": "text",
-				"nullable": "NO",
-				"comment": "Идентификатор перевода. Номер без префикса."
-			},
-			{
-				"name": "cuid",
-				"type": "bigint",
-				"nullable": "NO",
-				"comment": "Идентификатор клиента"
-			},
-			{
-				"name": "account_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер счета клиента"
-			},
-			{
-				"name": "card_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер карты клиента в маскированном виде"
-			},
-			{
-				"name": "date",
-				"type": "timestamp without time zone",
-				"nullable": "NO",
-				"comment": "Дата совершения перевода"
-			},
-			{
-				"name": "status",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Статус перевода"
-			},
-			{
-				"name": "account_to",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер счета зачисления"
-			},
-			{
-				"name": "amount",
-				"type": "numeric",
-				"nullable": "NO",
-				"comment": "Сумма операции"
-			},
-			{
-				"name": "currency",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Валюта операции"
-			},
-			{
-				"name": "payment_purpose",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Назначение платежа"
-			},
-			{
-				"name": "payment_type",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Обязательный для переводов из МК"
-			},
-			{
-				"name": "additional_info",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Обязательный для переводов из МК. Строка с ключ-значение"
-			},
-			{
-				"name": "fee",
-				"type": "numeric",
-				"nullable": "YES",
-				"comment": "Комиссия"
-			},
-			{
-				"name": "recipient",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Имя получателя"
-			},
-			{
-				"name": "inn",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "ИНН получателя"
-			},
-			{
-				"name": "kpp",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "КПП"
-			},
-			{
-				"name": "bic",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "БИК банка получателя при межбанковском переводе"
-			},
-			{
-				"name": "bank_name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Именование банка при межбанковском переводе"
-			},
-			{
-				"name": "bank_city",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Город банка получателя при межбанковском переводе"
-			},
-			{
-				"name": "corr_account",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Кор.счет банка получателя при межбанковском переводе"
-			},
-			{
-				"name": "sender_name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Имя отправителя"
-			},
-			{
-				"name": "kbk",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "КБК для бюджетных переводов"
-			},
-			{
-				"name": "tax_document_date",
-				"type": "timestamp without time zone",
-				"nullable": "YES",
-				"comment": "Дата документа для бюджетных переводов"
-			},
-			{
-				"name": "tax_document_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер документа для бюджетных переводов"
-			},
-			{
-				"name": "budget_tax_period",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Налоговый период для бюджетных переводов"
-			},
-			{
-				"name": "tax_payment_type",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Тип бюджетного платежа"
-			},
-			{
-				"name": "uip",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "УИН или УИП"
-			},
-			{
-				"name": "okato",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "ОКТМО/ОКАТО для бюджетных переводов"
-			},
-			{
-				"name": "payment_creator_status",
-				"type": "integer",
-				"nullable": "YES",
-				"comment": "Статус плательщика для бюджетных переводов"
-			},
-			{
-				"name": "bot",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Статус перевода"
-			},
-			{
-				"name": "target_card_number",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер карты получателя в маскированном виде"
-			},
-			{
-				"name": "type",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Тип операции:DEBIT- исходящаяCREDIT- входящаяДля СБЕРА и СБП"
-			},
-			{
-				"name": "sender_account",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Номер телефона отправителя для входящих Сбера и СБП"
-			},
-			{
-				"name": "txn_id",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Идентификатор перевода для входящих Сбера и СБП"
-			},
-			{
-				"name": "fio_sender",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Имя отправителя для входящих Сбера и СБП"
-			},
-			{
-				"name": "comment",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Комментарий к переводу для Сбера и СБП"
-			},
-			{
-				"name": "bank_id",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Идентификатор банка для СБП"
-			},
-			{
-				"name": "sender_bic",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "БИК банка отправителя для Сбера и СБП"
-			},
-			{
-				"name": "mask_card_from",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Маскированый PAN карты списания для пополнения с чужих карт"
-			},
-			{
-				"name": "card_name",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Имя держателя карты списания для пополнения с чужих карт"
-			},
-			{
-				"name": "amount_to",
-				"type": "numeric",
-				"nullable": "YES",
-				"comment": "Сумма зачисления для конвертации"
-			},
-			{
-				"name": "currency_to",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Валюта зачисления для конвертации"
-			},
-			{
-				"name": "exchange_rate",
-				"type": "numeric",
-				"nullable": "YES",
-				"comment": "Курс обмена для конвертации"
-			},
-			{
-				"name": "sender_inn",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "ИНН клиента"
-			},
-			{
-				"name": "tax_payment_base",
-				"type": "text",
-				"nullable": "YES",
-				"comment": "Основание платежа"
-			},
-			{
-				"name": "anti_fraud_decline_reason",
-				"type": "integer",
-				"nullable": "YES",
-				"comment": "Признак того, что перевод СБП был отклонён Антифродом"
-			}
-		],
-		"fk": null
-	}
+  {
+    "name": "public.active_locks",
+    "comment": null,
+    "columns": [
+      {
+        "name": "schemaname",
+        "type": "name",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "relname",
+        "type": "name",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "locktype",
+        "type": "text",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "page",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "virtualtransaction",
+        "type": "text",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "pid",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "mode",
+        "type": "text",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "granted",
+        "type": "boolean",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.client_account_balance",
+    "comment": "Балансы кошельков клиентов",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время обновления записи"
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма"
+      },
+      {
+        "name": "oper_day",
+        "type": "date",
+        "nullable": "NO",
+        "comment": "Дата операционного дня"
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор корневого счета, в рамках которого рассчитан баланс"
+      },
+      {
+        "name": "wallet_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.core_account"
+      }
+    ]
+  },
+  {
+    "name": "public.client_account_transaction",
+    "comment": "Обороты по кошелькам клиентов",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "income_amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма поступления"
+      },
+      {
+        "name": "expense_amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма списания"
+      },
+      {
+        "name": "value_date_time",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время валютирования, т.е. фактического учета средств"
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор корневого счета, в рамках которого выполнена операция"
+      },
+      {
+        "name": "document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор документа основания"
+      },
+      {
+        "name": "document_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип документа основания"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.core_account"
+      }
+    ]
+  },
+  {
+    "name": "public.client_account_transaction_analytic",
+    "comment": "Дополнительная аналитическая информация по транзакции кошелька клиента",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор транзакции"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время обновления записи"
+      },
+      {
+        "name": "operation_type_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор типа операции"
+      },
+      {
+        "name": "details",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Дополнительный комментарий к операции"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.client_account_transaction"
+      },
+      {
+        "fk_table": "public.operation_type"
+      }
+    ]
+  },
+  {
+    "name": "public.core_account",
+    "comment": "Корневые счета. Справочник. Изменения в запись можно вносить только путем добавления новой записи с измененными атрибутами. Старую запись необходимо деактивировать is_actual = false, update_timestamp = now()",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД записи"
+      },
+      {
+        "name": "account_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Счет получателя"
+      },
+      {
+        "name": "bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "БИК банка получателя"
+      },
+      {
+        "name": "inn",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "ИНН биржи"
+      },
+      {
+        "name": "is_actual",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "Флаг показывающий устарело значение или нет. По умолчанию всегда false"
+      },
+      {
+        "name": "receiver",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Наименование получателя"
+      },
+      {
+        "name": "swift",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "SWIFT код биржи"
+      },
+      {
+        "name": "bank_swift",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "SWIFT банка"
+      },
+      {
+        "name": "kpp",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "КПП"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата-время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата-время обновления записи"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Валюта корневого счёта"
+      },
+      {
+        "name": "account_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип счета"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.core_account_balance",
+    "comment": "Баланс корневого счета",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Поле версии для оптимистической блокировки"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время последнего изменения записи"
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Ссылка на корневой счет"
+      },
+      {
+        "name": "oper_day",
+        "type": "date",
+        "nullable": "NO",
+        "comment": "Дата операционного дня"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма баланса"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.core_account"
+      }
+    ]
+  },
+  {
+    "name": "public.core_account_transaction",
+    "comment": "Обороты по корневым счетам",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор корневого счета"
+      },
+      {
+        "name": "incoming_payment_document_psbr_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор входящего платёжного документа ПС БР"
+      },
+      {
+        "name": "outgoing_payment_document_psbr_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор исходящего платёжного документа ПС БР"
+      },
+      {
+        "name": "income_amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма поступления"
+      },
+      {
+        "name": "expense_amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма списания"
+      },
+      {
+        "name": "value_date_time",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время валютирования, т.е. фактического учета средств"
+      },
+      {
+        "name": "document_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип документа"
+      },
+      {
+        "name": "document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД документа"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.incoming_payment_document_psbr"
+      },
+      {
+        "fk_table": "public.outgoing_payment_document_psbr"
+      },
+      {
+        "fk_table": "public.core_account"
+      }
+    ]
+  },
+  {
+    "name": "public.core_account_transaction_analytic",
+    "comment": "Дополнительная аналитическая информация по транзакции номинального счёта",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор транзакции"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время обновления записи"
+      },
+      {
+        "name": "operation_type_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор типа операции"
+      },
+      {
+        "name": "details",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Дополнительный комментарий к операции"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.operation_type"
+      },
+      {
+        "fk_table": "public.core_account_transaction"
+      }
+    ]
+  },
+  {
+    "name": "public.databasechangelog",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "author",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "filename",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "dateexecuted",
+        "type": "timestamp without time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "orderexecuted",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "exectype",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "md5sum",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "description",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "comments",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "tag",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "liquibase",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "contexts",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "labels",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "deployment_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.databasechangeloglock",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "locked",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "lockgranted",
+        "type": "timestamp without time zone",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "lockedby",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.deduplication_messages",
+    "comment": "Таблица для библиотеки mp-pl-services-kafka-deduplication",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД сообщения"
+      },
+      {
+        "name": "idempotence_key",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Ключ идемпотентности"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата-время создания записи"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.expected_wallet_incoming",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор записи"
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Код системы источника реестра"
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "details",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Дополнительная информация"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип валюты"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Количество валюты"
+      },
+      {
+        "name": "search_criteria",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Критерий поиска"
+      },
+      {
+        "name": "custom_key",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Ключ для поиска"
+      },
+      {
+        "name": "doc_date",
+        "type": "date",
+        "nullable": "YES",
+        "comment": "Дата создания платежного документа (на стороне отправителя)"
+      },
+      {
+        "name": "doc_number",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Номер платежного документа"
+      },
+      {
+        "name": "sender_bic",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "БИК банка отправителя"
+      },
+      {
+        "name": "sender_account",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Счет отправителя"
+      },
+      {
+        "name": "payment_document_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор платежного документа по реестру"
+      },
+      {
+        "name": "payment_document_type",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Тип платежного документа"
+      },
+      {
+        "name": "wallet_income_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор счета"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата-время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": "Дата-время обновления записи"
+      },
+      {
+        "name": "operation_type_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор типа операции"
+      },
+      {
+        "name": "context",
+        "type": "jsonb",
+        "nullable": "YES",
+        "comment": "Контекст записи"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.operation_type"
+      },
+      {
+        "fk_table": "public.wallet_incoming"
+      }
+    ]
+  },
+  {
+    "name": "public.frozen_wallet_withdrawal_orders",
+    "comment": "Заявка на вывод средств без проверки",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "external_request_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор заявки внешней системы"
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Код системы"
+      },
+      {
+        "name": "status",
+        "type": "USER-DEFINED",
+        "nullable": "NO",
+        "comment": "Статус заказа"
+      },
+      {
+        "name": "outgoing_payment_document_psbr_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор исходящего платежного поручения"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания заказа"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": "Дата и время обновления заказа"
+      },
+      {
+        "name": "bank_bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "БИК банка получателя"
+      },
+      {
+        "name": "recipient_account",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Счёт получателя"
+      },
+      {
+        "name": "recipient_name",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "ФИО получателя"
+      },
+      {
+        "name": "purpose",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Назначение платежа"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма вывода"
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "currency",
+        "type": "USER-DEFINED",
+        "nullable": "NO",
+        "comment": "Валюта платежа"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.full_refund_order",
+    "comment": "Заявки на полный возврат средств",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "incoming_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор входящего платёжного документа ПС БР"
+      },
+      {
+        "name": "outgoing_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор исходящего платёжного документа ПС БР"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус"
+      },
+      {
+        "name": "creator",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Создатель"
+      },
+      {
+        "name": "comment",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Комментарий от создателя"
+      },
+      {
+        "name": "incoming_document_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип входящего документа (PSBR, SBP)"
+      },
+      {
+        "name": "outgoing_document_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип исходящего документа (PSBR, SBP)"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.incoming_payment_document_psbr",
+    "comment": "Входящий платежный документ ПС БР",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус платежного документа"
+      },
+      {
+        "name": "doc_date",
+        "type": "date",
+        "nullable": "NO",
+        "comment": "Дата создания платежного документа (на стороне отправителя)"
+      },
+      {
+        "name": "doc_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Номер платежного документа"
+      },
+      {
+        "name": "value_date",
+        "type": "date",
+        "nullable": "NO",
+        "comment": "Дата валютирования (дата операции на стороне НРД)"
+      },
+      {
+        "name": "external_id",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Внешний идентификатор, проставляемый НРД; нужен для сверки"
+      },
+      {
+        "name": "purpose",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Назначение платежа"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Валюта"
+      },
+      {
+        "name": "sender_inn",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "ИНН отправителя"
+      },
+      {
+        "name": "sender_info",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Наименование отправителя (ФИО, наименование ЮЛ, доп.информация)"
+      },
+      {
+        "name": "sender_account",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Счет отправителя"
+      },
+      {
+        "name": "sender_bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "БИК банка отправителя"
+      },
+      {
+        "name": "receiver_inn",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "ИНН получателя"
+      },
+      {
+        "name": "receiver_info",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Наименование получателя"
+      },
+      {
+        "name": "receiver_account",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Счет получателя"
+      },
+      {
+        "name": "receiver_bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "БИК банка получателя"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "reject_reason_code",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Код причины отказа обработки платежного документа"
+      },
+      {
+        "name": "reject_reason_message",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Причина отказа обработки платежного документа"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.incoming_payment_document_psbr_history",
+    "comment": "История статусов входящего платежного документа ПС БР",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "payment_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Ссылка на входящий платёжный документ ПС БР"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус платежного документа"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.incoming_payment_document_psbr"
+      }
+    ]
+  },
+  {
+    "name": "public.incoming_payment_document_sbp",
+    "comment": "Входящий платежный документ СБП",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "qrc_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД инвойса"
+      },
+      {
+        "name": "trx_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Идентификатор операции, инициированной Dynamic QR кодом"
+      },
+      {
+        "name": "operation_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Номер операции в платежной системе банка, возвращается для успешной операции"
+      },
+      {
+        "name": "operation_date_time",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": "Дата и время операции в UTC, возвращается для успешной операции"
+      },
+      {
+        "name": "doc_number",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Номер платежного документа"
+      },
+      {
+        "name": "doc_date",
+        "type": "date",
+        "nullable": "YES",
+        "comment": "Дата создания платежного документа (на стороне отправителя)"
+      },
+      {
+        "name": "value_date",
+        "type": "date",
+        "nullable": "YES",
+        "comment": "Дата валютирования (дата операции на стороне НРД)"
+      },
+      {
+        "name": "external_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Внешний идентификатор, проставляемый НРД; нужен для сверки"
+      },
+      {
+        "name": "purpose",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Назначение платежа"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Валюта"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус"
+      },
+      {
+        "name": "sender_inn",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "ИНН отправителя"
+      },
+      {
+        "name": "sender_info",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Наименование отправителя (ФИО, наименование ЮЛ, доп.информация)"
+      },
+      {
+        "name": "sender_account",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Счет отправителя"
+      },
+      {
+        "name": "sender_bic",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "БИК банка отправителя"
+      },
+      {
+        "name": "receiver_inn",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "ИНН получателя"
+      },
+      {
+        "name": "receiver_info",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Наименование получателя"
+      },
+      {
+        "name": "receiver_account",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Счет получателя"
+      },
+      {
+        "name": "receiver_bic",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "БИК банка получателя"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата-время обновления записи"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "reject_reason_code",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Код причины отказа обработки платежного документа"
+      },
+      {
+        "name": "reject_reason_message",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Причина отказа обработки платежного документа"
+      },
+      {
+        "name": "registry_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "page_number",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.qrc_document"
+      }
+    ]
+  },
+  {
+    "name": "public.incoming_payment_document_sbp_history",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "payment_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор документа"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.incoming_payment_document_sbp"
+      }
+    ]
+  },
+  {
+    "name": "public.incoming_sbp_registry_payment_document_psbr",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "incoming_payment_document_psbr_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "spb_registry_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.incoming_payment_document_psbr"
+      }
+    ]
+  },
+  {
+    "name": "public.invoice",
+    "comment": "Инвойс\\счет на оплату",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "external_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Внешний ИД (номер контракта, процесса, клиента, чего-либо)"
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Ссылка на корневой счет"
+      },
+      {
+        "name": "expiration_date_time",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записиДата\\время окончания действия счета"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус счета (WAIT_FOR_MONEY, WAIT_FOR_PAID, PROCESSING, WAIT_FOR_RETRY, REFUNDING, COMPLETED, CANCELED)"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время последнего обновления записи"
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Код системы, которая создала инвойс"
+      },
+      {
+        "name": "details",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Дополнительная информация по инвойсу"
+      },
+      {
+        "name": "optional_keys",
+        "type": "jsonb",
+        "nullable": "YES",
+        "comment": "Дополнительные данные по записи"
+      },
+      {
+        "name": "payment_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Номер инвойса для оплаты"
+      },
+      {
+        "name": "operation_type_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор типа операции"
+      },
+      {
+        "name": "disable_auto_cancellation",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "Отключение автоотмены в случае ошибок при выполнении инвойса"
+      },
+      {
+        "name": "cancellation_type",
+        "type": "USER-DEFINED",
+        "nullable": "YES",
+        "comment": "Причина отмены инвойса"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.core_account"
+      },
+      {
+        "fk_table": "public.operation_type"
+      }
+    ]
+  },
+  {
+    "name": "public.invoice_expense",
+    "comment": "Списание с счета на оплату",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД документа основания"
+      },
+      {
+        "name": "document_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип документа основания(PSBR, WALLET_INCOMING)"
+      },
+      {
+        "name": "invoice_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД инвойса"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус (NEW, PROCESSED, REJECTED)"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время обновления записи"
+      },
+      {
+        "name": "value_date",
+        "type": "date",
+        "nullable": "YES",
+        "comment": "Дата перевода статуса New в Processed"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.invoice"
+      }
+    ]
+  },
+  {
+    "name": "public.invoice_history",
+    "comment": "История статусов счета на оплату",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "invoice_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Ссылка на счет"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус счета"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.invoice"
+      }
+    ]
+  },
+  {
+    "name": "public.invoice_income",
+    "comment": "Поступления на счет на оплату",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД документа основания"
+      },
+      {
+        "name": "document_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип документа основания(PSBR, WALLET_OUTGOING, SBP)"
+      },
+      {
+        "name": "invoice_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД инвойса"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "creator",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Сервис-инициатор-создатель"
+      },
+      {
+        "name": "comment",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Комментарий"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.invoice"
+      }
+    ]
+  },
+  {
+    "name": "public.invoice_receiver",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор получателя, первичный ключ"
+      },
+      {
+        "name": "invoice_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор инвойса в таблице invoice, внешний ключ на invoice"
+      },
+      {
+        "name": "info",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Наименование получателя"
+      },
+      {
+        "name": "inn",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "ИНН получателя"
+      },
+      {
+        "name": "account",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Счет получателя"
+      },
+      {
+        "name": "bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "БИК банка получателя"
+      },
+      {
+        "name": "purpose",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Назначение платежа"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.invoice"
+      }
+    ]
+  },
+  {
+    "name": "public.managed_fund",
+    "comment": "Фонды управляемые продуктами",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Код системы создавшей фонд"
+      },
+      {
+        "name": "external_id",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Внешний идентификатор"
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Ссылка на номинальный счет"
+      },
+      {
+        "name": "status",
+        "type": "USER-DEFINED",
+        "nullable": "NO",
+        "comment": "Статус фонда (ACTIVE, CLOSED)"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.core_account"
+      }
+    ]
+  },
+  {
+    "name": "public.managed_fund_balance",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "oper_day",
+        "type": "date",
+        "nullable": "NO",
+        "comment": "Дата операционного дня"
+      },
+      {
+        "name": "managed_fund_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор управляемого фонда"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма баланса"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.managed_fund"
+      }
+    ]
+  },
+  {
+    "name": "public.managed_fund_incoming",
+    "comment": "Поступление в управляемый фонд",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "managed_fund_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор управляемого фонда"
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Код системы инициатора пополнения"
+      },
+      {
+        "name": "document_type",
+        "type": "USER-DEFINED",
+        "nullable": "NO",
+        "comment": "Тип связанного документа"
+      },
+      {
+        "name": "document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор связанного документа"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма пополнения"
+      },
+      {
+        "name": "value_date_time",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": "Дата и время валютирования, т.е. фактического учета средств"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.managed_fund"
+      },
+      {
+        "fk_table": "public.managed_fund"
+      }
+    ]
+  },
+  {
+    "name": "public.managed_fund_transaction",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "document_type",
+        "type": "USER-DEFINED",
+        "nullable": "NO",
+        "comment": "Тип связанного документа"
+      },
+      {
+        "name": "document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор связанного документа"
+      },
+      {
+        "name": "managed_fund_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор управляемого фонда"
+      },
+      {
+        "name": "income_amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма поступления"
+      },
+      {
+        "name": "expense_amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма списания"
+      },
+      {
+        "name": "value_date_time",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время валютирования, т.е. фактического учета средств"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.managed_fund"
+      },
+      {
+        "fk_table": "public.managed_fund"
+      }
+    ]
+  },
+  {
+    "name": "public.operation_type",
+    "comment": "Справочник типов платежных операций",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор элемента"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время обновления записи"
+      },
+      {
+        "name": "code",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Код элемента"
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Описание элемента"
+      },
+      {
+        "name": "is_deleted",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "Признак удаления элемента"
+      },
+      {
+        "name": "is_group",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "Признак, что элемент является группой"
+      },
+      {
+        "name": "skip_fin_cert_verification",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "Признак пропуска проверок ФинЦерт"
+      },
+      {
+        "name": "parent_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Ссылка на родительский элемент"
+      },
+      {
+        "name": "is_protected",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "Признак запрещающий удаление элемента"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.operation_type"
+      }
+    ]
+  },
+  {
+    "name": "public.outbox_message",
+    "comment": "Таблица для библиотеки mp-pl-services-kafka-outbox",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД сообщения"
+      },
+      {
+        "name": "topic_name",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Наименование кафка-топика"
+      },
+      {
+        "name": "message_body",
+        "type": "bytea",
+        "nullable": "NO",
+        "comment": "Тело сообщения"
+      },
+      {
+        "name": "content_type",
+        "type": "USER-DEFINED",
+        "nullable": "NO",
+        "comment": "Формат сообщения"
+      },
+      {
+        "name": "idempotence_key",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Ключ идемпотентности"
+      },
+      {
+        "name": "partition_key",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Ключ партиционирования"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата-время создания записи"
+      },
+      {
+        "name": "trace_context",
+        "type": "jsonb",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.outgoing_payment_document_psbr",
+    "comment": "Исходящий платежный документ ПС БР",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус платежного документа"
+      },
+      {
+        "name": "doc_date",
+        "type": "date",
+        "nullable": "YES",
+        "comment": "Дата создания платежного документа (на стороне отправителя)"
+      },
+      {
+        "name": "doc_number",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Номер платежного документа"
+      },
+      {
+        "name": "value_date",
+        "type": "date",
+        "nullable": "YES",
+        "comment": "Дата валютирования (дата операции на стороне НРД)"
+      },
+      {
+        "name": "external_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Внешний идентификатор, проставляемый НРД; нужен для сверки"
+      },
+      {
+        "name": "purpose",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Назначение платежа"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Валюта"
+      },
+      {
+        "name": "sender_inn",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "ИНН отправителя"
+      },
+      {
+        "name": "sender_info",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Наименование отправителя (ФИО, наименование ЮЛ, доп.информация)"
+      },
+      {
+        "name": "sender_account",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Счет отправителя"
+      },
+      {
+        "name": "sender_bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "БИК банка отправителя"
+      },
+      {
+        "name": "receiver_inn",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "ИНН получателя"
+      },
+      {
+        "name": "receiver_info",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Наименование получателя"
+      },
+      {
+        "name": "receiver_account",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Счет получателя"
+      },
+      {
+        "name": "receiver_bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "БИК банка получателя"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "next_send_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Время следующей попытки отправки документа"
+      },
+      {
+        "name": "last_send_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": "Время последней попытки отправки документа"
+      },
+      {
+        "name": "send_attempts_count",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Количество попыток отправки документа"
+      },
+      {
+        "name": "reject_reason",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Причина отказа отправки документа в НРД"
+      },
+      {
+        "name": "operation_type_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор типа операции"
+      },
+      {
+        "name": "operation_details",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Описание операции"
+      },
+      {
+        "name": "next_verification_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время следующей попытки проверки документа"
+      },
+      {
+        "name": "reject_type",
+        "type": "USER-DEFINED",
+        "nullable": "YES",
+        "comment": "Причина отклонения исходящего платежного поручения ПСБР"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.operation_type"
+      }
+    ]
+  },
+  {
+    "name": "public.outgoing_payment_document_psbr_history",
+    "comment": "История статусов исходящего платежного документа ПС БР",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "payment_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Ссылка на исходящий платёжный документ ПС БР"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус платежного документа"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.outgoing_payment_document_psbr"
+      }
+    ]
+  },
+  {
+    "name": "public.outgoing_payment_document_psbr_verification",
+    "comment": "Проверка исходящего платежного документа ПС БР",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор проверки"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время обновления записи"
+      },
+      {
+        "name": "payment_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Ссылка на исходящий платёжный документ ПС БР"
+      },
+      {
+        "name": "idempotence_key",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Ключ идемпотентности проверки"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус проверки"
+      },
+      {
+        "name": "decision",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Принятое решение"
+      },
+      {
+        "name": "next_timeout_check_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время следующей проверки истечения срока ожидания результатов"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.outgoing_payment_document_psbr"
+      }
+    ]
+  },
+  {
+    "name": "public.payment_account_order",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "external_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "receiver_account",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "receiver_bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "receiver_inn",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "receiver_info",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "purpose",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.core_account"
+      }
+    ]
+  },
+  {
+    "name": "public.payment_account_order_history",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "payment_account_order_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.payment_account_order"
+      }
+    ]
+  },
+  {
+    "name": "public.payment_account_order_outgoing",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "payment_account_order_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "outgoing_payment_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.outgoing_payment_document_psbr"
+      },
+      {
+        "fk_table": "public.payment_account_order"
+      }
+    ]
+  },
+  {
+    "name": "public.qrc_document",
+    "comment": "QRC документ",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "qrc_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Внутренний номер QRC"
+      },
+      {
+        "name": "qrc_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "ИД QR кода в СБП"
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "invoice_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "ИД инвойса"
+      },
+      {
+        "name": "purpose",
+        "type": "text",
+        "nullable": "NO",
+        "comment": "Назначение платежа"
+      },
+      {
+        "name": "qrc_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип QR кода"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Валюта"
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор корневого счета"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата-время обновления записи"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Код системы, которая запросила код"
+      },
+      {
+        "name": "correlation_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор запроса"
+      },
+      {
+        "name": "qrc_payload",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Payload зарегистрированного QR кода в СБП"
+      },
+      {
+        "name": "media_type",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Формат файла с изображением QR кода"
+      },
+      {
+        "name": "media_width",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "Ширина изображения QR кода"
+      },
+      {
+        "name": "media_height",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "Высота изображения QR кода"
+      },
+      {
+        "name": "media_content",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "base64encoded содержимое файла с изображением QR кода"
+      },
+      {
+        "name": "last_check_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время последней проверки истечения кода"
+      },
+      {
+        "name": "destination_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "destination_type",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.invoice"
+      },
+      {
+        "fk_table": "public.core_account"
+      }
+    ]
+  },
+  {
+    "name": "public.qrc_document_history",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "qrc_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор документа"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.qrc_document"
+      }
+    ]
+  },
+  {
+    "name": "public.registry_counterparty",
+    "comment": "Контрагенты по платежным реестрам",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "name",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Наименование"
+      },
+      {
+        "name": "inn",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "ИНН"
+      },
+      {
+        "name": "bank_bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "БИК банка"
+      },
+      {
+        "name": "bank_account_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Номер счета"
+      },
+      {
+        "name": "payment_document_purpose_template",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Шаблон назначений платежа"
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Код системы источника реестра"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.registry_document",
+    "comment": "Платежные реестры",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время последнего обновления записи"
+      },
+      {
+        "name": "payment_document_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор платежного документа по реестру"
+      },
+      {
+        "name": "registry_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Номер реестра"
+      },
+      {
+        "name": "registry_date",
+        "type": "date",
+        "nullable": "NO",
+        "comment": "Дата реестра"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Валюта платежа по реестру"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус реестра"
+      },
+      {
+        "name": "registry_key",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Код записи о реестре в БД сервиса источника"
+      },
+      {
+        "name": "registry_amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма реестра"
+      },
+      {
+        "name": "registry_file_name",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Имя файла реестра"
+      },
+      {
+        "name": "payment_doc_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Номер платежного документа по нумерации отправителя"
+      },
+      {
+        "name": "payment_doc_date",
+        "type": "date",
+        "nullable": "NO",
+        "comment": "Дата платежного документа"
+      },
+      {
+        "name": "payment_sender_inn",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "ИНН плательщика"
+      },
+      {
+        "name": "payment_sender_account",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Счет плательщика"
+      },
+      {
+        "name": "payment_sender_bic",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Бик банка отправителя"
+      },
+      {
+        "name": "payment_sender_info",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Наименование отправителя"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "system_code",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Код системы источника реестра"
+      },
+      {
+        "name": "operation_type_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Идентификатор типа операции"
+      },
+      {
+        "name": "details",
+        "type": "text",
+        "nullable": "YES",
+        "comment": "Описание реестра"
+      },
+      {
+        "name": "context",
+        "type": "jsonb",
+        "nullable": "YES",
+        "comment": "Контекст записи"
+      },
+      {
+        "name": "is_completed",
+        "type": "boolean",
+        "nullable": "YES",
+        "comment": "Признак получения всех страниц реестра"
+      },
+      {
+        "name": "total_pages",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "Количество страниц в реестре"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.incoming_payment_document_psbr"
+      },
+      {
+        "fk_table": "public.operation_type"
+      }
+    ]
+  },
+  {
+    "name": "public.registry_document_history",
+    "comment": "История изменений платежных реестров",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "registry_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор платежного реестра"
+      },
+      {
+        "name": "registry_document_status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус реестра"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.registry_document"
+      }
+    ]
+  },
+  {
+    "name": "public.registry_document_mirror_request",
+    "comment": "Запрос на зеркалирование реестра",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "registry_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Внешний ключ на registry_document"
+      },
+      {
+        "name": "page_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Внешний ключ на registry_document_page"
+      },
+      {
+        "name": "request_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время выполнения запроса"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.registry_document_page"
+      },
+      {
+        "fk_table": "public.registry_document"
+      }
+    ]
+  },
+  {
+    "name": "public.registry_document_page",
+    "comment": "Страницы с записями реестра",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "registry_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Внешний ключ на registry_document"
+      },
+      {
+        "name": "page_number",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Номер страницы"
+      },
+      {
+        "name": "is_last_page",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "Признак последней страницы"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Время создания записи"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.registry_document"
+      }
+    ]
+  },
+  {
+    "name": "public.registry_document_record",
+    "comment": "Записи платежных реестров",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи в таблице"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время последнего обновления записи в таблице"
+      },
+      {
+        "name": "registry_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор платежного реестра"
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор пользователя платформы, к которому относится запись"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус записи"
+      },
+      {
+        "name": "optional_keys",
+        "type": "jsonb",
+        "nullable": "YES",
+        "comment": "Дополнительные данные по записи"
+      },
+      {
+        "name": "record_key",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД записи реестра по нумерации источника"
+      },
+      {
+        "name": "purpose",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Назначение платежа"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "row_number",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "Номер записи в реестровом документе"
+      },
+      {
+        "name": "registry_document_page_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Id страницы, в которой хранятся записи реестра (внешний ключ на таблицу registry_document_page)"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.registry_document"
+      },
+      {
+        "fk_table": "public.registry_document_page"
+      }
+    ]
+  },
+  {
+    "name": "public.registry_document_record_history",
+    "comment": "История изменений записей платежных реестров",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "registry_document_record_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор платежного реестра"
+      },
+      {
+        "name": "registry_document_record_status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус записи"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.registry_document_record"
+      }
+    ]
+  },
+  {
+    "name": "public.registry_refund",
+    "comment": "Возвраты излишков по платежным реестрам",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время последнего обновления записи"
+      },
+      {
+        "name": "registry_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор платежного реестра"
+      },
+      {
+        "name": "payment_document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор платежного документа на возврат излишков"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма платежа"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Валюта"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.registry_document"
+      },
+      {
+        "fk_table": "public.outgoing_payment_document_psbr"
+      }
+    ]
+  },
+  {
+    "name": "public.sbp_registry",
+    "comment": null,
+    "columns": [
+      {
+        "name": "number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "registry_date",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "registry_amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "total_pages",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": null
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.sbp_registry_page",
+    "comment": null,
+    "columns": [
+      {
+        "name": "sbp_registry_id",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "page_number",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.sbp_registry"
+      }
+    ]
+  },
+  {
+    "name": "public.sbp_registry_record",
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "sbp_registry_id",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "page_number",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "qrc_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "trx_id",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "operation_date",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "operation_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "sender_bank_bic",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "sender_inn",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "sender_account_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "sender_info",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": null
+      },
+      {
+        "name": "has_error",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "флаг наличия ошибки, по умолчанию false"
+      },
+      {
+        "name": "error_reason",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "причина ошибки"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.sbp_registry_page"
+      },
+      {
+        "fk_table": "public.sbp_registry_page"
+      }
+    ]
+  },
+  {
+    "name": "public.statement",
+    "comment": "Выписка",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "number",
+        "type": "bigint",
+        "nullable": "NO",
+        "comment": "Номер выписки"
+      },
+      {
+        "name": "date_time",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата формирования выписки"
+      },
+      {
+        "name": "account",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Счет"
+      },
+      {
+        "name": "incoming_balance",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Баланс на открытие дня"
+      },
+      {
+        "name": "outgoing_balance",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Баланс на закрытие дня"
+      },
+      {
+        "name": "incoming_balance_date",
+        "type": "date",
+        "nullable": "YES",
+        "comment": "Дата входящего баланса"
+      },
+      {
+        "name": "outgoing_balance_date",
+        "type": "date",
+        "nullable": "YES",
+        "comment": "Дата исходящего баланса"
+      },
+      {
+        "name": "completed",
+        "type": "boolean",
+        "nullable": "YES",
+        "comment": "Признак целостности выписки"
+      },
+      {
+        "name": "total_pages",
+        "type": "bigint",
+        "nullable": "YES",
+        "comment": "Количество страниц"
+      },
+      {
+        "name": "match",
+        "type": "boolean",
+        "nullable": "YES",
+        "comment": "Признак совпадения выписки"
+      },
+      {
+        "name": "incoming_balance_match",
+        "type": "boolean",
+        "nullable": "YES",
+        "comment": "Признак совпадения входящего баланса"
+      },
+      {
+        "name": "outgoing_balance_match",
+        "type": "boolean",
+        "nullable": "YES",
+        "comment": "Признак совпадения исходящего баланса"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время обновления записи"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "last_revision_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": "Дата последней сверки выписки"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.statement_page",
+    "comment": "Страница выписки",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "statement_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор выписки"
+      },
+      {
+        "name": "page_number",
+        "type": "bigint",
+        "nullable": "NO",
+        "comment": "Номер страницы"
+      },
+      {
+        "name": "last",
+        "type": "boolean",
+        "nullable": "NO",
+        "comment": "Признак того, является ли страница последней"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.statement"
+      }
+    ]
+  },
+  {
+    "name": "public.statement_payment_document",
+    "comment": "Платежный документ",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "statement_page_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор страницы выписки"
+      },
+      {
+        "name": "direction",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Признак Дебита/Кредита"
+      },
+      {
+        "name": "value_date",
+        "type": "date",
+        "nullable": "NO",
+        "comment": "Дата списания суммы исходного платежного поручения со счета"
+      },
+      {
+        "name": "external_id",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Референс обслуживающей счет организации. Проставляется системный номер операции, присваиваемый НРД."
+      },
+      {
+        "name": "transaction_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Код банковской транзакции"
+      },
+      {
+        "name": "pd_number",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Номер платежного документа на основании, которого осуществлялась операция по счету"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма"
+      },
+      {
+        "name": "sender_bic",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Российский БИК банка, на балансе которого открыт лицевой счет, заполняется в случае дебетовой проводки"
+      },
+      {
+        "name": "sender_account",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Лицевой счет, с которого средства списываются, заполняется в случае дебетовой проводки"
+      },
+      {
+        "name": "receiver_bic",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Российский БИК банка, на балансе которого открыт лицевой счет, заполняется в случае кредитовой проводки"
+      },
+      {
+        "name": "receiver_account",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Лицевой счет, на который средства зачисляются, заполняется в случае кредитовой проводки"
+      },
+      {
+        "name": "description",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Назначение платежа"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Валюта"
+      },
+      {
+        "name": "payment_document_id",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "ИД платежного документа"
+      },
+      {
+        "name": "payment_document_type",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Тип платежного документа"
+      },
+      {
+        "name": "amount_match",
+        "type": "boolean",
+        "nullable": "YES",
+        "comment": "Результат сравнения суммы платежных документов"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "nullable": "NO",
+        "comment": "Версия для оптимистической блокировки"
+      },
+      {
+        "name": "payment_document_amount",
+        "type": "numeric",
+        "nullable": "YES",
+        "comment": "Сумма платежного документа"
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.statement_page"
+      }
+    ]
+  },
+  {
+    "name": "public.wallet_incoming",
+    "comment": "Отнесение входящих средств на клиента, документ",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД документа основания (платежный документ ПСБР, ссылка на счет при возврате)"
+      },
+      {
+        "name": "document_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип документа основания (PSBR, INVOICE_REFUND, SBP)"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "creator",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Создатель\\пользователь. Указывается при ручных разнесениях"
+      },
+      {
+        "name": "comment",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Комментарий к платежу"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма поступления"
+      },
+      {
+        "name": "number",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "номер пополнения кошелька"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.wallet_outgoing",
+    "comment": "Списание средств с клиента, документ",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "status",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Статус (NEW, PROCESSED, REJECTED)"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время создания записи"
+      },
+      {
+        "name": "update_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": "Дата и время обновления записи"
+      },
+      {
+        "name": "creator",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Создатель\\пользователь. Указывается при ручных разнесениях"
+      },
+      {
+        "name": "comment",
+        "type": "character varying",
+        "nullable": "YES",
+        "comment": "Комментарий к платежу"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма поступления"
+      },
+      {
+        "name": "idempotency_key",
+        "type": "uuid",
+        "nullable": "YES",
+        "comment": "Ключ идемпотентности"
+      },
+      {
+        "name": "document_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "ИД документа основания (ссылка на счет)"
+      },
+      {
+        "name": "document_type",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Тип документа основания (INVOICE)"
+      },
+      {
+        "name": "number",
+        "type": "integer",
+        "nullable": "YES",
+        "comment": "номер списания кошелька"
+      }
+    ],
+    "fk": null
+  },
+  {
+    "name": "public.wallets",
+    "comment": "Кошелек клиента",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "customer_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор клиента"
+      },
+      {
+        "name": "core_account_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор корневого счета"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.core_account"
+      }
+    ]
+  },
+  {
+    "name": "public.wallet_to_managed_fund_transfers",
+    "comment": "Поступление в управляемый фонд",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": null
+      },
+      {
+        "name": "managed_fund_id",
+        "type": "uuid",
+        "nullable": "NO",
+        "comment": "Идентификатор управляемого фонда"
+      },
+      {
+        "name": "idempotency_key",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Ключ идемпотентности команды"
+      },
+      {
+        "name": "currency",
+        "type": "character varying",
+        "nullable": "NO",
+        "comment": "Валюта"
+      },
+      {
+        "name": "amount",
+        "type": "numeric",
+        "nullable": "NO",
+        "comment": "Сумма пополнения"
+      },
+      {
+        "name": "value_date_time",
+        "type": "timestamp with time zone",
+        "nullable": "YES",
+        "comment": "Дата и время валютирования, т.е. фактического учета средств"
+      },
+      {
+        "name": "create_timestamp",
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "comment": null
+      }
+    ],
+    "fk": [
+      {
+        "fk_table": "public.managed_fund"
+      }
+    ]
+  }
 ]

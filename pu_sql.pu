@@ -4,25 +4,116 @@ hide circle
 
 ' avoid problems with angled crows feet
 skinparam linetype ortho
-skinparam linetype polyline
-class pfmhst.__efmigrationshistory
-class pfmhst.client_product
-class pfmhst.event_log
-class pfmhst.mcc_category
-class pfmhst.mcc_code
-pfmhst.mcc_code "*" -- "1" pfmhst.mcc_category
-class pfmhst.merchant
-class pfmhst.payment
-class pfmhst.payment_hub_service
-pfmhst.payment_hub_service "*" -- "1" pfmhst.payment_hub_service_type
-class pfmhst.payment_hub_service_param
-pfmhst.payment_hub_service_param "*" -- "1" pfmhst.payment_hub_service
-class pfmhst.payment_hub_service_type
-class pfmhst.regular_payment_detail
-class pfmhst.transaction
-pfmhst.transaction "*" -- "1" pfmhst.mcc_code
-pfmhst.transaction "*" -- "1" pfmhst.client_product
-pfmhst.transaction "*" -- "1" pfmhst.payment
-pfmhst.transaction "*" -- "1" pfmhst.transfer
-pfmhst.transaction "*" -- "1" pfmhst.regular_payment_detail
-class pfmhst.transfer
+class public.active_locks
+class public.client_account_balance
+public.client_account_balance "*" -- "1" public.core_account
+class public.client_account_transaction
+public.client_account_transaction "*" -- "1" public.core_account
+class public.client_account_transaction_analytic
+public.client_account_transaction_analytic "*" -- "1" public.client_account_transaction
+public.client_account_transaction_analytic "*" -- "1" public.operation_type
+class public.core_account
+class public.core_account_balance
+public.core_account_balance "*" -- "1" public.core_account
+class public.core_account_transaction
+public.core_account_transaction "*" -- "1" public.incoming_payment_document_psbr
+public.core_account_transaction "*" -- "1" public.outgoing_payment_document_psbr
+public.core_account_transaction "*" -- "1" public.core_account
+class public.core_account_transaction_analytic
+public.core_account_transaction_analytic "*" -- "1" public.operation_type
+public.core_account_transaction_analytic "*" -- "1" public.core_account_transaction
+class public.databasechangelog
+class public.databasechangeloglock
+class public.deduplication_messages
+class public.expected_wallet_incoming
+public.expected_wallet_incoming "*" -- "1" public.operation_type
+public.expected_wallet_incoming "*" -- "1" public.wallet_incoming
+class public.frozen_wallet_withdrawal_orders
+class public.full_refund_order
+class public.incoming_payment_document_psbr
+class public.incoming_payment_document_psbr_history
+public.incoming_payment_document_psbr_history "*" -- "1" public.incoming_payment_document_psbr
+class public.incoming_payment_document_sbp
+public.incoming_payment_document_sbp "*" -- "1" public.qrc_document
+class public.incoming_payment_document_sbp_history
+public.incoming_payment_document_sbp_history "*" -- "1" public.incoming_payment_document_sbp
+class public.incoming_sbp_registry_payment_document_psbr
+public.incoming_sbp_registry_payment_document_psbr "*" -- "1" public.incoming_payment_document_psbr
+class public.invoice
+public.invoice "*" -- "1" public.core_account
+public.invoice "*" -- "1" public.operation_type
+class public.invoice_expense
+public.invoice_expense "*" -- "1" public.invoice
+class public.invoice_history
+public.invoice_history "*" -- "1" public.invoice
+class public.invoice_income
+public.invoice_income "*" -- "1" public.invoice
+class public.invoice_receiver
+public.invoice_receiver "*" -- "1" public.invoice
+class public.managed_fund
+public.managed_fund "*" -- "1" public.core_account
+class public.managed_fund_balance
+public.managed_fund_balance "*" -- "1" public.managed_fund
+class public.managed_fund_incoming
+public.managed_fund_incoming "*" -- "1" public.managed_fund
+public.managed_fund_incoming "*" -- "1" public.managed_fund
+class public.managed_fund_transaction
+public.managed_fund_transaction "*" -- "1" public.managed_fund
+public.managed_fund_transaction "*" -- "1" public.managed_fund
+class public.operation_type
+public.operation_type "*" -- "1" public.operation_type
+class public.outbox_message
+class public.outgoing_payment_document_psbr
+public.outgoing_payment_document_psbr "*" -- "1" public.operation_type
+class public.outgoing_payment_document_psbr_history
+public.outgoing_payment_document_psbr_history "*" -- "1" public.outgoing_payment_document_psbr
+class public.outgoing_payment_document_psbr_verification
+public.outgoing_payment_document_psbr_verification "*" -- "1" public.outgoing_payment_document_psbr
+class public.payment_account_order
+public.payment_account_order "*" -- "1" public.core_account
+class public.payment_account_order_history
+public.payment_account_order_history "*" -- "1" public.payment_account_order
+class public.payment_account_order_outgoing
+public.payment_account_order_outgoing "*" -- "1" public.outgoing_payment_document_psbr
+public.payment_account_order_outgoing "*" -- "1" public.payment_account_order
+class public.qrc_document
+public.qrc_document "*" -- "1" public.invoice
+public.qrc_document "*" -- "1" public.core_account
+class public.qrc_document_history
+public.qrc_document_history "*" -- "1" public.qrc_document
+class public.registry_counterparty
+class public.registry_document
+public.registry_document "*" -- "1" public.incoming_payment_document_psbr
+public.registry_document "*" -- "1" public.operation_type
+class public.registry_document_history
+public.registry_document_history "*" -- "1" public.registry_document
+class public.registry_document_mirror_request
+public.registry_document_mirror_request "*" -- "1" public.registry_document_page
+public.registry_document_mirror_request "*" -- "1" public.registry_document
+class public.registry_document_page
+public.registry_document_page "*" -- "1" public.registry_document
+class public.registry_document_record
+public.registry_document_record "*" -- "1" public.registry_document
+public.registry_document_record "*" -- "1" public.registry_document_page
+class public.registry_document_record_history
+public.registry_document_record_history "*" -- "1" public.registry_document_record
+class public.registry_refund
+public.registry_refund "*" -- "1" public.registry_document
+public.registry_refund "*" -- "1" public.outgoing_payment_document_psbr
+class public.sbp_registry
+class public.sbp_registry_page
+public.sbp_registry_page "*" -- "1" public.sbp_registry
+class public.sbp_registry_record
+public.sbp_registry_record "*" -- "1" public.sbp_registry_page
+public.sbp_registry_record "*" -- "1" public.sbp_registry_page
+class public.statement
+class public.statement_page
+public.statement_page "*" -- "1" public.statement
+class public.statement_payment_document
+public.statement_payment_document "*" -- "1" public.statement_page
+class public.wallet_incoming
+class public.wallet_outgoing
+class public.wallets
+public.wallets "*" -- "1" public.core_account
+class public.wallet_to_managed_fund_transfers
+public.wallet_to_managed_fund_transfers "*" -- "1" public.managed_fund
